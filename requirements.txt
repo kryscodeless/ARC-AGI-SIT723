@@ -1,0 +1,18 @@
+# Cluster driver reports CUDA 12.7 -> install torch cu124 wheels with:
+#   pip install --user --index-url https://download.pytorch.org/whl/cu124 'torch==2.5.1'
+torch==2.5.1
+torchvision==0.20.1
+hf_transfer>=0.1.9
+transformers==4.57.0
+accelerate==1.1.1
+bitsandbytes==0.45.0
+qwen-vl-utils>=0.0.8
+peft==0.13.2
+anthropic>=0.40.0
+numpy>=1.24.0
+scipy>=1.11.0
+Pillow>=10.0.0
+matplotlib>=3.7.0
+jupyter>=1.0.0
+pytest>=7.0.0
+pyyaml>=6.0

@@ -1,0 +1,22 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# SLURM weight-offload scratch dirs
+offload_dir/
+offload_dir_batch2/
+
+# Run outputs (large; reproduce via run_eval.py)
+results/
+
+# SLURM stdout/stderr logs
+logs/
