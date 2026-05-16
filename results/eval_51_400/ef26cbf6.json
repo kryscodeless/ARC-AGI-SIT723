@@ -1,0 +1,538 @@
+{
+  "task_id": "ef26cbf6",
+  "predicted": [
+    [
+      1,
+      0,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      4,
+      0,
+      6,
+      0
+    ],
+    [
+      1,
+      1,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      1,
+      4,
+      0,
+      2,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    [
+      1,
+      1,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      4,
+      0,
+      8,
+      0
+    ],
+    [
+      1,
+      1,
+      1,
+      4,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      6,
+      0,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      6,
+      0,
+      4,
+      0,
+      6,
+      0
+    ],
+    [
+      6,
+      6,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    [
+      0,
+      0,
+      2,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      4,
+      0,
+      2,
+      0
+    ],
+    [
+      2,
+      0,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    [
+      8,
+      8,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      8,
+      0,
+      4,
+      0,
+      8,
+      0
+    ],
+    [
+      8,
+      8,
+      8,
+      4,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        1,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        4,
+        0,
+        6,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      [
+        0,
+        0,
+        1,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        4,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      [
+        1,
+        1,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        4,
+        0,
+        8,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        4,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        6,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        6,
+        0,
+        4,
+        0,
+        6,
+        0
+      ],
+      [
+        6,
+        6,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      [
+        0,
+        0,
+        2,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        4,
+        0,
+        2,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      [
+        8,
+        8,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        8,
+        0,
+        4,
+        0,
+        8,
+        0
+      ],
+      [
+        8,
+        8,
+        8,
+        4,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "The grid is divided into rectangular sections by horizontal lines of 4s. Within each section, identify non-background colored cells in the top half (above any dividing line of 4s). For each such colored cell, replace all occurrences of color 1 in the bottom half of that same section with the color of that top-half cell. Sections are processed independently, with each unique non-background, non-4 color in the top replacing all 1s in the corresponding bottom.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    result = grid.copy()\n    \n    # Find all rows that are completely filled with 4s (dividing lines)\n    divider_rows = []\n    for i in range(len(grid)):\n        if np.all(grid[i] == 4):\n            divider_rows.append(i)\n    \n    # Create sections based on divider rows\n    sections = []\n    start = 0\n    for divider in divider_rows:\n        if divider > start:\n            sections.append((start, divider))\n        start = divider + 1\n    if start < len(grid):\n        sections.append((start, len(grid)))\n    \n    # Process each section\n    for section_start, section_end in sections:\n        section_height = section_end - section_start\n        \n        # Skip if section is too small to have top and bottom parts\n        if section_height < 2:\n            continue\n        \n        # Split section into top and bottom halves\n        mid = section_start + section_height // 2\n        top_half = grid[section_start:mid]\n        \n        # Find all unique non-background, non-4 colors in top half\n        unique_colors = set()\n        for row in top_half:\n            for val in row:\n                if val != 0 and val != 4:\n                    unique_colors.add(val)\n        \n        # For each unique color in top half, replace all 1s in bottom half with that color\n        for color in unique_colors:\n            # Replace all 1s in the bottom half of this section with this color\n            for i in range(mid, section_end):\n                for j in range(len(result[i])):\n                    if result[i, j] == 1:\n                        result[i, j] = color\n    \n    return result.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 2,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, I see more colored areas, the overall pattern is partially transformed with new colors appearing below existing ones.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in dimensions; 7x11 to 7x11; transformation involves adding new colored cells below existing non-black cells.",
+        "scan_vertical": {
+          "top": "top row unchanged, black with isolated green, red, yellow, pink cells",
+          "middle": "middle rows show yellow blocks expanding downward, with new green, red, pink cells appearing below original ones",
+          "bottom": "bottom row gains new green, red, pink cells in columns where original non-black cells were present"
+        },
+        "scan_horizontal": {
+          "left": "leftmost column unchanged, black except for one green cell in row 2",
+          "center": "center columns show yellow blocks expanding downward, with new colored cells appearing below original non-black cells",
+          "right": "rightmost column unchanged, black except for one pink cell in row 2"
+        },
+        "objects": "isolated colored cells (green, red, pink, blue, yellow) in black grid; yellow blocks in rows 3 and 4",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        "colors_output": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        "background_color": 0,
+        "mechanism": "for each non-black cell in the input, a new cell of the same color is added directly below it in the output, if the cell below is black; this creates a vertical propagation downward for each colored cell.",
+        "candidate_rule": "for each non-black cell in the input, if the cell directly below it is black, copy its color to that cell in the output; all other cells remain unchanged.",
+        "preservation": "black cells remain black; positions of original non-black cells are preserved; only new cells are added below existing non-black cells."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, I see more colored areas, the overall pattern is partially transformed with new colors appearing below existing ones.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in dimensions; 11x7 to 11x7; transformation involves adding new colored cells below existing non-black cells.",
+        "scan_vertical": {
+          "top": "top row unchanged, black with isolated orange, yellow, blue cells",
+          "middle": "middle rows show yellow blocks expanding downward, with new orange, green, light-blue cells appearing below original ones",
+          "bottom": "bottom row gains new orange, green, light-blue cells in columns where original non-black cells were present"
+        },
+        "scan_horizontal": {
+          "left": "leftmost column unchanged, black except for one orange cell in row 2 and one green cell in row 5",
+          "center": "center columns show yellow blocks expanding downward, with new colored cells appearing below original non-black cells",
+          "right": "rightmost column unchanged, black except for one blue cell in row 2"
+        },
+        "objects": "isolated colored cells (orange, green, light-blue, blue, yellow) in black grid; yellow blocks in rows 3 and 6",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        "colors_output": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        "background_color": 0,
+        "mechanism": "for each non-black cell in the input, a new cell of the same color is added directly below it in the output, if the cell below is black; this creates a vertical propagation downward for each colored cell.",
+        "candidate_rule": "for each non-black cell in the input, if the cell directly below it is black, copy its color to that cell in the output; all other cells remain unchanged.",
+        "preservation": "black cells remain black; positions of original non-black cells are preserved; only new cells are added below existing non-black cells."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "vertical propagation of non-black cells downward by one row, copying their color into the cell below if it is black.",
+      "consistent_parameters": "direction: downward; offset: +1 row; condition: target cell must be black; no change to original cell position or color.",
+      "likely_transform_family": "fill",
+      "unified_rule": "for each non-black cell in the input, if the cell directly below it is black, copy its color to that cell in the output; all other cells remain unchanged."
+    },
+    "test_input_observations": "test input is 11x7 with black background and isolated colored cells (blue, yellow, pink, red, light-blue) in various rows; the rule predicts that each non-black cell will have its color copied to the cell directly below it if that cell is black, resulting in new colored cells appearing below the original ones.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, I see more colored areas, the overall pattern is partially transformed with new colors appearing below existing ones.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions; 7x11 to 7x11; transformation involves adding new colored cells below existing non-black cells.\",\n      \"scan_vertical\": {\n        \"top\": \"top row unchanged, black with isolated green, red, yellow, pink cells\",\n        \"middle\": \"middle rows show yellow blocks expanding downward, with new green, red, pink cells appearing below original ones\",\n        \"bottom\": \"bottom row gains new green, red, pink cells in columns where original non-black cells were present\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"leftmost column unchanged, black except for one green cell in row 2\",\n        \"center\": \"center columns show yellow blocks expanding downward, with new colored cells appearing below original non-black cells\",\n        \"right\": \"rightmost column unchanged, black except for one pink cell in row 2\"\n      },\n      \"objects\": \"isolated colored cells (green, red, pink, blue, yellow) in black grid; yellow blocks in rows 3 and 4\",\n      \"colors_input\": [0, 1, 2, 3, 4, 6],\n      \"colors_output\": [0, 1, 2, 3, 4, 6],\n      \"background_color\": 0,\n      \"mechanism\": \"for each non-black cell in the input, a new cell of the same color is added directly below it in the output, if the cell below is black; this creates a vertical propagation downward for each colored cell.\",\n      \"candidate_rule\": \"for each non-black cell in the input, if the cell directly below it is black, copy its color to that cell in the output; all other cells remain unchanged.\",\n      \"preservation\": \"black cells remain black; positions of original non-black cells are preserved; only new cells are added below existing non-black cells.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, "
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3125,
+      "output_tokens": 601,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 4537,
+      "output_tokens": 1052,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      11.277338148094714,
+      17.500477676279843
+    ],
+    "exec_attempts": [
+      0.506968371104449,
+      0.47767418110743165
+    ],
+    "vlm": 130.4682447570376,
+    "test_run": 0.38647730788215995,
+    "total": 160.61870302725583
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

@@ -1,0 +1,367 @@
+{
+  "task_id": "2f0c5170",
+  "predicted": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      4,
+      0,
+      4,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      4,
+      2,
+      4,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      4,
+      0,
+      4,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      4,
+      2,
+      4,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        4,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        4,
+        4,
+        4,
+        4,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        4,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        4,
+        4,
+        4,
+        4,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Identify two rectangular regions of 0-cells in the 8-background. One region contains a multi-cell colored pattern plus a unique marker cell; the other contains only that same marker cell. Extract the interior of the empty region (marker-only), create output grid of that size, then copy the pattern from the filled region into it, aligning the two marker positions so they occupy the same relative coordinates in the output.",
+  "code": "import numpy as np\nfrom typing import List, Tuple, Set\nfrom scipy.ndimage import label\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    \n    # Find all 0-regions (black rectangles)\n    mask = (grid == 0)\n    labeled, num_features = label(mask)\n    \n    regions = []\n    for i in range(1, num_features + 1):\n        coords = np.argwhere(labeled == i)\n        r_min, c_min = coords.min(axis=0)\n        r_max, c_max = coords.max(axis=0)\n        regions.append((r_min, c_min, r_max, c_max))\n    \n    # Extract content from each region\n    region_data = []\n    for r_min, c_min, r_max, c_max in regions:\n        content = grid[r_min:r_max+1, c_min:c_max+1].copy()\n        \n        # Find non-zero, non-background cells\n        unique_vals = set(content.flatten()) - {0, 8}\n        \n        region_data.append({\n            'bounds': (r_min, c_min, r_max, c_max),\n            'content': content,\n            'height': r_max - r_min + 1,\n            'width': c_max - c_min + 1,\n            'unique_colors': unique_vals\n        })\n    \n    # Find the marker color (appears in both regions)\n    common_colors = region_data[0]['unique_colors'] & region_data[1]['unique_colors']\n    marker_color = list(common_colors)[0]\n    \n    # Identify which region has the pattern and which is empty\n    pattern_region = None\n    empty_region = None\n    \n    for rd in region_data:\n        if len(rd['unique_colors']) > 1:\n            pattern_region = rd\n        else:\n            empty_region = rd\n    \n    # Find marker positions in both regions\n    pattern_content = pattern_region['content']\n    empty_content = empty_region['content']\n    \n    pattern_marker_pos = np.argwhere(pattern_content == marker_color)[0]\n    empty_marker_pos = np.argwhere(empty_content == marker_color)[0]\n    \n    # Create output grid with empty region dimensions\n    output = np.zeros((empty_region['height'], empty_region['width']), dtype=int)\n    \n    # Copy pattern to output, aligning markers\n    offset_r = empty_marker_pos[0] - pattern_marker_pos[0]\n    offset_c = empty_marker_pos[1] - pattern_marker_pos[1]\n    \n    for r in range(pattern_region['height']):\n        for c in range(pattern_region['width']):\n            val = pattern_content[r, c]\n            if val != 0 and val != 8:\n                out_r = r + offset_r\n                out_c = c + offset_c\n                if 0 <= out_r < output.shape[0] and 0 <= out_c < output.shape[1]:\n                    output[out_r, out_c] = val\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 2,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, I see fewer colored areas, the overall pattern is partially transformed with black regions removed and colored cells preserved.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 9x9, input is 20x23 — no proportional scaling; appears to be extraction of inner regions.\",\n      \"scan_vertical\": {\n        \"top\": \"top 10 rows contain a black rectangle with one green cell; output top rows show black border with yellow and green cells.\",\n        \"middle\": \"middle rows of input are mostly light blue; output middle rows contain yellow and green cells in a compact region.\",\n        \"bottom\": \"bottom rows of input are light blue; output bottom rows are black with no colored cells.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side of input has a black rectangle with green cell; output left side has black border with yellow and green cells.\",\n        \"center\": \"center of input is light blue; output center contains yellow and green cells.\",\n        \"right\": \"right side of input has a black rectangle with yellow and green cells; output right side is black with no colored cells.\"\n      },\n      \"objects\": \"two black rectangles, one green cell, one yellow cell cluster\",\n      \"colors_input\": [0, 1, 2, 3],\n      \"colors_output\": [0, 2, 3],\n      \"background_color\": 1,\n      \"mechanism\": \"extract the inner content of each black rectangle, remove the black border, and place the colored cells in a new grid with black background; the output grid size is determined by the bounding box of the extracted content.\",\n      \"candidate_rule\": \"For each black rectangle in the input, extract its interior cells (excluding the black border), then combine them into a single output grid where each extracted region is placed with black background; the output size is the minimal bounding box of all extracted content.\",\n      \"preservation\": \"colored cells (green and yellow) are preserved, their relative positions within each black rectangle are preserved, black borders are removed.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, I see fewer colored areas, the overall pattern is partially transformed with black regions removed and colored cells preserved.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 5x5, input is 21x22 — no proportional scaling; appears to be extraction of inner regions.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows contain a black rectangle with one red cell; output top rows show black border with yellow and red cells.\",\n        \"middle\": \"middle rows of input are mostly light blue; output middle rows contain yellow and red cells in a compact region.\",\n        \"bottom\": \"bottom rows of input are light blue; output bottom rows are black with no colored cells.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side of input has a black rectangle with red cell; output left side has black border with yellow and red cells.\",\n        \"center\": \"center of input is light blue; output center contains yellow and red cells.\",\n        \"right\": \"right side of input has a black rectangle with yellow and red cells; output right side is black with no colored cells.\"\n      },\n      \"objects\": \"two black rectangles, one red cell, one yellow cell cluster\",\n      \"colors_input\": [0, 1, 2, 3],\n      \"colors_output\": [0, 2, 3],\n      \"background_color\": 1,\n      \"mechanism\": \"extract the inner content of each black rectangle, remove the black border, and place the colored cells in a new grid with black background; the output grid size is determined by the bounding box of the extracted content.\",\n      \"candidate_rule\": \"For each black rectangle in the input, extract its interior cells (excluding the black border), then combine them into a single output grid where each extracted region is placed with black background; the output size is the minimal bounding box of all extracted content.\",\n      \"preservation\": \"colored cells (red and yellow) are preserved, their relative positions within each black rectangle are preserved, black borders are removed.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, I see fewer colored areas, the overall pattern is partially transformed with black regions removed and colored cells preserved.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 8x7, input is 19x18 — no proportional scaling; appears to be extraction of inner regions.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows contain a black rectangle with yellow and blue cells; output top rows show black border with yellow and blue cells.\",\n        \"middle\": \"middle rows of input are mostly light blue; output middle rows contain yellow and blue cells in a compact region.\",\n        \"bottom\": \"bottom rows of input are light blue; output bottom rows are black with no colored cells.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side of input has a black rectangle with yellow and blue cells; output left side has black border with yellow and blue cells.\",\n        \"center\": \"center of input is light blue; output center contains yellow and blue cells.\",\n        \"right\": \"right side of input has a black rectangle with blue cell; output right side is black with no colored cells.\"\n      },\n      \"objects\": \"two black rectangles, one blue cell, one yellow cell cluster\",\n      \"colors_input\": [0, 1, 2, 3],\n      \"colors_output\": [0, 2, 3],\n      \"background_color\": 1,\n      \"mechanism\": \"extract the inner content of each black rectangle, remove the black border, and place the colored cells in a new grid with black background; the output grid size is determined by the bounding box of the extracted content.\",\n      \"candidate_rule\": \"For each black rectangle in the input, extract its interior cells (excluding the black border), then combine them into a single output grid where each extracted region is placed with black background; the output size is the minimal bounding box of all extracted content.\",\n      \"preservation\": \"colored cells (blue and yellow) are preserved, their relative positions within each black rectangle are preserved, black borders are removed.\"\n    }\n  ],\n  \"cross_pair_synthesis\": {\n    \"consistent_operation\": \"Extraction of interior content from black rectangles, removal of black borders, and combination into a single output grid with black background.\",\n    \"consistent_parameters\": \"Black rectangles are always present; interior cells are preserved; output size is minimal bounding box of all extracted content.\",\n    \"likely_transform_family\": \"extract\",\n    \"unified_rule\": \"For each black rectangle in the input, extract its interior cells (excluding the black border), then combine them into a single output grid with black background, where the output size is the minimal bounding box enclosing all extracted",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, I see fewer colored areas, the overall pattern is partially transformed with black regions removed and colored cells preserved.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 9x9, input is 20x23 — no proportional scaling; appears to be extraction of inner regions.\",\n      \"scan_vertical\": {\n        \"top\": \"top 10 rows contain a black rectangle with one green cell; output top rows show black border with yellow and green cells.\",\n        \"middle\": \"middle rows of input are mostly light blue; output middle rows contain yellow and green cells in a compact region.\",\n        \"bottom\": \"bottom rows of input are light blue; output bottom rows are black with no colored cells.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side of input has a black rectangle with green cell; output left side has black border with yellow and green cells.\",\n        \"center\": \"center of input is light blue; output center contains yellow and green cells.\",\n        \"right\": \"right side of input has a black rectangle with yellow and green cells; output right side is black with no colored cells.\"\n      },\n      \"objects\": \"two black rectangles, one green cell, one yellow cell cluster\",\n      \"colors_input\": [0, 1, 2, 3],\n      \"colors_output\": [0, 2, 3],\n      \"background_color\": 1,\n      \"mechanism\": \"extract the inner content of each black rectangle, remove the black border, and place the colored cells in a new grid with black background; the output grid size is determined by the bounding box of the extracted content.\",\n      \"candidate_rule\": \"For each black rectangle in the input, extract its interior cells (excluding the black border), then combine them into a single output grid where each extracted region is placed with black background; the output size is the minimal bounding box of all extracted content.\",\n      \"preservation\": \"colored cells (green and yellow"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 6500,
+      "output_tokens": 1298,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 7559,
+      "output_tokens": 1278,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      22.63026693603024,
+      20.16130592301488
+    ],
+    "exec_attempts": [
+      0.8810708890669048,
+      0.8981217071413994
+    ],
+    "vlm": 177.04300090298057,
+    "test_run": 0.8687200080603361,
+    "total": 222.4839978213422
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

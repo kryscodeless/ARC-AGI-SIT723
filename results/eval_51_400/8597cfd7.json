@@ -1,0 +1,91 @@
+{
+  "task_id": "8597cfd7",
+  "predicted": [
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "ground_truth": [
+    [
+      4,
+      4
+    ],
+    [
+      4,
+      4
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ]
+    ]
+  ],
+  "final_rule": "Locate the horizontal row filled with 5s that divides the grid. Count occurrences of color 2 and color 4 in the bottom section (all rows after the divider row). The color with more occurrences in the bottom section fills the entire 2x2 output grid. If the counts are equal in the bottom section, color 2 fills the output.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    \n    # Find the row with all 5s (the dividing line)\n    divider_row = None\n    for i in range(len(grid)):\n        if np.all(grid[i] == 5):\n            divider_row = i\n            break\n    \n    # Get bottom half (rows after the divider)\n    bottom_half = grid[divider_row+1:]\n    \n    # Count color 2 and color 4 in bottom half\n    bottom_count_2 = np.sum(bottom_half == 2)\n    bottom_count_4 = np.sum(bottom_half == 4)\n    \n    # Determine winner: more in bottom wins; tie goes to color 2\n    if bottom_count_2 >= bottom_count_4:\n        winner = 2\n    else:\n        winner = 4\n    \n    # Create 2x2 output filled with winner\n    output = [[winner, winner], [winner, winner]]\n    \n    return output",
+  "attempts_used": 2,
+  "demo_pass_count": 3,
+  "demo_total": 4,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 2x2 grid, filled with yellow; I see fewer colored areas, the overall pattern is changed to a uniform yellow block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 2x2, input is 9x9 — significant reduction, not proportional; appears to be object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows: red in column 2, yellow in column 6, rest black\",\n        \"middle\": \"row 4: all grey; rows 5-7: red in column 2, yellow in column 6\",\n        \"bottom\": \"rows 8-9: red in column 2, yellow in column 6\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 1-3: red in column 2, rest black\",\n        \"center\": \"columns 4-6: yellow in column 6, rest black\",\n        \"right\": \"columns 7-9: all black\"\n      },\n      \"objects\": \"two vertical lines: red in column 2 (3 cells), yellow in column 6 (3 cells), one horizontal grey row (row 4)\",\n      \"colors_input\": [0, 1, 3, 5],\n      \"colors_output\": [3],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 2x2 grid filled with yellow; it does not correspond to any specific region of the input but matches the color of the rightmost vertical line.\",\n      \"candidate_rule\": \"The output is a 2x2 grid filled with the color of the rightmost vertical line (yellow) from the input.\",\n      \"preservation\": \"The position and count of the red and yellow lines are preserved, but the output ignores the red line and grey row.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 2x2 grid, filled with red; I see fewer colored areas, the overall pattern is changed to a uniform red block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 2x2, input is 9x9 — significant reduction, not proportional; appears to be object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows: red in column 2, yellow in column 6, rest black\",\n        \"middle\": \"row 4: all grey; rows 5-7: red in column 2, yellow in column 6\",\n        \"bottom\": \"rows 8-9: red in column 2, yellow in column 6\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 1-3: red in column 2, rest black\",\n        \"center\": \"columns 4-6: yellow in column 6, rest black\",\n        \"right\": \"columns 7-9: all black\"\n      },\n      \"objects\": \"two vertical lines: red in column 2 (4 cells), yellow in column 6 (4 cells), one horizontal grey row (row 4)\",\n      \"colors_input\": [0, 1, 3, 5],\n      \"colors_output\": [1],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 2x2 grid filled with red; it does not correspond to any specific region of the input but matches the color of the leftmost vertical line.\",\n      \"candidate_rule\": \"The output is a 2x2 grid filled with the color of the leftmost vertical line (red) from the input.\",\n      \"preservation\": \"The position and count of the red and yellow lines are preserved, but the output ignores the yellow line and grey row.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, 2x2 grid, filled with red; I see fewer colored areas, the overall pattern is changed to a uniform red block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 2x2, input is 11x9 — significant reduction, not proportional; appears to be object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows: red in column 2, yellow in column 6, rest black\",\n        \"middle\": \"row 5: all grey; rows 6-9: red in column 2, yellow in column 6\",\n        \"bottom\": \"rows 10-11: red in column 2, yellow in column 6\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 1-3: red in column 2, rest black\",\n        \"center\": \"columns 4-6: yellow in column 6, rest black\",\n        \"right\": \"columns 7-9: all black\"\n      },\n      \"objects\": \"two vertical lines: red in column 2 (5 cells), yellow in column 6 (5 cells), one horizontal grey row (row 5)\",\n      \"colors_input\": [0, 1, 3, 5],\n      \"colors_output\": [1],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 2x2 grid filled with red; it does not correspond to any specific region of the input but matches the color of the leftmost vertical line.\",\n      \"candidate_rule\": \"The output is a 2x2 grid filled with the color of the leftmost vertical line (red) from the input.\",\n      \"preservation\": \"The position and count of the red and yellow lines are preserved, but the output ignores the yellow line and grey row.\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is smaller, 2x2 grid, filled with red; I see fewer colored areas, the overall pattern is changed to a uniform red block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 2x2, input is 11x9 — significant reduction, not proportional; appears to be object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows: red in column 2, yellow in column 6, rest black\",\n        \"middle\": \"row 5: all grey; rows 6-9: red in column 2, yellow in column 6\",\n        \"bottom\": \"rows 10-11: red in column 2, yellow in column 6\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 1-3: red in column 2, rest black\",\n        \"center\": \"columns 4-6: yellow in column 6, rest black\",\n        \"right\": \"columns 7-9: all black",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 2x2 grid, filled with yellow; I see fewer colored areas, the overall pattern is changed to a uniform yellow block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 2x2, input is 9x9 — significant reduction, not proportional; appears to be object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows: red in column 2, yellow in column 6, rest black\",\n        \"middle\": \"row 4: all grey; rows 5-7: red in column 2, yellow in column 6\",\n        \"bottom\": \"rows 8-9: red in column 2, yellow in column 6\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 1-3: red in column 2, rest black\",\n        \"center\": \"columns 4-6: yellow in column 6, rest black\",\n        \"right\": \"columns 7-9: all black\"\n      },\n      \"objects\": \"two vertical lines: red in column 2 (3 cells), yellow in column 6 (3 cells), one horizontal grey row (row 4)\",\n      \"colors_input\": [0, 1, 3, 5],\n      \"colors_output\": [3],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 2x2 grid filled with yellow; it does not correspond to any specific region of the input but matches the color of the rightmost vertical line.\",\n      \"candidate_rule\": \"The output is a 2x2 grid filled with the color of the rightmost vertical line (yellow) from the input.\",\n      \"preservation\": \"The position and count of the red and yellow lines are preserved, but the output ignores the red line and grey row.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 2x2 grid, filled with red; I see fewer colored areas, the overall pattern is changed to a uniform red block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 2x2, input is 9x9 — significant reduction, not proportional; appears to be object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows: red in column 2, yellow in column 6, "
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3956,
+      "output_tokens": 1056,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 4708,
+      "output_tokens": 858,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      17.366869331803173,
+      13.223366335965693
+    ],
+    "exec_attempts": [
+      0.45877295173704624,
+      0.45441610692068934
+    ],
+    "vlm": 176.9187027812004,
+    "test_run": 0.39430167293176055,
+    "total": 208.81774730794132
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

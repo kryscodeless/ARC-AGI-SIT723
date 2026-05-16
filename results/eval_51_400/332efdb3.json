@@ -1,0 +1,714 @@
+{
+  "task_id": "332efdb3",
+  "predicted": [
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "ground_truth": [
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "final_rule": "For an N×N grid of all zeros, fill the entire grid with 1s (blue), then restore 0s (black) at every cell where BOTH the row index is odd AND the column index is odd (using 0-based indexing). This creates a checkerboard-like pattern where 0s appear at positions (1,1), (1,3), (1,5), ..., (3,1), (3,3), (3,5), ..., and so on. All even-indexed rows and all even-indexed columns contain only 1s.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    # Convert to numpy array for easier manipulation\n    arr = np.array(grid)\n    rows, cols = arr.shape\n    \n    # Fill entire grid with 1s\n    result = np.ones((rows, cols), dtype=int)\n    \n    # Set cells at odd row AND odd column indices back to 0\n    for r in range(rows):\n        for c in range(cols):\n            if r % 2 == 1 and c % 2 == 1:\n                result[r, c] = 0\n    \n    return result.tolist()",
+  "attempts_used": 1,
+  "demo_pass_count": 3,
+  "demo_total": 3,
+  "demo_all_pass": true,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, filled in with blue, black cells remain in a regular pattern",
+        "size_family": "same_size",
+        "size_family_detail": "all cells are recolored except for black cells in a fixed pattern",
+        "scan_vertical": {
+          "top": "row 0: all blue except column 1,3,5 are black",
+          "middle": "rows 1-5: same pattern as top row, alternating black in columns 1,3,5",
+          "bottom": "row 6: same as top row"
+        },
+        "scan_horizontal": {
+          "left": "column 0: all blue",
+          "center": "columns 1,3,5: black in every row",
+          "right": "column 6: all blue"
+        },
+        "objects": "none; grid of uniform black cells",
+        "colors_input": [
+          0
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "all cells except those in columns 1,3,5 are changed to blue; black cells remain in columns 1,3,5 of every row",
+        "candidate_rule": "In a 7x7 grid, change all cells to blue except those in columns 1,3,5 which remain black; this creates a checkerboard-like pattern with black in every row at fixed column positions",
+        "preservation": "grid dimensions and black cells in columns 1,3,5 remain unchanged"
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, filled in with blue, black cells remain in a regular pattern",
+        "size_family": "same_size",
+        "size_family_detail": "all cells are recolored except for black cells in a fixed pattern",
+        "scan_vertical": {
+          "top": "row 0: all blue except column 1,3 are black",
+          "middle": "rows 1-3: same pattern as top row, alternating black in columns 1,3",
+          "bottom": "row 4: same as top row"
+        },
+        "scan_horizontal": {
+          "left": "column 0: all blue",
+          "center": "columns 1,3: black in every row",
+          "right": "column 4: all blue"
+        },
+        "objects": "none; grid of uniform black cells",
+        "colors_input": [
+          0
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "all cells except those in columns 1,3 are changed to blue; black cells remain in columns 1,3 of every row",
+        "candidate_rule": "In a 5x5 grid, change all cells to blue except those in columns 1,3 which remain black; this creates a checkerboard-like pattern with black in every row at fixed column positions",
+        "preservation": "grid dimensions and black cells in columns 1,3 remain unchanged"
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is same size, filled in with blue, black cells remain in a regular pattern",
+        "size_family": "same_size",
+        "size_family_detail": "all cells are recolored except for black cells in a fixed pattern",
+        "scan_vertical": {
+          "top": "row 0: all blue except column 1,3,5,7 are black",
+          "middle": "rows 1-7: same pattern as top row, alternating black in columns 1,3,5,7",
+          "bottom": "row 8: same as top row"
+        },
+        "scan_horizontal": {
+          "left": "column 0: all blue",
+          "center": "columns 1,3,5,7: black in every row",
+          "right": "column 8: all blue"
+        },
+        "objects": "none; grid of uniform black cells",
+        "colors_input": [
+          0
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "all cells except those in columns 1,3,5,7 are changed to blue; black cells remain in columns 1,3,5,7 of every row",
+        "candidate_rule": "In a 9x9 grid, change all cells to blue except those in columns 1,3,5,7 which remain black; this creates a checkerboard-like pattern with black in every row at fixed column positions",
+        "preservation": "grid dimensions and black cells in columns 1,3,5,7 remain unchanged"
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "filling the grid with blue except for black cells placed in every row at specific column indices",
+      "consistent_parameters": "black cells are placed in every row at odd-numbered columns (1,3,5,7,...) starting from index 1; the number of black columns depends on grid width: for width N, black columns are at indices 1,3,5,... up to the largest odd index less than N",
+      "likely_transform_family": "fill",
+      "unified_rule": "In an N x N grid, change all cells to blue except those in columns 1,3,5,... (every other column starting from index 1) which remain black; this creates a striped pattern with black in every row at odd column indices"
+    },
+    "test_input_observations": "Test input is 11x11 grid of all black cells. The rule predicts that all cells will be changed to blue except those in columns 1,3,5,7,9 (odd indices) which will remain black, resulting in a grid where every row has black cells at columns 1,3,5,7,9 and blue elsewhere.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, filled in with blue, black cells remain in a regular pattern\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"all cells are recolored except for black cells in a fixed pattern\",\n      \"scan_vertical\": {\n        \"top\": \"row 0: all blue except column 1,3,5 are black\",\n        \"middle\": \"rows 1-5: same pattern as top row, alternating black in columns 1,3,5\",\n        \"bottom\": \"row 6: same as top row\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"column 0: all blue\",\n        \"center\": \"columns 1,3,5: black in every row\",\n        \"right\": \"column 6: all blue\"\n      },\n      \"objects\": \"none; grid of uniform black cells\",\n      \"colors_input\": [0],\n      \"colors_output\": [0, 1],\n      \"background_color\": 0,\n      \"mechanism\": \"all cells except those in columns 1,3,5 are changed to blue; black cells remain in columns 1,3,5 of every row\",\n      \"candidate_rule\": \"In a 7x7 grid, change all cells to blue except those in columns 1,3,5 which remain black; this creates a checkerboard-like pattern with black in every row at fixed column positions\",\n      \"preservation\": \"grid dimensions and black cells in columns 1,3,5 remain unchanged\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, filled in with blue, black cells remain in a regular pattern\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"all cells are recolored except for black cells in a fixed pattern\",\n      \"scan_vertical\": {\n        \"top\": \"row 0: all blue except column 1,3 are black\",\n        \"middle\": \"rows 1-3: same pattern as top row, alternating black in columns 1,3\",\n        \"bottom\": \"row 4: same as top row\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"column 0: all blue\",\n        \"center\": \"columns 1,3: black in every row\",\n        \"right\": \"column 4: all blue\"\n      },\n      \"objects\": \"none; grid of uniform black cells\",\n      \"colors_input\": [0],\n "
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3426,
+      "output_tokens": 304,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      6.521854799240828
+    ],
+    "exec_attempts": [
+      0.39947920804843307
+    ],
+    "vlm": 151.5149266482331,
+    "test_run": 0.3821218991652131,
+    "total": 158.81971829663962
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

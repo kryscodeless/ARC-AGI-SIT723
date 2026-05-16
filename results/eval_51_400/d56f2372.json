@@ -1,0 +1,435 @@
+{
+  "task_id": "d56f2372",
+  "predicted": [
+    [
+      0,
+      4,
+      4,
+      0,
+      0,
+      4,
+      4,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4
+    ],
+    [
+      0,
+      4,
+      4,
+      0,
+      0,
+      4,
+      4,
+      0
+    ],
+    [
+      0,
+      4,
+      0,
+      4,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      4,
+      4,
+      4,
+      4,
+      0,
+      0
+    ],
+    [
+      4,
+      4,
+      0,
+      4,
+      4,
+      0,
+      4,
+      4
+    ],
+    [
+      0,
+      0,
+      0,
+      4,
+      4,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      0,
+      2,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        4,
+        4,
+        0,
+        0,
+        4,
+        4,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        4,
+        4,
+        0,
+        0,
+        4,
+        4,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        4,
+        4,
+        4,
+        0,
+        0
+      ],
+      [
+        4,
+        4,
+        0,
+        4,
+        4,
+        0,
+        4,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Find all connected components of non-zero colors in the input grid. Count cells in each component. Select the component with the most cells (ties broken by smallest color value, then top-left position). Extract the bounding box containing this component. Return this cropped region preserving the original color and background (0).",
+  "code": "import numpy as np\nfrom scipy.ndimage import label\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid_array = np.array(grid)\n    h, w = grid_array.shape\n    \n    # Find all unique non-zero colors\n    colors = [c for c in np.unique(grid_array) if c != 0]\n    \n    # Find the largest object across all colors\n    largest_size = 0\n    largest_bbox = None\n    largest_color = None\n    \n    for color in sorted(colors):  # Sort for deterministic tie-breaking\n        # Create binary mask for this color\n        mask = (grid_array == color).astype(int)\n        \n        # Label connected components\n        labeled, num_features = label(mask, structure=[[1,1,1],[1,1,1],[1,1,1]])\n        \n        # Check each component\n        for component_id in range(1, num_features + 1):\n            component_mask = (labeled == component_id)\n            size = np.sum(component_mask)\n            \n            if size > largest_size:\n                largest_size = size\n                largest_color = color\n                \n                # Get bounding box\n                rows, cols = np.where(component_mask)\n                min_row, max_row = rows.min(), rows.max()\n                min_col, max_col = cols.min(), cols.max()\n                largest_bbox = (min_row, max_row, min_col, max_col)\n    \n    # Extract the bounding box of the largest object\n    if largest_bbox is not None:\n        min_row, max_row, min_col, max_col = largest_bbox\n        result = grid_array[min_row:max_row+1, min_col:max_col+1].tolist()\n        return result\n    \n    return [[0]]",
+  "attempts_used": 2,
+  "demo_pass_count": 1,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid of light-blue blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 21x16 → output 4x5, no proportional scaling; likely object extraction or summarization.",
+        "scan_vertical": {
+          "top": "light-blue cluster in top-left, red cluster in top-right",
+          "middle": "orange cluster in center-left, blue cluster in center-right",
+          "bottom": "pink cluster in bottom-center"
+        },
+        "scan_horizontal": {
+          "left": "light-blue and orange clusters",
+          "center": "mostly black, with pink cluster",
+          "right": "red and blue clusters"
+        },
+        "objects": "6 distinct colored clusters: light-blue (1), red (2), orange (7), blue (1), pink (6), each forming a compact shape.",
+        "colors_input": [
+          0,
+          1,
+          2,
+          7,
+          6
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "Only the light-blue cluster is extracted and compressed into a 4x5 grid, ignoring all other colors.",
+        "candidate_rule": "Extract the top-left colored cluster (light-blue) and compress it into a 4x5 grid, preserving its shape and color.",
+        "preservation": "The shape and color of the light-blue cluster are preserved, while other clusters are discarded."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid of blue blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 22x17 → output 6x7, no proportional scaling; likely object extraction or summarization.",
+        "scan_vertical": {
+          "top": "red cluster in top-left",
+          "middle": "green cluster in center-right, yellow cluster in center-left",
+          "bottom": "blue cluster in bottom-center"
+        },
+        "scan_horizontal": {
+          "left": "red and yellow clusters",
+          "center": "mostly black",
+          "right": "green and blue clusters"
+        },
+        "objects": "4 distinct colored clusters: red (2), yellow (4), green (3), blue (1), each forming a compact shape.",
+        "colors_input": [
+          0,
+          2,
+          4,
+          3,
+          1
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "Only the blue cluster is extracted and compressed into a 6x7 grid, ignoring all other colors.",
+        "candidate_rule": "Extract the bottom-center colored cluster (blue) and compress it into a 6x7 grid, preserving its shape and color.",
+        "preservation": "The shape and color of the blue cluster are preserved, while other clusters are discarded."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid of pink blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 21x19 → output 3x5, no proportional scaling; likely object extraction or summarization.",
+        "scan_vertical": {
+          "top": "pink cluster in top-left, green cluster in top-right",
+          "middle": "blue cluster in center-left",
+          "bottom": "orange cluster in bottom-center, yellow cluster in bottom-left"
+        },
+        "scan_horizontal": {
+          "left": "pink and blue clusters",
+          "center": "mostly black",
+          "right": "green, orange, yellow clusters"
+        },
+        "objects": "5 distinct colored clusters: pink (6), green (3), blue (1), orange (7), yellow (4), each forming a compact shape.",
+        "colors_input": [
+          0,
+          6,
+          3,
+          1,
+          7,
+          4
+        ],
+        "colors_output": [
+          0,
+          6
+        ],
+        "background_color": 0,
+        "mechanism": "Only the top-left colored cluster (pink) is extracted and compressed into a 3x5 grid, ignoring all other colors.",
+        "candidate_rule": "Extract the top-left colored cluster (pink) and compress it into a 3x5 grid, preserving its shape and color.",
+        "preservation": "The shape and color of the pink cluster are preserved, while other clusters are discarded."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "In each pair, a single colored cluster is extracted from the input and compressed into a smaller grid in the output.",
+      "consistent_parameters": "The extracted cluster is always the one located in the top-left region of the input grid, and the output grid size varies per pair (4x5, 6x7, 3x5).",
+      "likely_transform_family": "extract",
+      "unified_rule": "Extract the top-left colored cluster from the input grid and compress it into a rectangular grid of size matching the output dimensions, preserving its shape and color."
+    },
+    "test_input_observations": "Test input has 22x20 grid with 4 colored clusters: blue (1) in top-left, red (2) in center, yellow (4) in bottom-left, light-blue (1) in bottom-right. Based on the unified rule, the top-left cluster (blue) should be extracted and compressed into a rectangular grid, likely of size 5x5 or similar, preserving its shape and color.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid of light-blue blocks.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 21x16 → output 4x5, no proportional scaling; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"light-blue cluster in top-left, red cluster in top-right\",\n        \"middle\": \"orange cluster in center-left, blue cluster in center-right\",\n        \"bottom\": \"pink cluster in bottom-center\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"light-blue and orange clusters\",\n        \"center\": \"mostly black, with pink cluster\",\n        \"right\": \"red and blue clusters\"\n      },\n      \"objects\": \"6 distinct colored clusters: light-blue (1), red (2), orange (7), blue (1), pink (6), each forming a compact shape.\",\n      \"colors_input\": [0, 1, 2, 7, 6],\n      \"colors_output\": [0, 1],\n      \"background_color\": 0,\n      \"mechanism\": \"Only the light-blue cluster is extracted and compressed into a 4x5 grid, ignoring all other colors.\",\n      \"candidate_rule\": \"Extract the top-left colored cluster (light-blue) and compress it into a 4x5 grid, preserving its shape and color.\",\n      \"preservation\": \"The shape and color of the light-blue cluster are preserved, while other clusters are discarded.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid of blue blocks.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 22x17 → output 6x7, no proportional scaling; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"red cluster in top-left\",\n        \"middle\": \"green cluster in center-right, yellow cluster in center-left\",\n        \"bottom\": \"blue cluster in bottom-center\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"red and yellow cluste"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 5813,
+      "output_tokens": 825,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6712,
+      "output_tokens": 1153,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      14.011349260807037,
+      17.915899741929024
+    ],
+    "exec_attempts": [
+      0.9031793028116226,
+      0.9545452282764018
+    ],
+    "vlm": 146.29911970579997,
+    "test_run": 0.8420153190381825,
+    "total": 180.9274887139909
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

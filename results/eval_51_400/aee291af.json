@@ -1,0 +1,127 @@
+{
+  "task_id": "aee291af",
+  "predicted": null,
+  "ground_truth": [
+    [
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    [
+      8,
+      8,
+      2,
+      2,
+      8
+    ],
+    [
+      8,
+      8,
+      2,
+      2,
+      8
+    ],
+    [
+      8,
+      2,
+      8,
+      8,
+      8
+    ],
+    [
+      8,
+      8,
+      8,
+      8,
+      8
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    null
+  ],
+  "ground_truths": [
+    [
+      [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      [
+        8,
+        8,
+        2,
+        2,
+        8
+      ],
+      [
+        8,
+        8,
+        2,
+        2,
+        8
+      ],
+      [
+        8,
+        2,
+        8,
+        8,
+        8
+      ],
+      [
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    ]
+  ],
+  "final_rule": "Identify all axis-aligned rectangular regions where color 8 forms a complete border (4-connected frame) and color 2 appears in the interior. Select the rectangle that best represents a canonical pattern (largest or most regular with complete 8-border). Extract this rectangle's internal structure, preserving the boundary of 8s and the placement of 2s within, and output it as the result grid.",
+  "code": "import numpy as np\nfrom typing import List\nfrom scipy.ndimage import label\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find all connected components of color 8\n    mask_8 = (grid == 8)\n    labeled, num_features = label(mask_8)\n    \n    candidates = []\n    \n    # For each component of 8s, check if it forms a rectangular frame with 2s inside\n    for component_id in range(1, num_features + 1):\n        component_mask = (labeled == component_id)\n        rows, cols = np.where(component_mask)\n        \n        if len(rows) == 0:\n            continue\n            \n        min_r, max_r = rows.min(), rows.max()\n        min_c, max_c = cols.min(), cols.max()\n        \n        # Extract the bounding box\n        bbox_h = max_r - min_r + 1\n        bbox_w = max_c - min_c + 1\n        \n        if bbox_h < 4 or bbox_w < 4:\n            continue\n            \n        subgrid = grid[min_r:max_r+1, min_c:max_c+1]\n        \n        # Check if this forms a proper rectangular frame of 8s\n        # with potential 2s inside\n        has_2_inside = np.any(subgrid == 2)\n        \n        # Check if the border is mostly 8s\n        border_cells = []\n        for i in range(bbox_h):\n            border_cells.append(subgrid[i, 0])\n            border_cells.append(subgrid[i, bbox_w-1])\n        for j in range(1, bbox_w-1):\n            border_cells.append(subgrid[0, j])\n            border_cells.append(subgrid[bbox_h-1, j])\n        \n        border_8_ratio = sum(1 for c in border_cells if c == 8) / len(border_cells)\n        \n        if has_2_inside and border_8_ratio > 0.7:\n            candidates.append((bbox_h * bbox_w, bbox_h, bbox_w, subgrid.copy()))\n    \n    if not candidates:\n        # Fallback: return the grid as-is\n        return grid.tolist()\n    \n    # Select the largest candidate\n    candidates.sort(reverse=True)\n    _, _, _, result = candidates[0]\n    \n    return result.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x4 from 16x16; fewer red blocks, overall pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 16x16 to output 4x4, reduction by factor of 4 in each dimension, suggesting grid partitioning.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows of input contain red blocks in top-left and top-right; output top row has red blocks in same relative positions.\",\n        \"middle\": \"middle 8 rows of input have red blocks in left and right; output middle rows reflect these positions.\",\n        \"bottom\": \"bottom 4 rows of input have no red blocks; output bottom row has no red blocks.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 4 columns of input have red blocks in top-left; output left column has red blocks in top-left.\",\n        \"center\": \"center 8 columns of input have red blocks in middle; output center columns reflect these.\",\n        \"right\": \"right 4 columns of input have red blocks in top-right; output right column has red blocks in top-right.\"\n      },\n      \"objects\": \"red 2x2 blocks and single red cells, all on light-blue background, surrounded by dark blue.\",\n      \"colors_input\": [1, 3, 2],\n      \"colors_output\": [3, 1],\n      \"background_color\": 1,\n      \"mechanism\": \"input grid divided into 4x4 blocks of 4x4 cells each; each block is summarized by presence of red in any cell; if red exists, output cell is red, else light-blue.\",\n      \"candidate_rule\": \"Each 4x4 block of the 16x16 input is reduced to a single cell in the 4x4 output: if any cell in the 4x4 block is red, the output cell is red; otherwise, it is light-blue.\",\n      \"preservation\": \"relative positions of red blocks are preserved in output grid; background color is preserved as light-blue.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 4x4 from 16x16; fewer red blocks, pattern is summarized with red blocks in different positions.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 16x16 to output 4x4, reduction by factor of 4 in each dimension, suggesting grid partitioning.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows of input have red blocks in top-left; output top row has red in top-left.\",\n        \"middle\": \"middle 8 rows of input have red blocks in center and right; output middle rows reflect these positions.\",\n        \"bottom\": \"bottom 4 rows of input have red blocks in bottom-right; output bottom row has red in bottom-right.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 4 columns of input have red blocks in top-left; output left column has red in top-left.\",\n        \"center\": \"center 8 columns of input have red blocks in middle; output center columns reflect these.\",\n        \"right\": \"right 4 columns of input have red blocks in bottom-right; output right column has red in bottom-right.\"\n      },\n      \"objects\": \"red 2x2 blocks and single red cells, all on light-blue background, surrounded by dark blue.\",\n      \"colors_input\": [1, 3, 2],\n      \"colors_output\": [3, 1],\n      \"background_color\": 1,\n      \"mechanism\": \"input grid divided into 4x4 blocks of 4x4 cells each; each block is summarized by presence of red in any cell; if red exists, output cell is red, else light-blue.\",\n      \"candidate_rule\": \"Each 4x4 block of the 16x16 input is reduced to a single cell in the 4x4 output: if any cell in the 4x4 block is red, the output cell is red; otherwise, it is light-blue.\",\n      \"preservation\": \"relative positions of red blocks are preserved in output grid; background color is preserved as light-blue.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, 5x5 from 18x18; fewer red blocks, pattern is summarized with red blocks in different positions.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 18x18 to output 5x5, reduction by factor of ~3.6, suggesting grid partitioning into 3x3 or 4x4 blocks, but 5x5 output implies 18/5=3.6, so likely 3x3 blocks with overlap or offset.\",\n      \"scan_vertical\": {\n        \"top\": \"top 6 rows of input have red blocks in top-left and top-right; output top row has red in top-left and top-right.\",\n        \"middle\": \"middle 6 rows of input have red blocks in center; output middle rows reflect these.\",\n        \"bottom\": \"bottom 6 rows of input have red blocks in bottom-left and bottom-right; output bottom row has red in bottom-left and bottom-right.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 6 columns of input have red blocks in top-left; output left column has red in top-left.\",\n        \"center\": \"center 6 columns of input have red blocks in middle; output center columns reflect these.\",\n        \"right\": \"right 6 columns of input have red blocks in bottom-right; output right column has red in bottom-right.\"\n      },\n      \"objects\": \"red 2x2 blocks and single red cells, all on light-blue background, surrounded by dark blue.\",\n      \"colors_input\": [1, 3, 2],\n      \"colors_output\": [3, 1],\n      \"background_color\": 1,\n      \"mechanism\": \"input grid divided into 5x5 blocks of approximately 3.6x3.6 cells each; each block is summarized by presence of red in any cell; if red exists, output cell is red, else light-blue.\",\n      \"candidate_rule\": \"Each 3.6x3.6 block of the 18x18 input is reduced to a single cell in the 5x5 output: if any cell in the block is red, the output cell is red; otherwise, it is light-blue.\",\n      \"preservation\": \"relative positions of red blocks are preserved in output grid; background color is preserved as light-blue.\"\n    }\n  ],\n  \"cross_pair_synthesis\": {\n    \"consistent_operation\": \"grid partitioning followed by summarization of each partition block\",\n    \"consistent_parameters\": \"each input grid is divided into equal-sized blocks (4x4 for 16x",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x4 from 16x16; fewer red blocks, overall pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 16x16 to output 4x4, reduction by factor of 4 in each dimension, suggesting grid partitioning.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows of input contain red blocks in top-left and top-right; output top row has red blocks in same relative positions.\",\n        \"middle\": \"middle 8 rows of input have red blocks in left and right; output middle rows reflect these positions.\",\n        \"bottom\": \"bottom 4 rows of input have no red blocks; output bottom row has no red blocks.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 4 columns of input have red blocks in top-left; output left column has red blocks in top-left.\",\n        \"center\": \"center 8 columns of input have red blocks in middle; output center columns reflect these.\",\n        \"right\": \"right 4 columns of input have red blocks in top-right; output right column has red blocks in top-right.\"\n      },\n      \"objects\": \"red 2x2 blocks and single red cells, all on light-blue background, surrounded by dark blue.\",\n      \"colors_input\": [1, 3, 2],\n      \"colors_output\": [3, 1],\n      \"background_color\": 1,\n      \"mechanism\": \"input grid divided into 4x4 blocks of 4x4 cells each; each block is summarized by presence of red in any cell; if red exists, output cell is red, else light-blue.\",\n      \"candidate_rule\": \"Each 4x4 block of the 16x16 input is reduced to a single cell in the 4x4 output: if any cell in the 4x4 block is red, the output cell is red; otherwise, it is light-blue.\",\n      \"preservation\": \"relative positions of red blocks are preserved in output grid; background color is preserved as light-blue.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 4x4 from 16x16; fewer red blocks, pattern is summarized with red blocks in different posi"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 5406,
+      "output_tokens": 1154,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6297,
+      "output_tokens": 912,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      21.394643954001367,
+      30.20467847585678
+    ],
+    "exec_attempts": [
+      1.6961606349796057,
+      0.5902817766182125
+    ],
+    "vlm": 174.0287285191007,
+    "test_run": 0.9954231199808419,
+    "total": 228.9142057779245
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

@@ -208,5 +208,3 @@ python assessment/render_outputs.py
 ```
 
 ---
-
-> **Project history:** An earlier exploration using Llama-3.2-90B-Vision on 100 tasks from the ARC-AGI-1 *training* split (level-bucketed as easy/medium/hard/expert) has been removed; the current codebase targets the 400-task *evaluation* split only.

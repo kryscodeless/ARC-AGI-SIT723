@@ -1,0 +1,290 @@
+{
+  "task_id": "73c3b0d8",
+  "predicted": null,
+  "ground_truth": [
+    [
+      0,
+      0,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      0,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    null
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "",
+  "code": "",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 4,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, I see more yellow areas, the overall pattern is changed with yellow cells spreading.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, 7x5 to 7x5, transformation involves adding yellow cells without altering grid size.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows unchanged, all black\",\n        \"middle\": \"middle row (row 4) has one yellow cell in input, becomes three yellow cells in output\",\n        \"bottom\": \"bottom row (row 7) unchanged, all red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column unchanged, all black except bottom row\",\n        \"center\": \"center columns gain yellow cells in output, especially column 2 and 4\",\n        \"right\": \"right column unchanged, all black except bottom row\"\n      },\n      \"objects\": \"one yellow square in middle, one red row at bottom\",\n      \"colors_input\": [0, 2, 4],\n      \"colors_output\": [0, 2, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"yellow cell at (4,3) in input propagates to adjacent cells: (3,2), (3,4), (4,2), (5,3) in output, forming a cross-like spread.\",\n      \"candidate_rule\": \"Each yellow cell in the input spreads to its four orthogonal neighbors in the output, preserving the red bottom row and black background.\",\n      \"preservation\": \"red bottom row and black background remain unchanged\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, I see more yellow areas, the overall pattern is changed with yellow cells spreading.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, 10x6 to 10x6, transformation involves adding yellow cells without altering grid size.\",\n      \"scan_vertical\": {\n        \"top\": \"top 5 rows have yellow cells in input, output adds more yellow cells in same rows\",\n        \"middle\": \"middle rows (rows 6-7) unchanged, all black\",\n        \"bottom\": \"bottom row (row 10) unchanged, all red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has yellow in row 2 and 4 in input, output adds yellow in row 1 and 3\",\n        \"center\": \"center columns gain yellow cells in output, especially column 3 and 5\",\n        \"right\": \"right column has yellow in row 4 in input, output adds yellow in row 5\"\n      },\n      \"objects\": \"two yellow squares in top half, one red row at bottom\",\n      \"colors_input\": [0, 2, 4],\n      \"colors_output\": [0, 2, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"each yellow cell in input spreads to its four orthogonal neighbors in output; yellow cells at (2,2) and (4,5) propagate to adjacent cells, creating a diagonal spread pattern.\",\n      \"candidate_rule\": \"Each yellow cell in the input spreads to its four orthogonal neighbors in the output, preserving the red bottom row and black background.\",\n      \"preservation\": \"red bottom row and black background remain unchanged\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is same size, I see more yellow areas, the overall pattern is changed with yellow cells spreading.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, 12x8 to 12x8, transformation involves adding yellow cells without altering grid size.\",\n      \"scan_vertical\": {\n        \"top\": \"top 5 rows have yellow cells in input, output adds more yellow cells in same rows\",\n        \"middle\": \"middle rows (rows 6-9) unchanged, all black\",\n        \"bottom\": \"bottom row (row 12) unchanged, all red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has yellow in row 1 and 5 in input, output adds yellow in row 2 and 4\",\n        \"center\": \"center columns gain yellow cells in output, especially column 3 and 5\",\n        \"right\": \"right column has yellow in row 5 in input, output adds yellow in row 6\"\n      },\n      \"objects\": \"four yellow squares in top half, one red row at bottom\",\n      \"colors_input\": [0, 2, 4],\n      \"colors_output\": [0, 2, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"each yellow cell in input spreads to its four orthogonal neighbors in output; yellow cells at (1,2), (5,2), (5,5), (8,4) propagate to adjacent cells, creating a diagonal spread pattern.\",\n      \"candidate_rule\": \"Each yellow cell in the input spreads to its four orthogonal neighbors in the output, preserving the red bottom row and black background.\",\n      \"preservation\": \"red bottom row and black background remain unchanged\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is same size, I see same number of yellow areas, the overall pattern is unchanged except for one yellow cell moving.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, 6x3 to 6x3, transformation involves moving one yellow cell.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows unchanged, all black except row 2, column 2\",\n        \"middle\": \"middle rows (rows 4-5) unchanged, all black\",\n        \"bottom\": \"bottom row (row 6) unchanged, all red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column unchanged, all black except bottom row\",\n        \"center\": \"center column has yellow cell in row 2 in input, moves to row 3 in output\",\n        \"right\": \"right column unchanged, all black except bottom row\"\n      },\n      \"objects\": \"one yellow square in middle, one red row at bottom\",\n      \"colors_input\": [0, 2, 4],\n      \"colors_output\": [0, 2, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"yellow cell at (2,2) in input moves down one row to (3,2) in output.\",\n      \"candidate_rule\": \"The single yellow cell in the input moves down one row in the output, preserving the red bottom row and black background.\",\n      \"preservation\": \"red bottom row and black background remain unchanged\"\n    }\n  ],\n  \"cross_pair_synthesis\": {\n    \"consistent_operation\": \"yellow cells spread to adjacent cells or move down one row\",\n    \"consistent",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, I see more yellow areas, the overall pattern is changed with yellow cells spreading.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, 7x5 to 7x5, transformation involves adding yellow cells without altering grid size.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows unchanged, all black\",\n        \"middle\": \"middle row (row 4) has one yellow cell in input, becomes three yellow cells in output\",\n        \"bottom\": \"bottom row (row 7) unchanged, all red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column unchanged, all black except bottom row\",\n        \"center\": \"center columns gain yellow cells in output, especially column 2 and 4\",\n        \"right\": \"right column unchanged, all black except bottom row\"\n      },\n      \"objects\": \"one yellow square in middle, one red row at bottom\",\n      \"colors_input\": [0, 2, 4],\n      \"colors_output\": [0, 2, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"yellow cell at (4,3) in input propagates to adjacent cells: (3,2), (3,4), (4,2), (5,3) in output, forming a cross-like spread.\",\n      \"candidate_rule\": \"Each yellow cell in the input spreads to its four orthogonal neighbors in the output, preserving the red bottom row and black background.\",\n      \"preservation\": \"red bottom row and black background remain unchanged\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, I see more yellow areas, the overall pattern is changed with yellow cells spreading.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, 10x6 to 10x6, transformation involves adding yellow cells without altering grid size.\",\n      \"scan_vertical\": {\n        \"top\": \"top 5 rows have yellow cells in input, output adds more yellow cells in same rows\",\n        \"middle\": \"middle rows (rows 6-7) unchanged, all black\",\n        \"bottom\": \"bottom row (row 10) uncha"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [
+    "OverloadedError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CaJY74jbHP5fcv5rtwy2U'}",
+    "OverloadedError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CaJY7cdV8szESym8bKmxa'}"
+  ],
+  "reasoner_usages": [
+    {},
+    {}
+  ],
+  "test_run_error": "no_code",
+  "timings_sec": {
+    "reasoner_attempts": [
+      7.3512411043047905,
+      6.783746086061001
+    ],
+    "exec_attempts": [
+      7.163733243942261e-06,
+      2.103857696056366e-06
+    ],
+    "vlm": 178.93798910593614,
+    "test_run": 4.037283360958099e-06,
+    "total": 193.07815808802843
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

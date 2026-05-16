@@ -1,0 +1,199 @@
+{
+  "task_id": "cd3c21df",
+  "predicted": [
+    [
+      4,
+      8
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      8,
+      4
+    ]
+  ],
+  "ground_truth": [
+    [
+      4,
+      8
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      8,
+      4
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        4,
+        8
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        8,
+        4
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        4,
+        8
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        8,
+        4
+      ]
+    ]
+  ],
+  "final_rule": "For each connected component (4-connectivity) of non-background color in the input, group components by their shape and color pattern. Identify which group has exactly one instance (appears uniquely, not duplicated elsewhere). Extract the bounding box of that unique component and return it as the output grid.",
+  "code": "import numpy as np\nfrom scipy.ndimage import label\nfrom typing import List, Tuple\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find all connected components\n    mask = grid != 0\n    labeled, num_features = label(mask, structure=[[0,1,0],[1,1,1],[0,1,0]])\n    \n    # Extract each component with its bounding box\n    components = []\n    for i in range(1, num_features + 1):\n        coords = np.argwhere(labeled == i)\n        min_r, min_c = coords.min(axis=0)\n        max_r, max_c = coords.max(axis=0)\n        \n        # Extract the bounding box content\n        bbox = grid[min_r:max_r+1, min_c:max_c+1].copy()\n        # Mask out pixels not in this component\n        component_mask = labeled[min_r:max_r+1, min_c:max_c+1] == i\n        bbox_masked = np.where(component_mask, bbox, 0)\n        \n        components.append((bbox_masked, min_r, min_c))\n    \n    # Group components by their normalized pattern\n    from collections import defaultdict\n    pattern_groups = defaultdict(list)\n    \n    for idx, (bbox, r, c) in enumerate(components):\n        # Create a hashable representation of the pattern\n        pattern = bbox.tobytes()\n        pattern_groups[pattern].append(idx)\n    \n    # Find the group with exactly one instance\n    unique_idx = None\n    for pattern, indices in pattern_groups.items():\n        if len(indices) == 1:\n            unique_idx = indices[0]\n            break\n    \n    if unique_idx is not None:\n        result = components[unique_idx][0]\n        return result.tolist()\n    \n    # Fallback: return the first component\n    return components[0][0].tolist()",
+  "attempts_used": 1,
+  "demo_pass_count": 3,
+  "demo_total": 3,
+  "demo_all_pass": true,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, 4x1 grid; I see fewer colored areas, only red remains; the overall pattern is changed to a single vertical column.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is a 4x1 crop of the rightmost red column from the input, ignoring other colors and positions.",
+        "scan_vertical": {
+          "top": "top row has grey and yellow blocks, no red",
+          "middle": "middle rows contain grey, yellow, and red blocks",
+          "bottom": "bottom rows contain yellow and grey blocks, red appears only in the rightmost column"
+        },
+        "scan_horizontal": {
+          "left": "left side has grey and yellow blocks",
+          "center": "center has grey and yellow blocks",
+          "right": "rightmost column has red blocks from row 2 to row 5"
+        },
+        "objects": "four vertical red blocks in the rightmost column",
+        "colors_input": [
+          0,
+          5,
+          3,
+          2
+        ],
+        "colors_output": [
+          2
+        ],
+        "background_color": 0,
+        "mechanism": "extract the rightmost vertical column of red blocks, which spans 4 rows, and output as a 4x1 grid.",
+        "candidate_rule": "Extract the rightmost vertical column of red blocks from the input grid and output it as a 4x1 grid.",
+        "preservation": "The red blocks in the rightmost column are preserved in their relative vertical order."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller, 2x2 grid; I see fewer colored areas, only orange remains; the overall pattern is changed to a uniform 2x2 block.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is a 2x2 crop of the orange 2x2 block from the center-left region of the input.",
+        "scan_vertical": {
+          "top": "top rows contain blue, red, pink blocks",
+          "middle": "middle rows contain pink, orange, blue, red blocks",
+          "bottom": "bottom rows contain orange blocks in a 2x2 formation"
+        },
+        "scan_horizontal": {
+          "left": "left side has pink and orange blocks",
+          "center": "center has orange blocks forming a 2x2 square",
+          "right": "right side has pink, blue, red blocks"
+        },
+        "objects": "a 2x2 orange block in the center-left region",
+        "colors_input": [
+          0,
+          1,
+          2,
+          6,
+          7
+        ],
+        "colors_output": [
+          7
+        ],
+        "background_color": 0,
+        "mechanism": "extract the 2x2 orange block located at rows 5-6, columns 3-4 (0-indexed) and output it as a 2x2 grid.",
+        "candidate_rule": "Extract the 2x2 orange block from the input grid and output it as a 2x2 grid.",
+        "preservation": "The 2x2 orange block is preserved in its exact shape and color."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller, 2x3 grid; I see fewer colored areas, only red and blue remain; the overall pattern is changed to a 2x3 block with alternating colors.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is a 2x3 crop of the red-blue pattern from the bottom-right region of the input.",
+        "scan_vertical": {
+          "top": "top rows contain pink, red, green blocks",
+          "middle": "middle rows contain red, green, blue blocks",
+          "bottom": "bottom rows contain red, blue blocks forming a 2x3 pattern"
+        },
+        "scan_horizontal": {
+          "left": "left side has pink, red, green blocks",
+          "center": "center has red, green, blue blocks",
+          "right": "right side has red, blue blocks forming a 2x3 pattern"
+        },
+        "objects": "a 2x3 block of red and blue in the bottom-right region",
+        "colors_input": [
+          0,
+          6,
+          2,
+          3,
+          1
+        ],
+        "colors_output": [
+          2,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "extract the 2x3 block of red and blue from the bottom-right region (rows 9-10, columns 7-9) and output it as a 2x3 grid.",
+        "candidate_rule": "Extract the 2x3 red-blue block from the bottom-right region of the input grid and output it as a 2x3 grid.",
+        "preservation": "The 2x3 red-blue block is preserved in its exact shape and color arrangement."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "In each pair, a specific colored block (or column) is extracted from the input grid and output as a smaller grid.",
+      "consistent_parameters": "The extracted block is always a contiguous region of the same color or a uniform pattern, located in a specific position (rightmost column, center-left 2x2, bottom-right 2x3).",
+      "likely_transform_family": "extract",
+      "unified_rule": "Extract the largest contiguous block of the same color or pattern that appears in the input grid, and output it as a grid of its exact dimensions."
+    },
+    "test_input_observations": "The test input has grey, yellow, and light-blue blocks. There are two 2x2 yellow blocks, one 2x2 light-blue block, and one 3x1 grey block. The rule predicts that the largest contiguous block (either the 2x2 yellow or 2x2 light-blue) should be extracted and output as a 2x2 grid.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x1 grid; I see fewer colored areas, only red remains; the overall pattern is changed to a single vertical column.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a 4x1 crop of the rightmost red column from the input, ignoring other colors and positions.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has grey and yellow blocks, no red\",\n        \"middle\": \"middle rows contain grey, yellow, and red blocks\",\n        \"bottom\": \"bottom rows contain yellow and grey blocks, red appears only in the rightmost column\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has grey and yellow blocks\",\n        \"center\": \"center has grey and yellow blocks\",\n        \"right\": \"rightmost column has red blocks from row 2 to row 5\"\n      },\n      \"objects\": \"four vertical red blocks in the rightmost column\",\n      \"colors_input\": [0, 5, 3, 2],\n      \"colors_output\": [2],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the rightmost vertical column of red blocks, which spans 4 rows, and output as a 4x1 grid.\",\n      \"candidate_rule\": \"Extract the rightmost vertical column of red blocks from the input grid and output it as a 4x1 grid.\",\n      \"preservation\": \"The red blocks in the rightmost column are preserved in their relative vertical order.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 2x2 grid; I see fewer colored areas, only orange remains; the overall pattern is changed to a uniform 2x2 block.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a 2x2 crop of the orange 2x2 block from the center-left region of the input.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows contain blue, red, pink blocks\",\n        \"middle\": \"middle rows contain pink, orange, blue, red blocks\",\n        \"bottom\": \"bottom rows contain orange blocks in a 2x2 formation\"\n      },\n      \"scan_horizontal\": "
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3844,
+      "output_tokens": 983,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      18.31702853087336
+    ],
+    "exec_attempts": [
+      0.9410965903662145
+    ],
+    "vlm": 152.9523520031944,
+    "test_run": 0.8903187601827085,
+    "total": 173.1022540582344
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

@@ -1,0 +1,701 @@
+{
+  "task_id": "2c737e39",
+  "predicted": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      3,
+      3,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      3,
+      3,
+      8,
+      8
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      3,
+      3,
+      8,
+      8,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      3,
+      3,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      3,
+      3,
+      8,
+      8
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      3,
+      3,
+      8,
+      8,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        3,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3,
+        3,
+        8,
+        8
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        3,
+        3,
+        8,
+        8,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        3,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3,
+        3,
+        8,
+        8
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        3,
+        3,
+        8,
+        8,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Find the main cluster containing color 5 and an isolated single cell of color 5. Extract the bounding box of the main cluster and remove color 5 from it. Duplicate this modified pattern, positioning it so the isolated 5 cell aligns with the original 5's position within the cluster's bounding box. The original cluster and isolated 5 remain unchanged.",
+  "code": "import numpy as np\nfrom typing import List\nfrom scipy.ndimage import label\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    output = grid.copy()\n    \n    # Find all cells with color 5\n    cells_5 = np.argwhere(grid == 5)\n    \n    if len(cells_5) < 2:\n        return output.tolist()\n    \n    # Find connected components of non-background cells\n    mask = grid != 0\n    labeled, num_features = label(mask)\n    \n    # Find the main cluster (largest connected component containing 5)\n    main_cluster_label = None\n    max_size = 0\n    isolated_5 = None\n    \n    for r, c in cells_5:\n        lbl = labeled[r, c]\n        size = np.sum(labeled == lbl)\n        if size > max_size:\n            max_size = size\n            main_cluster_label = lbl\n    \n    # Find isolated 5 (the one not in main cluster)\n    for r, c in cells_5:\n        if labeled[r, c] != main_cluster_label:\n            isolated_5 = (r, c)\n            break\n    \n    if isolated_5 is None or main_cluster_label is None:\n        return output.tolist()\n    \n    # Get bounding box of main cluster\n    cluster_mask = labeled == main_cluster_label\n    cluster_coords = np.argwhere(cluster_mask)\n    min_r, min_c = cluster_coords.min(axis=0)\n    max_r, max_c = cluster_coords.max(axis=0)\n    \n    # Extract cluster pattern (excluding color 5)\n    cluster_pattern = grid[min_r:max_r+1, min_c:max_c+1].copy()\n    \n    # Find position of 5 within the cluster bounding box\n    five_in_cluster = None\n    for r, c in cells_5:\n        if labeled[r, c] == main_cluster_label:\n            five_in_cluster = (r - min_r, c - min_c)\n            break\n    \n    if five_in_cluster is None:\n        return output.tolist()\n    \n    # Remove 5 from the pattern\n    cluster_pattern[cluster_pattern == 5] = 0\n    \n    # Calculate offset to place pattern so isolated 5 aligns with original 5 position\n    offset_r = isolated_5[0] - five_in_cluster[0]\n    offset_c = isolated_5[1] - five_in_cluster[1]\n    \n    # Place the pattern at the calculated position\n    for i in range(cluster_pattern.shape[0]):\n        for j in range(cluster_pattern.shape[1]):\n            new_r = offset_r + i\n            new_c = offset_c + j\n            if 0 <= new_r < output.shape[0] and 0 <= new_c < output.shape[1]:\n                if cluster_pattern[i, j] != 0:\n                    output[new_r, new_c] = cluster_pattern[i, j]\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, I see more colored areas, the overall pattern is partially transformed with a new cluster appearing below the original one.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in grid dimensions; new colored blocks appear without altering existing ones.",
+        "scan_vertical": {
+          "top": "top region unchanged, original cluster remains in same position",
+          "middle": "middle region unchanged, no new blocks added here",
+          "bottom": "bottom region gains a new cluster of blocks directly below the original one, mirroring its shape and color layout"
+        },
+        "scan_horizontal": {
+          "left": "left side unchanged, no new blocks added",
+          "center": "center region unchanged, original cluster remains",
+          "right": "right side gains a new cluster of blocks, aligned vertically below the original cluster"
+        },
+        "objects": "two distinct clusters: one 3x3 block group with mixed colors (blue, green, yellow, grey, orange, red), and one isolated grey block",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ],
+        "colors_output": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ],
+        "background_color": 0,
+        "mechanism": "the isolated grey block at (6,4) is copied and used as a seed to generate a new cluster directly below the original cluster, preserving the exact shape and color pattern of the original cluster.",
+        "candidate_rule": "the grey block in the input triggers the duplication of the main cluster directly below it, preserving its shape and color arrangement.",
+        "preservation": "the original cluster and its position remain unchanged; only a new cluster is added below the grey block."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, I see more colored areas, the overall pattern is partially transformed with a new cluster appearing to the right of the original one.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in grid dimensions; new colored blocks appear without altering existing ones.",
+        "scan_vertical": {
+          "top": "top region unchanged, original cluster remains in same position",
+          "middle": "middle region unchanged, no new blocks added here",
+          "bottom": "bottom region gains a new cluster of blocks directly to the right of the original one, mirroring its shape and color layout"
+        },
+        "scan_horizontal": {
+          "left": "left side unchanged, no new blocks added",
+          "center": "center region unchanged, original cluster remains",
+          "right": "right side gains a new cluster of blocks, aligned horizontally to the right of the original cluster"
+        },
+        "objects": "one 3x3 block group with mixed colors (green, red, grey), and one isolated grey block",
+        "colors_input": [
+          0,
+          2,
+          3,
+          5
+        ],
+        "colors_output": [
+          0,
+          2,
+          3,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "the isolated grey block at (7,6) is copied and used as a seed to generate a new cluster directly to the right of the original cluster, preserving the exact shape and color pattern of the original cluster.",
+        "candidate_rule": "the grey block in the input triggers the duplication of the main cluster directly to its right, preserving its shape and color arrangement.",
+        "preservation": "the original cluster and its position remain unchanged; only a new cluster is added to the right of the grey block."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is same size, I see more colored areas, the overall pattern is partially transformed with a new cluster appearing below the original one.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in grid dimensions; new colored blocks appear without altering existing ones.",
+        "scan_vertical": {
+          "top": "top region unchanged, original cluster remains in same position",
+          "middle": "middle region unchanged, no new blocks added here",
+          "bottom": "bottom region gains a new cluster of blocks directly below the original one, mirroring its shape and color layout"
+        },
+        "scan_horizontal": {
+          "left": "left side unchanged, no new blocks added",
+          "center": "center region unchanged, original cluster remains",
+          "right": "right side gains a new cluster of blocks, aligned vertically below the original cluster"
+        },
+        "objects": "one 3x3 block group with mixed colors (blue, red, green, grey), and one isolated grey block",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "colors_output": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "the isolated grey block at (6,1) is copied and used as a seed to generate a new cluster directly below the original cluster, preserving the exact shape and color pattern of the original cluster.",
+        "candidate_rule": "the grey block in the input triggers the duplication of the main cluster directly below it, preserving its shape and color arrangement.",
+        "preservation": "the original cluster and its position remain unchanged; only a new cluster is added below the grey block."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "in each pair, a single grey block is present in the input, and in the output, a new cluster is generated that is an exact copy of the main cluster, positioned relative to the grey block.",
+      "consistent_parameters": "the grey block acts as a trigger; the new cluster is always a direct copy of the main cluster; the direction of duplication is determined by the position of the grey block relative to the main cluster (below or to the right).",
+      "likely_transform_family": "object_move",
+      "unified_rule": "the grey block in the input triggers the duplication of the main cluster, placing the copy directly below or to the right of the grey block, depending on its position relative to the main cluster, while preserving the original cluster and its position."
+    },
+    "test_input_observations": "the test input has a main cluster of 3x3 blocks (red, green, blue) at the bottom-left, and a single grey block at (4,6). based on the unified rule, the grey block should trigger a duplication of the main cluster, placed directly below it, since the grey block is above the main cluster. the output should show the original cluster unchanged, plus a new identical cluster directly below the grey block.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, I see more colored areas, the overall pattern is partially transformed with a new cluster appearing below the original one.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in grid dimensions; new colored blocks appear without altering existing ones.\",\n      \"scan_vertical\": {\n        \"top\": \"top region unchanged, original cluster remains in same position\",\n        \"middle\": \"middle region unchanged, no new blocks added here\",\n        \"bottom\": \"bottom region gains a new cluster of blocks directly below the original one, mirroring its shape and color layout\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side unchanged, no new blocks added\",\n        \"center\": \"center region unchanged, original cluster remains\",\n        \"right\": \"right side gains a new cluster of blocks, aligned vertically below the original cluster\"\n      },\n      \"objects\": \"two distinct clusters: one 3x3 block group with mixed colors (blue, green, yellow, grey, orange, red), and one isolated grey block\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 7],\n      \"colors_output\": [0, 1, 2, 3, 4, 5, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"the isolated grey block at (6,4) is copied and used as a seed to generate a new cluster directly below the original cluster, preserving the exact shape and color pattern of the original cluster.\",\n      \"candidate_rule\": \"the grey block in the input triggers the duplication of the main cluster directly below it, preserving its shape and color arrangement.\",\n      \"preservation\": \"the original cluster and its position remain unchanged; only a new cluster is added below the grey block.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, I see more colored areas, the overall pattern is partially transformed with a new cluster appearing to the right of the original one.\",\n      \"size_family\": \"same_size\",\n      \"s"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4380,
+      "output_tokens": 1170,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6236,
+      "output_tokens": 1117,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      16.803485060110688,
+      18.899990138132125
+    ],
+    "exec_attempts": [
+      0.9247580571100116,
+      0.9044659282080829
+    ],
+    "vlm": 170.9783684462309,
+    "test_run": 0.9304044358432293,
+    "total": 209.44297883938998
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

@@ -1,0 +1,425 @@
+{
+  "task_id": "a680ac02",
+  "predicted": [
+    [
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      3,
+      0,
+      0,
+      3,
+      2,
+      0,
+      0,
+      2,
+      1,
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      0,
+      0,
+      3,
+      2,
+      0,
+      0,
+      2,
+      1,
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "ground_truth": [
+    [
+      3,
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      0,
+      0,
+      3
+    ],
+    [
+      3,
+      0,
+      0,
+      3
+    ],
+    [
+      3,
+      3,
+      3,
+      3
+    ],
+    [
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      0,
+      0,
+      2
+    ],
+    [
+      2,
+      0,
+      0,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        0,
+        0,
+        3,
+        2,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        3,
+        0,
+        0,
+        3,
+        2,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        3,
+        0,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        0,
+        3
+      ],
+      [
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        0,
+        2
+      ],
+      [
+        2,
+        0,
+        0,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "final_rule": "Extract all 4×4 hollow rectangles (non-zero border of uniform color, 2×2 zero-filled center) from the input. Sort them by top-left position (row-major: top-to-bottom, left-to-right). If the hollow rectangles are vertically aligned (their column positions have minimal spread, specifically if max column difference < half their horizontal spread across all objects), stack them vertically in the output (4 columns, 4×count rows). Otherwise, arrange them horizontally side-by-side (4 rows, 4×count columns). Each rectangle preserves its color and internal structure.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    rows, cols = grid.shape\n    \n    # Find all 4x4 hollow rectangles\n    hollow_rects = []\n    \n    for r in range(rows - 3):\n        for c in range(cols - 3):\n            block = grid[r:r+4, c:c+4]\n            \n            # Check center is all zeros\n            center = block[1:3, 1:3]\n            if not np.all(center == 0):\n                continue\n            \n            # Get border cells\n            border_mask = np.ones((4, 4), dtype=bool)\n            border_mask[1:3, 1:3] = False\n            border_cells = block[border_mask]\n            \n            # Check all border cells are non-zero and same color\n            if np.all(border_cells != 0) and len(np.unique(border_cells)) == 1:\n                hollow_rects.append((r, c, block.copy()))\n    \n    if not hollow_rects:\n        return [[0]]\n    \n    # Sort by position (row-major)\n    hollow_rects.sort(key=lambda x: (x[0], x[1]))\n    \n    # Determine arrangement: check if vertically aligned\n    cols_used = [c for r, c, _ in hollow_rects]\n    col_min, col_max = min(cols_used), max(cols_used)\n    col_spread = col_max - col_min\n    \n    # If column spread is small (rectangles vertically aligned), stack vertically\n    if col_spread <= 3:  # threshold: at most 3 columns apart\n        # Vertical stacking\n        output = np.vstack([block for r, c, block in hollow_rects])\n    else:\n        # Horizontal arrangement\n        output = np.hstack([block for r, c, block in hollow_rects])\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 2,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is changed to a compact horizontal layout.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 18x17 → output 4x8, not proportional; appears to be object extraction with fixed row height.",
+        "scan_vertical": {
+          "top": "red square (3x3) and yellow square (3x3) in top rows",
+          "middle": "green square (3x3) in middle-left, blue square (3x3) in middle-right",
+          "bottom": "no colored objects"
+        },
+        "scan_horizontal": {
+          "left": "red square in top-left, green square below it",
+          "center": "empty black space",
+          "right": "yellow square in top-right, blue square below it"
+        },
+        "objects": "four 3x3 colored squares: red, yellow, green, blue",
+        "colors_input": [
+          0,
+          2,
+          4,
+          3,
+          8
+        ],
+        "colors_output": [
+          0,
+          2,
+          4,
+          8
+        ],
+        "background_color": 0,
+        "mechanism": "each 3x3 colored square is extracted and placed side-by-side in a single row of 4x8 grid, preserving color and shape; black center of each square is preserved.",
+        "candidate_rule": "each 3x3 colored square in the input is extracted and arranged horizontally in the output, maintaining its color and internal black center, with no other changes.",
+        "preservation": "the color and internal structure (black center) of each 3x3 square are preserved"
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is changed to a vertical layout with two stacked blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 21x16 → output 8x4, not proportional; appears to be object extraction with fixed column width.",
+        "scan_vertical": {
+          "top": "blue square (3x3) in top-left",
+          "middle": "red square (3x3) in middle-left, yellow square (3x3) in middle-right",
+          "bottom": "no colored objects"
+        },
+        "scan_horizontal": {
+          "left": "blue square in top-left, red square below it",
+          "center": "empty black space",
+          "right": "yellow square in middle-right"
+        },
+        "objects": "three 3x3 colored squares: blue, red, yellow",
+        "colors_input": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "colors_output": [
+          0,
+          1,
+          2
+        ],
+        "background_color": 0,
+        "mechanism": "each 3x3 colored square is extracted and stacked vertically in the output, preserving color and shape; black center of each square is preserved.",
+        "candidate_rule": "each 3x3 colored square in the input is extracted and arranged vertically in the output, maintaining its color and internal black center, with no other changes.",
+        "preservation": "the color and internal structure (black center) of each 3x3 square are preserved"
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is changed to a horizontal layout with three blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 24x22 → output 4x12, not proportional; appears to be object extraction with fixed row height.",
+        "scan_vertical": {
+          "top": "blue square (3x3) in top-left, green square (3x3) in top-center",
+          "middle": "yellow square (3x3) in middle-left, pink square (3x3) in middle-center, red square (3x3) in middle-right",
+          "bottom": "no colored objects"
+        },
+        "scan_horizontal": {
+          "left": "blue square in top-left, yellow square below it",
+          "center": "green square in top-center, pink square below it",
+          "right": "red square in middle-right"
+        },
+        "objects": "five 3x3 colored squares: blue, green, yellow, pink, red",
+        "colors_input": [
+          0,
+          1,
+          3,
+          4,
+          6,
+          2
+        ],
+        "colors_output": [
+          0,
+          1,
+          3,
+          4,
+          6,
+          2
+        ],
+        "background_color": 0,
+        "mechanism": "each 3x3 colored square is extracted and placed side-by-side in a single row of 4x12 grid, preserving color and shape; black center of each square is preserved.",
+        "candidate_rule": "each 3x3 colored square in the input is extracted and arranged horizontally in the output, maintaining its color and internal black center, with no other changes.",
+        "preservation": "the color and internal structure (black center) of each 3x3 square are preserved"
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "extraction of 3x3 colored squares with black centers and their horizontal or vertical arrangement in output",
+      "consistent_parameters": "each object is a 3x3 square with a black center; output dimensions vary based on number of objects and arrangement direction",
+      "likely_transform_family": "extract",
+      "unified_rule": "extract all 3x3 colored squares with black centers from the input and arrange them side-by-side horizontally or stacked vertically in the output, preserving their color and internal structure."
+    },
+    "test_input_observations": "test input has four 3x3 colored squares: green, red, yellow, blue; all with black centers. The rule predicts they will be extracted and arranged horizontally in a 4x8 output grid, preserving their colors and internal black centers.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact horizontal layout.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 18x17 → output 4x8, not proportional; appears to be object extraction with fixed row height.\",\n      \"scan_vertical\": {\n        \"top\": \"red square (3x3) and yellow square (3x3) in top rows\",\n        \"middle\": \"green square (3x3) in middle-left, blue square (3x3) in middle-right\",\n        \"bottom\": \"no colored objects\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"red square in top-left, green square below it\",\n        \"center\": \"empty black space\",\n        \"right\": \"yellow square in top-right, blue square below it\"\n      },\n      \"objects\": \"four 3x3 colored squares: red, yellow, green, blue\",\n      \"colors_input\": [0, 2, 4, 3, 8],\n      \"colors_output\": [0, 2, 4, 8],\n      \"background_color\": 0,\n      \"mechanism\": \"each 3x3 colored square is extracted and placed side-by-side in a single row of 4x8 grid, preserving color and shape; black center of each square is preserved.\",\n      \"candidate_rule\": \"each 3x3 colored square in the input is extracted and arranged horizontally in the output, maintaining its color and internal black center, with no other changes.\",\n      \"preservation\": \"the color and internal structure (black center) of each 3x3 square are preserved\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a vertical layout with two stacked blocks.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 21x16 → output 8x4, not proportional; appears to be object extraction with fixed column width.\",\n      \"scan_vertical\": {\n        \"top\": \"blue square (3x3) in top-left\",\n        \"middle\": \"red square (3x3) in middle-left, yellow square (3x3) in middle-right\",\n        \"bottom\": \"no colored objects\"\n"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 6133,
+      "output_tokens": 1120,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 7257,
+      "output_tokens": 1011,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      20.38601507479325,
+      17.825487876776606
+    ],
+    "exec_attempts": [
+      0.4905148996040225,
+      0.5073043960146606
+    ],
+    "vlm": 157.3476188289933,
+    "test_run": 0.4409846090711653,
+    "total": 196.99952084803954
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

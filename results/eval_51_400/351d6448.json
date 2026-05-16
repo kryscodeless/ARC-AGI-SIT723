@@ -1,0 +1,308 @@
+{
+  "task_id": "351d6448",
+  "predicted": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      3,
+      3,
+      3,
+      0,
+      3,
+      2,
+      2,
+      0,
+      2,
+      2,
+      2,
+      0
+    ],
+    [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        3,
+        3,
+        0,
+        3,
+        2,
+        2,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    ]
+  ],
+  "final_rule": "The input contains 4 sections separated by horizontal gray (5) lines. Each section contains a colored pattern that either shifts horizontally or grows in length progressively. Identify the progression type: if the pattern shifts position, extrapolate the shift by one more step; if the pattern grows in size, extrapolate the growth by the same increment. Place the extrapolated pattern in the middle row of a 3x13 output grid with black (0) background in rows 0 and 2.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find separator rows (color 5)\n    separator_rows = [i for i in range(h) if np.all(grid[i] == 5)]\n    \n    # Extract the 4 sections\n    sections = []\n    start = 0\n    for sep in separator_rows:\n        sections.append(grid[start:sep])\n        start = sep + 1\n    sections.append(grid[start:])\n    \n    # For each section, find the representative pattern row\n    patterns = []\n    for section in sections:\n        for row in section:\n            if np.any((row != 0) & (row != 5)):\n                patterns.append(row.copy())\n                break\n    \n    # Analyze the progression\n    # Check if it's a shift (same length, different position) or growth (increasing length)\n    non_zero_counts = []\n    start_positions = []\n    \n    for pattern in patterns:\n        non_zero = np.where(pattern != 0)[0]\n        if len(non_zero) > 0:\n            non_zero_counts.append(len(non_zero))\n            start_positions.append(non_zero[0])\n    \n    result_row = np.zeros(w, dtype=int)\n    \n    # Check if it's a shift pattern (same count, changing position)\n    if len(set(non_zero_counts)) == 1:\n        # Shift pattern: extrapolate position\n        shift_increment = start_positions[1] - start_positions[0] if len(start_positions) > 1 else 1\n        next_start = start_positions[-1] + shift_increment\n        \n        # Copy the pattern from last section\n        last_pattern = patterns[-1]\n        pattern_cells = [(i, last_pattern[i]) for i in range(w) if last_pattern[i] != 0]\n        \n        for i, color in pattern_cells:\n            offset = i - start_positions[-1]\n            new_pos = next_start + offset\n            if 0 <= new_pos < w:\n                result_row[new_pos] = color\n    else:\n        # Growth pattern: extrapolate size\n        growth_increment = non_zero_counts[1] - non_zero_counts[0] if len(non_zero_counts) > 1 else 2\n        next_count = non_zero_counts[-1] + growth_increment\n        \n        # Get the color from last pattern\n        last_pattern = patterns[-1]\n        color = last_pattern[np.where(last_pattern != 0)[0][0]]\n        \n        # Place at same start position\n        start = start_positions[-1]\n        for i in range(next_count):\n            if start + i < w:\n                result_row[start + i] = color\n    \n    # Create 3x13 output\n    output = np.zeros((3, w), dtype=int)\n    output[1] = result_row\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 2,
+  "demo_total": 2,
+  "demo_all_pass": true,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, 3x13 from 15x13; I see fewer colored areas; the overall pattern is changed to a single row of red-red-green.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is cropped to 3 rows from 15, preserving width; not uniform scaling or tiling.",
+        "scan_vertical": {
+          "top": "first row has red-red-green at columns 1-3, rest black",
+          "middle": "row 6 has red-red-green at columns 1-3, rest black",
+          "bottom": "row 12 has red-red-green at columns 1-3, rest black"
+        },
+        "scan_horizontal": {
+          "left": "columns 1-3 contain red-red-green in rows 1,6,12; other columns black",
+          "center": "columns 4-10 are all black in all rows",
+          "right": "columns 11-13 are all black in all rows"
+        },
+        "objects": "three identical horizontal triplets of red-red-green, each separated by 4 rows of black and a grey row",
+        "colors_input": [
+          0,
+          2,
+          3,
+          5
+        ],
+        "colors_output": [
+          0,
+          2,
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "extract the red-red-green triplet from the first row and place it in the middle row of the 3x13 output; other rows are black.",
+        "candidate_rule": "From input, extract the red-red-green triplet from the top row and place it in the center row of a 3x13 output grid; all other cells are black.",
+        "preservation": "the red-red-green triplet is preserved in color and order, but moved to the center row of the output"
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller, 3x13 from 15x13; I see fewer colored areas; the overall pattern is changed to a single row of blue blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is cropped to 3 rows from 15, preserving width; not uniform scaling or tiling.",
+        "scan_vertical": {
+          "top": "row 1 has blue-blue at columns 1-2, rest black",
+          "middle": "row 6 has blue-blue-blue-blue at columns 1-4, rest black",
+          "bottom": "row 12 has blue-blue-blue-blue-blue at columns 1-5, rest black"
+        },
+        "scan_horizontal": {
+          "left": "columns 1-5 contain blue blocks in rows 1,6,12; other columns black",
+          "center": "columns 6-10 are all black in all rows",
+          "right": "columns 11-13 are all black in all rows"
+        },
+        "objects": "three horizontal blue blocks of increasing length: 2, 4, 5; each separated by 4 rows of black and a grey row",
+        "colors_input": [
+          0,
+          1,
+          5
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "extract the longest blue block (5 blocks) from the bottom row and place it in the center row of the 3x13 output; other rows are black.",
+        "candidate_rule": "From input, extract the longest horizontal blue block (from the bottom row) and place it in the center row of a 3x13 output grid; all other cells are black.",
+        "preservation": "the longest blue block is preserved in color and length, but moved to the center row of the output"
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "extract the horizontal colored block from the bottom row of the input and place it in the center row of a 3x13 output grid",
+      "consistent_parameters": "output size is always 3x13; background is black; only one row is filled with the extracted block",
+      "likely_transform_family": "extract",
+      "unified_rule": "Extract the horizontal colored block from the bottom row of the input and place it in the center row of a 3x13 output grid; all other cells are black."
+    },
+    "test_input_observations": "Test input has red and green blocks in multiple rows; the bottom row contains a long red block from column 1 to 13. The rule predicts that this red block will be extracted and placed in the center row of a 3x13 output grid, with all other cells black.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 3x13 from 15x13; I see fewer colored areas; the overall pattern is changed to a single row of red-red-green.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 3 rows from 15, preserving width; not uniform scaling or tiling.\",\n      \"scan_vertical\": {\n        \"top\": \"first row has red-red-green at columns 1-3, rest black\",\n        \"middle\": \"row 6 has red-red-green at columns 1-3, rest black\",\n        \"bottom\": \"row 12 has red-red-green at columns 1-3, rest black\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 1-3 contain red-red-green in rows 1,6,12; other columns black\",\n        \"center\": \"columns 4-10 are all black in all rows\",\n        \"right\": \"columns 11-13 are all black in all rows\"\n      },\n      \"objects\": \"three identical horizontal triplets of red-red-green, each separated by 4 rows of black and a grey row\",\n      \"colors_input\": [0, 2, 3, 5],\n      \"colors_output\": [0, 2, 3],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the red-red-green triplet from the first row and place it in the middle row of the 3x13 output; other rows are black.\",\n      \"candidate_rule\": \"From input, extract the red-red-green triplet from the top row and place it in the center row of a 3x13 output grid; all other cells are black.\",\n      \"preservation\": \"the red-red-green triplet is preserved in color and order, but moved to the center row of the output\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 3x13 from 15x13; I see fewer colored areas; the overall pattern is changed to a single row of blue blocks.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 3 rows from 15, preserving width; not uniform scaling or tiling.\",\n      \"scan_vertical\": {\n        \"top\": \"row 1 has blue-blue at columns 1-2, rest black\",\n        \"middle\": \"row 6 has blue-blue-blue-blue a"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3585,
+      "output_tokens": 1314,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 4650,
+      "output_tokens": 1302,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      24.818210581317544,
+      20.475459368899465
+    ],
+    "exec_attempts": [
+      0.4417551993392408,
+      0.5093830469995737
+    ],
+    "vlm": 123.73129342496395,
+    "test_run": 0.4266011039726436,
+    "total": 170.40399965224788
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

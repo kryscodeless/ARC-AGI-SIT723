@@ -1,0 +1,224 @@
+{
+  "task_id": "66e6c45b",
+  "predicted": [
+    [
+      2,
+      0,
+      0,
+      3
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      9
+    ]
+  ],
+  "ground_truth": [
+    [
+      2,
+      0,
+      0,
+      3
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      9
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        2,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        9
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        2,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        9
+      ]
+    ]
+  ],
+  "final_rule": "Each cell in the 2×2 center block (positions [1,1], [1,2], [2,1], [2,2]) moves to the corresponding corner of the 4×4 grid: top-left cell moves to [0,0], top-right cell moves to [0,3], bottom-left cell moves to [3,0], bottom-right cell moves to [3,3]. All other cells become background (0). Colors are preserved during the move.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Create output grid filled with background (0)\n    output = np.zeros_like(grid)\n    \n    # Map center 2x2 block to corners\n    # Center block is at positions [1,1], [1,2], [2,1], [2,2]\n    # Move to corners [0,0], [0,3], [3,0], [3,3]\n    output[0, 0] = grid[1, 1]      # top-left of center -> top-left corner\n    output[0, w-1] = grid[1, 2]    # top-right of center -> top-right corner\n    output[h-1, 0] = grid[2, 1]    # bottom-left of center -> bottom-left corner\n    output[h-1, w-1] = grid[2, 2]  # bottom-right of center -> bottom-right corner\n    \n    return output.tolist()",
+  "attempts_used": 1,
+  "demo_pass_count": 2,
+  "demo_total": 2,
+  "demo_all_pass": true,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, I see same number of colored areas, the overall pattern is changed — colors moved to corners.",
+        "size_family": "same_size",
+        "size_family_detail": "no scaling or cropping, grid remains 4x4; transformation is internal rearrangement.",
+        "scan_vertical": {
+          "top": "top row: all black in input, top row: green in top-left, yellow in top-right in output",
+          "middle": "middle rows: green and yellow in row 2, orange and pink in row 3 in input; middle rows: all black in output",
+          "bottom": "bottom row: all black in input, bottom row: orange in bottom-left, pink in bottom-right in output"
+        },
+        "scan_horizontal": {
+          "left": "left column: all black in input, left column: green in top, orange in bottom in output",
+          "center": "center columns: green and yellow in col 2, orange and pink in col 3 in input; center columns: all black in output",
+          "right": "right column: all black in input, right column: yellow in top, pink in bottom in output"
+        },
+        "objects": "4 colored squares: green, yellow, orange, pink; arranged in 2x2 block at center.",
+        "colors_input": [
+          0,
+          3,
+          4,
+          2,
+          5
+        ],
+        "colors_output": [
+          0,
+          3,
+          4,
+          2,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "each colored square moves to a corner: top-left (green) to top-left, top-right (yellow) to top-right, bottom-left (orange) to bottom-left, bottom-right (pink) to bottom-right. The center 2x2 block is emptied.",
+        "candidate_rule": "each colored square in the 2x2 center block moves to the corresponding corner of the 4x4 grid: top-left to top-left, top-right to top-right, bottom-left to bottom-left, bottom-right to bottom-right.",
+        "preservation": "background remains black, number of colored squares remains 4, colors are preserved, positions are rearranged to corners."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, I see same number of colored areas, the overall pattern is changed — colors moved to corners.",
+        "size_family": "same_size",
+        "size_family_detail": "no scaling or cropping, grid remains 4x4; transformation is internal rearrangement.",
+        "scan_vertical": {
+          "top": "top row: all black in input, top row: grey in top-left, pink in top-right in output",
+          "middle": "middle rows: grey and pink in row 2, light-blue and green in row 3 in input; middle rows: all black in output",
+          "bottom": "bottom row: all black in input, bottom row: light-blue in bottom-left, green in bottom-right in output"
+        },
+        "scan_horizontal": {
+          "left": "left column: all black in input, left column: grey in top, light-blue in bottom in output",
+          "center": "center columns: grey and pink in col 2, light-blue and green in col 3 in input; center columns: all black in output",
+          "right": "right column: all black in input, right column: pink in top, green in bottom in output"
+        },
+        "objects": "4 colored squares: grey, pink, light-blue, green; arranged in 2x2 block at center.",
+        "colors_input": [
+          0,
+          5,
+          5,
+          8,
+          3
+        ],
+        "colors_output": [
+          0,
+          5,
+          5,
+          8,
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "each colored square moves to a corner: top-left (grey) to top-left, top-right (pink) to top-right, bottom-left (light-blue) to bottom-left, bottom-right (green) to bottom-right. The center 2x2 block is emptied.",
+        "candidate_rule": "each colored square in the 2x2 center block moves to the corresponding corner of the 4x4 grid: top-left to top-left, top-right to top-right, bottom-left to bottom-left, bottom-right to bottom-right.",
+        "preservation": "background remains black, number of colored squares remains 4, colors are preserved, positions are rearranged to corners."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "moving each colored square from the 2x2 center block to the corresponding corner of the 4x4 grid.",
+      "consistent_parameters": "the 2x2 center block is always the source, corners are always the destination; no rotation or reflection involved.",
+      "likely_transform_family": "object_move",
+      "unified_rule": "each colored square in the 2x2 center block of the 4x4 grid moves to the corresponding corner: top-left to top-left, top-right to top-right, bottom-left to bottom-left, bottom-right to bottom-right, while the center 2x2 block becomes empty."
+    },
+    "test_input_observations": "Test input has 4 colored squares: red, green, yellow, maroon, arranged in a 2x2 block at center. According to the unified rule, each should move to the corresponding corner: red (top-left) to top-left, green (top-right) to top-right, yellow (bottom-left) to bottom-left, maroon (bottom-right) to bottom-right. The center 2x2 block will be empty.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, I see same number of colored areas, the overall pattern is changed — colors moved to corners.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no scaling or cropping, grid remains 4x4; transformation is internal rearrangement.\",\n      \"scan_vertical\": {\n        \"top\": \"top row: all black in input, top row: green in top-left, yellow in top-right in output\",\n        \"middle\": \"middle rows: green and yellow in row 2, orange and pink in row 3 in input; middle rows: all black in output\",\n        \"bottom\": \"bottom row: all black in input, bottom row: orange in bottom-left, pink in bottom-right in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column: all black in input, left column: green in top, orange in bottom in output\",\n        \"center\": \"center columns: green and yellow in col 2, orange and pink in col 3 in input; center columns: all black in output\",\n        \"right\": \"right column: all black in input, right column: yellow in top, pink in bottom in output\"\n      },\n      \"objects\": \"4 colored squares: green, yellow, orange, pink; arranged in 2x2 block at center.\",\n      \"colors_input\": [0, 3, 4, 2, 5],\n      \"colors_output\": [0, 3, 4, 2, 5],\n      \"background_color\": 0,\n      \"mechanism\": \"each colored square moves to a corner: top-left (green) to top-left, top-right (yellow) to top-right, bottom-left (orange) to bottom-left, bottom-right (pink) to bottom-right. The center 2x2 block is emptied.\",\n      \"candidate_rule\": \"each colored square in the 2x2 center block moves to the corresponding corner of the 4x4 grid: top-left to top-left, top-right to top-right, bottom-left to bottom-left, bottom-right to bottom-right.\",\n      \"preservation\": \"background remains black, number of colored squares remains 4, colors are preserved, positions are rearranged to corners.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, I see "
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 2692,
+      "output_tokens": 394,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      6.568202861119062
+    ],
+    "exec_attempts": [
+      0.426844228990376
+    ],
+    "vlm": 140.03007105086,
+    "test_run": 0.40366044268012047,
+    "total": 147.43003540486097
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

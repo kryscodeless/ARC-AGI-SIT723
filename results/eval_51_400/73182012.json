@@ -1,0 +1,98 @@
+{
+  "task_id": "73182012",
+  "predicted": null,
+  "ground_truth": [
+    [
+      1,
+      0,
+      0,
+      5
+    ],
+    [
+      0,
+      5,
+      3,
+      8
+    ],
+    [
+      0,
+      3,
+      2,
+      8
+    ],
+    [
+      5,
+      8,
+      8,
+      6
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    null
+  ],
+  "ground_truths": [
+    [
+      [
+        1,
+        0,
+        0,
+        5
+      ],
+      [
+        0,
+        5,
+        3,
+        8
+      ],
+      [
+        0,
+        3,
+        2,
+        8
+      ],
+      [
+        5,
+        8,
+        8,
+        6
+      ]
+    ]
+  ],
+  "final_rule": "",
+  "code": "",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x4 from 12x12, with fewer colored areas; the overall pattern is partially transformed into a compressed grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"The output is a 4x4 grid extracted from the 12x12 input, not scaled proportionally. It appears to be a crop of a central region, but not exactly centered.\",\n      \"scan_vertical\": {\n        \"top\": \"Top 3 rows of input are mostly black, with red and green/blue blocks starting around row 4.\",\n        \"middle\": \"Rows 4-8 contain the main colored pattern: red, green, blue blocks forming a cross-like shape.\",\n        \"bottom\": \"Rows 9-12 are mostly black, with a few red blocks at the bottom of the central pattern.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"Left 3 columns are mostly black, with red blocks appearing from column 4.\",\n        \"center\": \"Columns 4-8 contain the main colored pattern: red, green, blue blocks arranged in a symmetric cross.\",\n        \"right\": \"Right 3 columns are mostly black, with red blocks at the right edge of the central pattern.\"\n      },\n      \"objects\": \"One central cross-shaped object made of red, green, and blue blocks, surrounded by black.\",\n      \"colors_input\": [0, 2, 3, 1],\n      \"colors_output\": [0, 2, 3, 1],\n      \"background_color\": 0,\n      \"mechanism\": \"The output is a 4x4 grid extracted from the input, specifically from rows 3-6 and columns 3-6 (0-indexed: rows 3 to 6 inclusive, columns 3 to 6 inclusive). This region contains the core of the cross pattern.\",\n      \"candidate_rule\": \"Extract the 4x4 region from rows 3-6 and columns 3-6 of the 12x12 input grid, preserving the colors and positions within that region.\",\n      \"preservation\": \"The colors and relative positions of the blocks within the extracted 4x4 region are preserved.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 4x4 from 12x12, with fewer colored areas; the overall pattern is partially transformed into a compressed grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"The output is a 4x4 grid extracted from the 12x12 input, not scaled proportionally. It appears to be a crop of a central region, but not exactly centered.\",\n      \"scan_vertical\": {\n        \"top\": \"Top 3 rows of input are mostly black, with red and green blocks starting around row 4.\",\n        \"middle\": \"Rows 4-8 contain the main colored pattern: red, green, blue, and grey blocks forming a cross-like shape with grey borders.\",\n        \"bottom\": \"Rows 9-12 are mostly black, with a few red blocks at the bottom of the central pattern.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"Left 3 columns are mostly black, with red blocks appearing from column 4.\",\n        \"center\": \"Columns 4-8 contain the main colored pattern: red, green, blue, and grey blocks arranged in a symmetric cross with grey borders.\",\n        \"right\": \"Right 3 columns are mostly black, with red blocks at the right edge of the central pattern.\"\n      },\n      \"objects\": \"One central cross-shaped object made of red, green, blue, and grey blocks, surrounded by black.\",\n      \"colors_input\": [0, 2, 3, 1, 5],\n      \"colors_output\": [0, 2, 3, 1, 5],\n      \"background_color\": 0,\n      \"mechanism\": \"The output is a 4x4 grid extracted from the input, specifically from rows 3-6 and columns 3-6 (0-indexed: rows 3 to 6 inclusive, columns 3 to 6 inclusive). This region contains the core of the cross pattern.\",\n      \"candidate_rule\": \"Extract the 4x4 region from rows 3-6 and columns 3-6 of the 12x12 input grid, preserving the colors and positions within that region.\",\n      \"preservation\": \"The colors and relative positions of the blocks within the extracted 4x4 region are preserved.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, 4x4 from 12x12, with fewer colored areas; the overall pattern is partially transformed into a compressed grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"The output is a 4x4 grid extracted from the 12x12 input, not scaled proportionally. It appears to be a crop of a central region, but not exactly centered.\",\n      \"scan_vertical\": {\n        \"top\": \"Top 3 rows of input are mostly black, with red and green blocks starting around row 4.\",\n        \"middle\": \"Rows 4-8 contain the main colored pattern: red, green, light-blue, and orange blocks forming a cross-like shape with orange borders.\",\n        \"bottom\": \"Rows 9-12 are mostly black, with a few red blocks at the bottom of the central pattern.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"Left 3 columns are mostly black, with red blocks appearing from column 4.\",\n        \"center\": \"Columns 4-8 contain the main colored pattern: red, green, light-blue, and orange blocks arranged in a symmetric cross with orange borders.\",\n        \"right\": \"Right 3 columns are mostly black, with red blocks at the right edge of the central pattern.\"\n      },\n      \"objects\": \"One central cross-shaped object made of red, green, light-blue, and orange blocks, surrounded by black.\",\n      \"colors_input\": [0, 2, 3, 8, 7],\n      \"colors_output\": [0, 2, 3, 8, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"The output is a 4x4 grid extracted from the input, specifically from rows 3-6 and columns 3-6 (0-indexed: rows 3 to 6 inclusive, columns 3 to 6 inclusive). This region contains the core of the cross pattern.\",\n      \"candidate_rule\": \"Extract the 4x4 region from rows 3-6 and columns 3-6 of the 12x12 input grid, preserving the colors and positions within that region.\",\n      \"preservation\": \"The colors and relative positions of the blocks within the extracted 4x4 region are preserved.\"\n    }\n",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x4 from 12x12, with fewer colored areas; the overall pattern is partially transformed into a compressed grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"The output is a 4x4 grid extracted from the 12x12 input, not scaled proportionally. It appears to be a crop of a central region, but not exactly centered.\",\n      \"scan_vertical\": {\n        \"top\": \"Top 3 rows of input are mostly black, with red and green/blue blocks starting around row 4.\",\n        \"middle\": \"Rows 4-8 contain the main colored pattern: red, green, blue blocks forming a cross-like shape.\",\n        \"bottom\": \"Rows 9-12 are mostly black, with a few red blocks at the bottom of the central pattern.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"Left 3 columns are mostly black, with red blocks appearing from column 4.\",\n        \"center\": \"Columns 4-8 contain the main colored pattern: red, green, blue blocks arranged in a symmetric cross.\",\n        \"right\": \"Right 3 columns are mostly black, with red blocks at the right edge of the central pattern.\"\n      },\n      \"objects\": \"One central cross-shaped object made of red, green, and blue blocks, surrounded by black.\",\n      \"colors_input\": [0, 2, 3, 1],\n      \"colors_output\": [0, 2, 3, 1],\n      \"background_color\": 0,\n      \"mechanism\": \"The output is a 4x4 grid extracted from the input, specifically from rows 3-6 and columns 3-6 (0-indexed: rows 3 to 6 inclusive, columns 3 to 6 inclusive). This region contains the core of the cross pattern.\",\n      \"candidate_rule\": \"Extract the 4x4 region from rows 3-6 and columns 3-6 of the 12x12 input grid, preserving the colors and positions within that region.\",\n      \"preservation\": \"The colors and relative positions of the blocks within the extracted 4x4 region are preserved.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 4x4 from 12x12, with fewer colored areas; the"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [
+    "OverloadedError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CaJXrmDkYhanr9fg1BWBA'}",
+    "OverloadedError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CaJXsKEagcDUBcC79YVTc'}"
+  ],
+  "reasoner_usages": [
+    {},
+    {}
+  ],
+  "test_run_error": "no_code",
+  "timings_sec": {
+    "reasoner_attempts": [
+      8.172095424029976,
+      7.56720915902406
+    ],
+    "exec_attempts": [
+      8.075032383203506e-06,
+      2.334360033273697e-06
+    ],
+    "vlm": 178.76537907030433,
+    "test_run": 3.7266872823238373e-06,
+    "total": 194.5059585403651
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

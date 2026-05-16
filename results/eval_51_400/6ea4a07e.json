@@ -1,0 +1,145 @@
+{
+  "task_id": "6ea4a07e",
+  "predicted": [
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      0
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        4,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        4
+      ],
+      [
+        4,
+        4,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        4,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        4
+      ],
+      [
+        4,
+        4,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "For each cell in the input grid, if the cell is 0 (black/background), replace it with a color determined by the non-zero color present elsewhere in the input (3→1, 5→4, 8→2). If the cell is non-zero in the input, replace it with 0. This inverts the foreground and background, where the original background becomes filled with a mapped color and the original foreground becomes the new background.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    \n    # Color mapping from input non-zero color to output color\n    color_map = {\n        3: 1,\n        5: 4,\n        8: 2\n    }\n    \n    # Find the non-zero color in the input\n    non_zero_color = None\n    for color in grid.flat:\n        if color != 0:\n            non_zero_color = color\n            break\n    \n    # Get the output color for this input\n    output_color = color_map.get(non_zero_color, 0)\n    \n    # Create output: invert the pattern\n    # Where input is 0, output is the mapped color\n    # Where input is non-zero, output is 0\n    output = np.where(grid == 0, output_color, 0)\n    \n    return output.tolist()",
+  "attempts_used": 1,
+  "demo_pass_count": 6,
+  "demo_total": 6,
+  "demo_all_pass": true,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, filled in with red color where input had blue, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to red, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: blue, black, black → output: red, red, red\",\n        \"middle\": \"input: black, blue, black → output: red, black, red\",\n        \"bottom\": \"input: black, black, black → output: red, red, red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: blue, black, black → output: red, red, red\",\n        \"center\": \"input: black, blue, black → output: red, black, red\",\n        \"right\": \"input: black, black, black → output: red, red, red\"\n      },\n      \"objects\": \"two blue squares in input, rest black\",\n      \"colors_input\": [0, 8],\n      \"colors_output\": [0, 2],\n      \"background_color\": 0,\n      \"mechanism\": \"All non-black cells (blue) are replaced with red; black cells remain unchanged\",\n      \"candidate_rule\": \"Every non-black cell in the 3x3 grid is recolored to red; black cells are preserved\",\n      \"preservation\": \"black cells remain black\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, green cells replaced with blue, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to blue, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: black, black, green → output: blue, blue, black\",\n        \"middle\": \"input: black, green, black → output: blue, black, blue\",\n        \"bottom\": \"input: green, black, black → output: black, blue, blue\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: black, black, green → output: blue, blue, black\",\n        \"center\": \"input: black, green, black → output: blue, black, blue\",\n        \"right\": \"input: green, black, black → output: black, blue, blue\"\n      },\n      \"objects\": \"three green squares in input, rest black\",\n      \"colors_input\": [0, 3],\n      \"colors_output\": [0, 1],\n      \"background_color\": 0,\n      \"mechanism\": \"All non-black cells (green) are replaced with blue; black cells remain unchanged\",\n      \"candidate_rule\": \"Every non-black cell in the 3x3 grid is recolored to blue; black cells are preserved\",\n      \"preservation\": \"black cells remain black\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is same size, grey cells replaced with yellow, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to yellow, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: grey, black, black → output: black, yellow, yellow\",\n        \"middle\": \"input: grey, grey, black → output: black, black, yellow\",\n        \"bottom\": \"input: grey, black, black → output: black, yellow, yellow\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: grey, grey, grey → output: black, black, black\",\n        \"center\": \"input: black, grey, black → output: yellow, black, yellow\",\n        \"right\": \"input: black, black, black → output: yellow, yellow, yellow\"\n      },\n      \"objects\": \"three grey squares in input, rest black\",\n      \"colors_input\": [0, 5],\n      \"colors_output\": [0, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"All non-black cells (grey) are replaced with yellow; black cells remain unchanged\",\n      \"candidate_rule\": \"Every non-black cell in the 3x3 grid is recolored to yellow; black cells are preserved\",\n      \"preservation\": \"black cells remain black\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is same size, grey cells replaced with yellow, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to yellow, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: grey, grey, grey → output: black, black, black\",\n        \"middle\": \"input: black, black, grey → output: yellow, yellow, black\",\n        \"bottom\": \"input: black, black, black → output: yellow, yellow, yellow\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: grey, black, black → output: black, yellow, yellow\",\n        \"center\": \"input: grey, black, black → output: black, yellow, yellow\",\n        \"right\": \"input: grey, grey, black → output: black, black, yellow\"\n      },\n      \"objects\": \"three grey squares in input, rest black\",\n      \"colors_input\": [0, 5],\n      \"colors_output\": [0, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"All non-black cells (grey) are replaced with yellow; black cells remain unchanged\",\n      \"candidate_rule\": \"Every non-black cell in the 3x3 grid is recolored to yellow; black cells are preserved\",\n      \"preservation\": \"black cells remain black\"\n    },\n    {\n      \"pair\": 5,\n      \"first_impression\": \"output is same size, blue cells replaced with red, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to red, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: black, blue, black → output: red, black, red\",\n        \"middle\": \"input: black, blue, black → output: red, black, red\",\n        \"bottom\": \"input: blue, black, black → output: black, red, red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: black, black, blue → output: red, red, black\",\n        \"center\": \"input: blue, blue, black → output: black, black, red\",\n        \"right\": \"input: black, black, black → output: red, red, red\"\n      },\n      \"objects\": \"three blue squares in input, rest black\",\n      \"colors_input\": [0, 8],\n      \"colors_output\": [0, ",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, filled in with red color where input had blue, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to red, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: blue, black, black → output: red, red, red\",\n        \"middle\": \"input: black, blue, black → output: red, black, red\",\n        \"bottom\": \"input: black, black, black → output: red, red, red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: blue, black, black → output: red, red, red\",\n        \"center\": \"input: black, blue, black → output: red, black, red\",\n        \"right\": \"input: black, black, black → output: red, red, red\"\n      },\n      \"objects\": \"two blue squares in input, rest black\",\n      \"colors_input\": [0, 8],\n      \"colors_output\": [0, 2],\n      \"background_color\": 0,\n      \"mechanism\": \"All non-black cells (blue) are replaced with red; black cells remain unchanged\",\n      \"candidate_rule\": \"Every non-black cell in the 3x3 grid is recolored to red; black cells are preserved\",\n      \"preservation\": \"black cells remain black\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, green cells replaced with blue, black remains black\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"recoloring of non-black cells to blue, no size change\",\n      \"scan_vertical\": {\n        \"top\": \"input: black, black, green → output: blue, blue, black\",\n        \"middle\": \"input: black, green, black → output: blue, black, blue\",\n        \"bottom\": \"input: green, black, black → output: black, blue, blue\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"input: black, black, green → output: blue, blue, black\",\n        \"center\": \"input: black, green, black → output: blue, black, blue\",\n        \"right\": \"input: green, black, black → output: black, blue, blue\"\n      },\n      \"objects\": \"three green squares in input, rest"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3522,
+      "output_tokens": 707,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      15.386697590351105
+    ],
+    "exec_attempts": [
+      0.4497943320311606
+    ],
+    "vlm": 170.0657671666704,
+    "test_run": 0.39213488018140197,
+    "total": 186.2959223939106
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

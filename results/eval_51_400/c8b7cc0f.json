@@ -1,0 +1,119 @@
+{
+  "task_id": "c8b7cc0f",
+  "predicted": [
+    [
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      2
+    ],
+    [
+      2,
+      0,
+      2
+    ]
+  ],
+  "ground_truth": [
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        2
+      ],
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Find the rectangular frame of 1s in the input. Divide the interior region (excluding the frame border) into a 3x3 grid of cells. For each of the 9 cells in this 3x3 division, check if the corresponding region in the input contains any instances of the non-background, non-frame color (the scattered color). If that region contains at least one instance of the scattered color, set the corresponding output cell to that color; otherwise set it to 0.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find the rectangular frame of 1s\n    ones_mask = (grid == 1)\n    rows_with_ones = np.where(ones_mask.any(axis=1))[0]\n    cols_with_ones = np.where(ones_mask.any(axis=0))[0]\n    \n    if len(rows_with_ones) == 0 or len(cols_with_ones) == 0:\n        return [[0]*3 for _ in range(3)]\n    \n    frame_top = rows_with_ones[0]\n    frame_bottom = rows_with_ones[-1]\n    frame_left = cols_with_ones[0]\n    frame_right = cols_with_ones[-1]\n    \n    # Interior region (excluding frame border)\n    interior_top = frame_top + 1\n    interior_bottom = frame_bottom\n    interior_left = frame_left + 1\n    interior_right = frame_right\n    \n    interior = grid[interior_top:interior_bottom, interior_left:interior_right]\n    \n    # Find the special color (not 0 and not 1)\n    special_color = None\n    for val in np.unique(grid):\n        if val != 0 and val != 1:\n            special_color = val\n            break\n    \n    if special_color is None:\n        return [[0]*3 for _ in range(3)]\n    \n    # Divide interior into 3x3 grid\n    ih, iw = interior.shape\n    output = [[0]*3 for _ in range(3)]\n    \n    for i in range(3):\n        for j in range(3):\n            row_start = i * ih // 3\n            row_end = (i + 1) * ih // 3\n            col_start = j * iw // 3\n            col_end = (j + 1) * iw // 3\n            \n            region = interior[row_start:row_end, col_start:col_end]\n            \n            if np.any(region == special_color):\n                output[i][j] = special_color\n    \n    return output",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 3x3 from 7x7; I see fewer colored areas, mostly yellow and blue; the overall pattern is changed to a condensed top row of yellow.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x3, input is 7x7 — not proportional; likely a crop or summarization of top-left region.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has yellow at (1,1) and (1,5), rest black\",\n        \"middle\": \"middle rows (2-5) have blue and yellow scattered\",\n        \"bottom\": \"bottom row (6) is all blue\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has yellow at (1,1), blue from row 2-6\",\n        \"center\": \"center columns have yellow at (1,5), (3,4), (4,2), (4,4)\",\n        \"right\": \"right column has yellow at (1,5), (2,6), rest black\"\n      },\n      \"objects\": \"yellow squares scattered in top and middle rows, blue squares forming a solid bottom row and partial middle rows\",\n      \"colors_input\": [0, 1, 4],\n      \"colors_output\": [0, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"output is the top-left 3x3 block of the input grid, but only the top row is preserved as yellow, and the rest is black — suggesting a transformation where only the top row of the 3x3 crop is kept as-is, and the bottom two rows are set to black.\",\n      \"candidate_rule\": \"From the 7x7 input, extract the top-left 3x3 region; then set the top row to yellow if any yellow exists in that region, and set the bottom two rows to black.\",\n      \"preservation\": \"the top row of the 3x3 crop is preserved if it contains yellow; the bottom two rows are overwritten with black\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 3x3 from 9x9; I see fewer colored areas, mostly pink and blue; the overall pattern is changed to a condensed top-left block of pink.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x3, input is 9x9 — not proportional; likely a crop or summarization of top-left region.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has pink at (1,2), blue elsewhere\",\n        \"middle\": \"middle rows (2-7) have pink scattered, blue in columns 2-8\",\n        \"bottom\": \"bottom row (8) is all black\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has pink at (4,1), rest black\",\n        \"center\": \"center columns have pink at (1,2), (2,3), (3,4), (4,5), (5,6)\",\n        \"right\": \"right column has blue from row 1-7, black at row 8\"\n      },\n      \"objects\": \"pink squares scattered diagonally from top-left to bottom-right, blue squares forming a solid block from column 2 to 8, rows 1-7\",\n      \"colors_input\": [0, 1, 6],\n      \"colors_output\": [0, 6],\n      \"background_color\": 0,\n      \"mechanism\": \"output is the top-left 3x3 block of the input grid; the top row is filled with pink if any pink exists in that region, and the bottom two rows are set to black.\",\n      \"candidate_rule\": \"From the 9x9 input, extract the top-left 3x3 region; then set the top row to pink if any pink exists in that region, and set the bottom two rows to black.\",\n      \"preservation\": \"the top row of the 3x3 crop is preserved as pink if pink is present; the bottom two rows are overwritten with black\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, 3x3 from 9x9; I see fewer colored areas, mostly green and blue; the overall pattern is changed to a condensed top row of green.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x3, input is 9x9 — not proportional; likely a crop or summarization of top-left region.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has green at (1,1) and (1,4), blue elsewhere\",\n        \"middle\": \"middle rows (2-7) have green scattered, blue in columns 2-8\",\n        \"bottom\": \"bottom row (8) is all black\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has green at (1,1), (4,1), (6,1), rest black\",\n        \"center\": \"center columns have green at (1,4), (2,5), (3,6), (4,7), (5,8)\",\n        \"right\": \"right column has blue from row 1-7, black at row 8\"\n      },\n      \"objects\": \"green squares scattered diagonally from top-left to bottom-right, blue squares forming a solid block from column 2 to 8, rows 1-7\",\n      \"colors_input\": [0, 1, 3],\n      \"colors_output\": [0, 3],\n      \"background_color\": 0,\n      \"mechanism\": \"output is the top-left 3x3 block of the input grid; the top row is filled with green if any green exists in that region, and the bottom two rows are set to black.\",\n      \"candidate_rule\": \"From the 9x9 input, extract the top-left 3x3 region; then set the top row to green if any green exists in that region, and set the bottom two rows to black.\",\n      \"preservation\": \"the top row of the 3x3 crop is preserved as green if green is present; the bottom two rows are overwritten with black\"\n    }\n  ],\n  \"cross_pair_synthesis\": {\n    \"consistent_operation\": \"In each case, the output is a 3x3 grid derived from the top-left 3x3 region of the input, with the top row filled with the non-black color present in that region, and the bottom two rows set to black.\",\n    \"consistent_parameters\": \"Always 3x3 output, always top-left crop, always top row filled with the non-black color from the crop, bottom two rows set to black.\",\n    \"likely_transform_family\": \"grid_partition\",\n    \"unified_rule\": \"Extract",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 3x3 from 7x7; I see fewer colored areas, mostly yellow and blue; the overall pattern is changed to a condensed top row of yellow.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x3, input is 7x7 — not proportional; likely a crop or summarization of top-left region.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has yellow at (1,1) and (1,5), rest black\",\n        \"middle\": \"middle rows (2-5) have blue and yellow scattered\",\n        \"bottom\": \"bottom row (6) is all blue\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has yellow at (1,1), blue from row 2-6\",\n        \"center\": \"center columns have yellow at (1,5), (3,4), (4,2), (4,4)\",\n        \"right\": \"right column has yellow at (1,5), (2,6), rest black\"\n      },\n      \"objects\": \"yellow squares scattered in top and middle rows, blue squares forming a solid bottom row and partial middle rows\",\n      \"colors_input\": [0, 1, 4],\n      \"colors_output\": [0, 4],\n      \"background_color\": 0,\n      \"mechanism\": \"output is the top-left 3x3 block of the input grid, but only the top row is preserved as yellow, and the rest is black — suggesting a transformation where only the top row of the 3x3 crop is kept as-is, and the bottom two rows are set to black.\",\n      \"candidate_rule\": \"From the 7x7 input, extract the top-left 3x3 region; then set the top row to yellow if any yellow exists in that region, and set the bottom two rows to black.\",\n      \"preservation\": \"the top row of the 3x3 crop is preserved if it contains yellow; the bottom two rows are overwritten with black\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 3x3 from 9x9; I see fewer colored areas, mostly pink and blue; the overall pattern is changed to a condensed top-left block of pink.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x3, input is 9x9 — not proport"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 3611,
+      "output_tokens": 1122,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 4552,
+      "output_tokens": 1311,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      17.85567005397752,
+      18.686402950435877
+    ],
+    "exec_attempts": [
+      0.4307055380195379,
+      0.42133261542767286
+    ],
+    "vlm": 173.68614525534213,
+    "test_run": 0.40098090609535575,
+    "total": 211.48274010466412
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

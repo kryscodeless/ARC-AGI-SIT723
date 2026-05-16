@@ -1,0 +1,227 @@
+{
+  "task_id": "e9b4f6fc",
+  "predicted": [
+    [
+      1,
+      1,
+      2,
+      1,
+      1
+    ],
+    [
+      1,
+      2,
+      2,
+      2,
+      1
+    ],
+    [
+      1,
+      4,
+      4,
+      4,
+      1
+    ],
+    [
+      1,
+      6,
+      6,
+      6,
+      1
+    ],
+    [
+      1,
+      1,
+      6,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "ground_truth": [
+    [
+      1,
+      1,
+      2,
+      1,
+      1
+    ],
+    [
+      1,
+      2,
+      2,
+      2,
+      1
+    ],
+    [
+      1,
+      4,
+      4,
+      4,
+      1
+    ],
+    [
+      1,
+      6,
+      6,
+      6,
+      1
+    ],
+    [
+      1,
+      1,
+      6,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        4,
+        4,
+        4,
+        1
+      ],
+      [
+        1,
+        6,
+        6,
+        6,
+        1
+      ],
+      [
+        1,
+        1,
+        6,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        4,
+        4,
+        4,
+        1
+      ],
+      [
+        1,
+        6,
+        6,
+        6,
+        1
+      ],
+      [
+        1,
+        1,
+        6,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "final_rule": "Locate the largest rectangular bordered block (connected component of one color forming a rectangular region). Find all 2-cell adjacent pairs (horizontal or vertical) of different non-zero colors outside this block. For each pair ordered as [left/top, right/bottom], if the first color is NOT the border color, map the second color to the first color within the block's interior. Apply all such mappings to transform interior cells. The border color itself remains unchanged. Output the transformed block's bounding box.",
+  "code": "import numpy as np\nfrom scipy.ndimage import label\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find the largest rectangular block\n    max_size = 0\n    best_block = None\n    best_border_color = None\n    \n    for color in range(1, 10):\n        mask = (grid == color)\n        labeled, num = label(mask)\n        \n        for obj_id in range(1, num + 1):\n            obj_mask = (labeled == obj_id)\n            rows, cols = np.where(obj_mask)\n            if len(rows) == 0:\n                continue\n            \n            r0, r1 = rows.min(), rows.max()\n            c0, c1 = cols.min(), cols.max()\n            size = (r1 - r0 + 1) * (c1 - c0 + 1)\n            \n            if size > max_size:\n                max_size = size\n                best_block = (r0, r1, c0, c1)\n                best_border_color = color\n    \n    if best_block is None:\n        return grid.tolist()\n    \n    r0, r1, c0, c1 = best_block\n    block = grid[r0:r1+1, c0:c1+1].copy()\n    \n    # Find replacement mappings from scattered 2-cell patterns\n    replacements = {}\n    \n    for r in range(h):\n        for c in range(w):\n            # Skip cells inside the block\n            if r0 <= r <= r1 and c0 <= c <= c1:\n                continue\n            \n            if grid[r, c] == 0:\n                continue\n            \n            # Check horizontal neighbor (right)\n            if c + 1 < w and not (r0 <= r <= r1 and c0 <= c+1 <= c1):\n                if grid[r, c+1] != 0 and grid[r, c+1] != grid[r, c]:\n                    a, b = grid[r, c], grid[r, c+1]\n                    if a != best_border_color:\n                        replacements[b] = a\n            \n            # Check vertical neighbor (down)\n            if r + 1 < h and not (r0 <= r+1 <= r1 and c0 <= c <= c1):\n                if grid[r+1, c] != 0 and grid[r+1, c] != grid[r, c]:\n                    a, b = grid[r, c], grid[r+1, c]\n                    if a != best_border_color:\n                        replacements[b] = a\n    \n    # Apply replacements to interior cells\n    for r in range(block.shape[0]):\n        for c in range(block.shape[1]):\n            if block[r, c] in replacements:\n                block[r, c] = replacements[block[r, c]]\n    \n    return block.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 4,
+  "demo_total": 4,
+  "demo_all_pass": true,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 6x6 from 13x13; fewer colored areas; the central blue-yellow-green block is preserved and transformed into a compact grid with red and blue centers.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to a 6x6 region, not proportional to input; likely extraction of a specific subgrid.\",\n      \"scan_vertical\": {\n        \"top\": \"top-left corner has red and green, blue and yellow; no direct correspondence in output\",\n        \"middle\": \"central 5x5 blue block with yellow and green inner pattern is extracted and transformed\",\n        \"bottom\": \"bottom of input is empty; output has no bottom region\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has isolated red/green and blue/yellow; not present in output\",\n        \"center\": \"center contains the main 5x5 blue block with yellow and green; this is the source of output\",\n        \"right\": \"right side is empty; output has no right region\"\n      },\n      \"objects\": \"two 2x2 blocks (red/green and blue/yellow) in top-left, one 5x5 blue block with yellow and green inner pattern in center\",\n      \"colors_input\": [0, 1, 2, 3, 8],\n      \"colors_output\": [1, 2, 8],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the central 5x5 blue block, then apply a transformation: the inner 3x3 yellow-green pattern is replaced with a 3x3 red-blue pattern, and the outer blue border is preserved; output is 6x6, so one row/column added? No — output is 6x6, input central block is 5x5, so likely a 6x6 crop centered on the block with padding or extension.\",\n      \"candidate_rule\": \"Extract the largest contiguous blue-bordered block from the input, then replace its inner 3x3 region with a red-blue pattern while preserving the outer blue border; output size is 6x6.\",\n      \"preservation\": \"the outer blue border of the central block is preserved; the relative positions of red and blue in the output are fixed\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is 7x7, smaller than 13x13; fewer colored areas; the large green block in the bottom-left is preserved and expanded into a green-bordered grid with yellow, red, and pink inside.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a 7x7 crop centered on the large green block, with inner colors rearranged.\",\n      \"scan_vertical\": {\n        \"top\": \"top has pink and blue, red and blue; not in output\",\n        \"middle\": \"middle has yellow and gray; not in output\",\n        \"bottom\": \"bottom has large green block with blue and light-blue; this is the source of output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left has large green block with blue and light-blue; this is the source\",\n        \"center\": \"center has gray and blue; not in output\",\n        \"right\": \"right has red, blue, yellow, gray; not in output\"\n      },\n      \"objects\": \"one large 6x6 green block with blue and light-blue inner pattern in bottom-left, plus scattered colored blocks\",\n      \"colors_input\": [0, 2, 3, 4, 5, 6, 8],\n      \"colors_output\": [2, 3, 4, 6],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the 6x6 green block from bottom-left, then expand it to 7x7 by adding a green border; replace the inner 3x3 region with yellow, red, and pink in a specific pattern.\",\n      \"candidate_rule\": \"Extract the largest contiguous green block from the input, expand it to 7x7 by adding a green border, then replace the inner 3x3 region with a pattern of yellow, red, and pink based on the scattered colors in the input.\",\n      \"preservation\": \"the green border is preserved; the relative positions of yellow, red, and pink in the output are fixed\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is 4x7, smaller than 13x13; fewer colored areas; the central blue block with red and yellow is preserved and transformed into a 4x7 grid with green and blue in the center.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a 4x7 crop centered on the blue block, with inner colors rearranged.\",\n      \"scan_vertical\": {\n        \"top\": \"top has blue block with red and yellow; this is the source\",\n        \"middle\": \"middle is empty; output has no middle region\",\n        \"bottom\": \"bottom has blue and yellow; not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left has blue and yellow; not in output\",\n        \"center\": \"center has blue block with red and yellow; this is the source\",\n        \"right\": \"right is empty; output has no right region\"\n      },\n      \"objects\": \"one 4x5 blue block with red and yellow inner pattern in top-center, plus scattered blue and yellow blocks\",\n      \"colors_input\": [0, 1, 2, 3, 8],\n      \"colors_output\": [1, 2, 3, 8],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the 4x5 blue block from top-center, then transform it to 4x7 by adding two columns of blue on the right; replace the inner 2x2 red-yellow region with green and blue in a specific pattern.\",\n      \"candidate_rule\": \"Extract the largest contiguous blue block from the input, expand it to 4x7 by adding blue columns on the right, then replace the inner 2x2 region with green and blue based on the scattered colors in the input.\",\n      \"preservation\": \"the blue border is preserved; the relative positions of green and blue in the output are fixed\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is 4x4, smaller than 13x13; fewer colored areas; the central blue block with yellow and light-blue is preserved and transformed into a 4x4 grid with red and green in the center.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a 4x4 crop centered on the blue block, with inner colors rearranged.\",\n      \"scan_vertical\": {\n        \"top\": \"top has red and yellow",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 6x6 from 13x13; fewer colored areas; the central blue-yellow-green block is preserved and transformed into a compact grid with red and blue centers.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to a 6x6 region, not proportional to input; likely extraction of a specific subgrid.\",\n      \"scan_vertical\": {\n        \"top\": \"top-left corner has red and green, blue and yellow; no direct correspondence in output\",\n        \"middle\": \"central 5x5 blue block with yellow and green inner pattern is extracted and transformed\",\n        \"bottom\": \"bottom of input is empty; output has no bottom region\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has isolated red/green and blue/yellow; not present in output\",\n        \"center\": \"center contains the main 5x5 blue block with yellow and green; this is the source of output\",\n        \"right\": \"right side is empty; output has no right region\"\n      },\n      \"objects\": \"two 2x2 blocks (red/green and blue/yellow) in top-left, one 5x5 blue block with yellow and green inner pattern in center\",\n      \"colors_input\": [0, 1, 2, 3, 8],\n      \"colors_output\": [1, 2, 8],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the central 5x5 blue block, then apply a transformation: the inner 3x3 yellow-green pattern is replaced with a 3x3 red-blue pattern, and the outer blue border is preserved; output is 6x6, so one row/column added? No — output is 6x6, input central block is 5x5, so likely a 6x6 crop centered on the block with padding or extension.\",\n      \"candidate_rule\": \"Extract the largest contiguous blue-bordered block from the input, then replace its inner 3x3 region with a red-blue pattern while preserving the outer blue border; output size is 6x6.\",\n      \"preservation\": \"the outer blue border of the central block is preserved; the relative positions of red and blue in the output are fixed"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4939,
+      "output_tokens": 1192,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 5950,
+      "output_tokens": 1369,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      19.73194893077016,
+      20.43718502111733
+    ],
+    "exec_attempts": [
+      0.8711416646838188,
+      0.932924697175622
+    ],
+    "vlm": 175.3877146136947,
+    "test_run": 0.8474593642167747,
+    "total": 218.2098263129592
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

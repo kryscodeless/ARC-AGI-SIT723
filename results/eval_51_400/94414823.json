@@ -1,0 +1,639 @@
+{
+  "task_id": "94414823",
+  "predicted": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      9,
+      9,
+      1,
+      1,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      9,
+      9,
+      1,
+      1,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      1,
+      1,
+      9,
+      9,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      1,
+      1,
+      9,
+      9,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      9,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      1,
+      1,
+      9,
+      9,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      1,
+      1,
+      9,
+      9,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      9,
+      9,
+      1,
+      1,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      9,
+      9,
+      1,
+      1,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      9,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        9,
+        9,
+        1,
+        1,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        9,
+        9,
+        1,
+        1,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        1,
+        1,
+        9,
+        9,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        1,
+        1,
+        9,
+        9,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        9,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        1,
+        1,
+        9,
+        9,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        1,
+        1,
+        9,
+        9,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        9,
+        9,
+        1,
+        1,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        9,
+        9,
+        1,
+        1,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        9,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Find the two non-zero, non-5 marker cells and the 5-bordered hollow rectangle. The rectangle's interior (a 4x4 region) is filled with four 2x2 blocks in a diagonal checkerboard: top-left and bottom-right blocks use one marker color, top-right and bottom-left blocks use the other. The marker that appears first when scanning the grid from top-to-bottom, left-to-right fills the top-left and bottom-right quadrants; the other marker fills top-right and bottom-left quadrants.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    result = grid.copy()\n    \n    # Find the two marker colors (non-0, non-5)\n    markers = []\n    for i in range(grid.shape[0]):\n        for j in range(grid.shape[1]):\n            if grid[i, j] not in [0, 5]:\n                markers.append((i, j, grid[i, j]))\n    \n    # Sort markers by position (top-to-bottom, left-to-right)\n    markers.sort(key=lambda x: (x[0], x[1]))\n    \n    color_tl_br = markers[0][2]  # First marker fills TL and BR\n    color_tr_bl = markers[1][2]  # Second marker fills TR and BL\n    \n    # Find the bounding box of the 5-rectangle\n    rows_with_5 = np.where(np.any(grid == 5, axis=1))[0]\n    cols_with_5 = np.where(np.any(grid == 5, axis=0))[0]\n    \n    top = rows_with_5[0]\n    left = cols_with_5[0]\n    \n    # The interior is the 4x4 region inside the 5-border\n    interior_top = top + 1\n    interior_left = left + 1\n    \n    # Fill the four 2x2 quadrants\n    # Top-left 2x2 (rows 0-1, cols 0-1 of interior)\n    result[interior_top:interior_top+2, interior_left:interior_left+2] = color_tl_br\n    \n    # Top-right 2x2 (rows 0-1, cols 2-3 of interior)\n    result[interior_top:interior_top+2, interior_left+2:interior_left+4] = color_tr_bl\n    \n    # Bottom-left 2x2 (rows 2-3, cols 0-1 of interior)\n    result[interior_top+2:interior_top+4, interior_left:interior_left+2] = color_tr_bl\n    \n    # Bottom-right 2x2 (rows 2-3, cols 2-3 of interior)\n    result[interior_top+2:interior_top+4, interior_left+2:interior_left+4] = color_tl_br\n    \n    return result.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 2,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, filled in with more colored areas in the center region; the overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in grid dimensions; transformation occurs within the same 10x10 grid.",
+        "scan_vertical": {
+          "top": "top row has yellow at (0,1) and light blue at (0,8); these remain unchanged in output.",
+          "middle": "middle rows contain a grey cross-shaped structure; in output, a 4x4 colored block appears centered within the grey cross.",
+          "bottom": "bottom rows are unchanged except for the center region where the new colored block is added."
+        },
+        "scan_horizontal": {
+          "left": "left column has yellow at (0,1); unchanged.",
+          "center": "center columns (columns 3-6) show grey cross; in output, a 4x4 block of alternating yellow and light blue is placed at center.",
+          "right": "right column has light blue at (0,8); unchanged."
+        },
+        "objects": "two colored squares (yellow, light blue) and a grey cross structure.",
+        "colors_input": [
+          0,
+          1,
+          5
+        ],
+        "colors_output": [
+          0,
+          1,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "a 4x4 block is inserted at the center of the grey cross, alternating between the two input colors (yellow and light blue) in a checkerboard pattern.",
+        "candidate_rule": "the two colored squares at the top row are used to fill a 4x4 checkerboard pattern centered within the grey cross structure, preserving the original colored squares and grey cross.",
+        "preservation": "the original colored squares and the grey cross structure remain unchanged; only the center region is filled with a new pattern."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, filled in with more colored areas in the center region; the overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in grid dimensions; transformation occurs within the same 10x10 grid.",
+        "scan_vertical": {
+          "top": "top row has pink at (0,9); unchanged.",
+          "middle": "middle rows contain a grey cross-shaped structure; in output, a 4x4 colored block appears centered within the grey cross.",
+          "bottom": "bottom row has orange at (9,7); unchanged."
+        },
+        "scan_horizontal": {
+          "left": "left column has no colored squares; unchanged.",
+          "center": "center columns (columns 3-6) show grey cross; in output, a 4x4 block of alternating orange and pink is placed at center.",
+          "right": "right column has pink at (0,9) and orange at (9,7); unchanged."
+        },
+        "objects": "two colored squares (pink, orange) and a grey cross structure.",
+        "colors_input": [
+          0,
+          6,
+          7
+        ],
+        "colors_output": [
+          0,
+          6,
+          7
+        ],
+        "background_color": 0,
+        "mechanism": "a 4x4 block is inserted at the center of the grey cross, alternating between the two input colors (orange and pink) in a checkerboard pattern.",
+        "candidate_rule": "the two colored squares at the top and bottom rows are used to fill a 4x4 checkerboard pattern centered within the grey cross structure, preserving the original colored squares and grey cross.",
+        "preservation": "the original colored squares and the grey cross structure remain unchanged; only the center region is filled with a new pattern."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is same size, filled in with more colored areas in the center region; the overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in grid dimensions; transformation occurs within the same 10x10 grid.",
+        "scan_vertical": {
+          "top": "top row has green at (0,1); unchanged.",
+          "middle": "middle rows contain a grey cross-shaped structure; in output, a 4x4 colored block appears centered within the grey cross.",
+          "bottom": "bottom row has red at (9,1); unchanged."
+        },
+        "scan_horizontal": {
+          "left": "left column has green at (0,1) and red at (9,1); unchanged.",
+          "center": "center columns (columns 3-6) show grey cross; in output, a 4x4 block of alternating green and red is placed at center.",
+          "right": "right column has no colored squares; unchanged."
+        },
+        "objects": "two colored squares (green, red) and a grey cross structure.",
+        "colors_input": [
+          0,
+          3,
+          9
+        ],
+        "colors_output": [
+          0,
+          3,
+          9
+        ],
+        "background_color": 0,
+        "mechanism": "a 4x4 block is inserted at the center of the grey cross, alternating between the two input colors (green and red) in a checkerboard pattern.",
+        "candidate_rule": "the two colored squares at the top and bottom rows are used to fill a 4x4 checkerboard pattern centered within the grey cross structure, preserving the original colored squares and grey cross.",
+        "preservation": "the original colored squares and the grey cross structure remain unchanged; only the center region is filled with a new pattern."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "in each pair, a 4x4 checkerboard pattern is inserted at the center of the grey cross structure, using the two colored squares from the input as the alternating colors.",
+      "consistent_parameters": "the checkerboard is always 4x4, centered within the grey cross, and uses the two input colors in alternating positions.",
+      "likely_transform_family": "fill",
+      "unified_rule": "for each input, the two colored squares (one at top/bottom or left/right) are used to fill a 4x4 checkerboard pattern centered within the grey cross structure, while preserving the original colored squares and grey cross."
+    },
+    "test_input_observations": "the test input has a grey cross structure, a maroon square at (9,1), and a blue square at (9,8). following the unified rule, a 4x4 checkerboard pattern should be inserted at the center of the grey cross, alternating between maroon and blue, while preserving the original squares and grey cross.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, filled in with more colored areas in the center region; the overall pattern is partially transformed.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in grid dimensions; transformation occurs within the same 10x10 grid.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has yellow at (0,1) and light blue at (0,8); these remain unchanged in output.\",\n        \"middle\": \"middle rows contain a grey cross-shaped structure; in output, a 4x4 colored block appears centered within the grey cross.\",\n        \"bottom\": \"bottom rows are unchanged except for the center region where the new colored block is added.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column has yellow at (0,1); unchanged.\",\n        \"center\": \"center columns (columns 3-6) show grey cross; in output, a 4x4 block of alternating yellow and light blue is placed at center.\",\n        \"right\": \"right column has light blue at (0,8); unchanged.\"\n      },\n      \"objects\": \"two colored squares (yellow, light blue) and a grey cross structure.\",\n      \"colors_input\": [0, 1, 5],\n      \"colors_output\": [0, 1, 5],\n      \"background_color\": 0,\n      \"mechanism\": \"a 4x4 block is inserted at the center of the grey cross, alternating between the two input colors (yellow and light blue) in a checkerboard pattern.\",\n      \"candidate_rule\": \"the two colored squares at the top row are used to fill a 4x4 checkerboard pattern centered within the grey cross structure, preserving the original colored squares and grey cross.\",\n      \"preservation\": \"the original colored squares and the grey cross structure remain unchanged; only the center region is filled with a new pattern.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, filled in with more colored areas in the center region; the overall pattern is partially transformed.\",\n      \"size_family\": \"same_size\",\n      \"size_family_"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4148,
+      "output_tokens": 966,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 5938,
+      "output_tokens": 1441,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      16.125544341281056,
+      22.22603311901912
+    ],
+    "exec_attempts": [
+      0.435253094881773,
+      0.44089851528406143
+    ],
+    "vlm": 168.70484498981386,
+    "test_run": 0.4258315712213516,
+    "total": 208.35970867006108
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

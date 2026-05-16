@@ -15,8 +15,6 @@ env/
 offload_dir/
 offload_dir_batch2/
 
-# Run outputs (large; reproduce via run_eval.py)
-results/
 
 # SLURM stdout/stderr logs
 logs/

@@ -1,0 +1,621 @@
+{
+  "task_id": "20818e16",
+  "predicted": [
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      3,
+      3,
+      3,
+      3,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      3,
+      3,
+      3,
+      3,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      8,
+      8,
+      8,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      8,
+      8,
+      8,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      6,
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "ground_truth": [
+    [
+      6,
+      6,
+      8,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      8,
+      8,
+      8,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        8,
+        8,
+        8,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        8,
+        8,
+        8,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        6,
+        6,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        6,
+        6,
+        8,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        8,
+        8,
+        8,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    ]
+  ],
+  "final_rule": "For each input grid, identify the background color (most frequent). Find all rectangular blocks of non-background colors. Compute the bounding box encompassing all these blocks. Create an output grid of that bounding box size. For each cell in the output, determine which non-background object(s) from the input occupy that position, and fill with the appropriate color, with overlapping regions showing the color that appears \"on top\" based on the original spatial arrangement in the input.",
+  "code": "import numpy as np\nfrom typing import List\nfrom collections import Counter\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    \n    # Find background color (most frequent)\n    flat = grid.flatten()\n    color_counts = Counter(flat)\n    bg_color = color_counts.most_common(1)[0][0]\n    \n    # Find bounding box of all non-background cells\n    non_bg_mask = grid != bg_color\n    rows, cols = np.where(non_bg_mask)\n    \n    if len(rows) == 0:\n        return [[bg_color]]\n    \n    min_row, max_row = rows.min(), rows.max()\n    min_col, max_col = cols.min(), cols.max()\n    \n    # Extract the bounding box region\n    output = grid[min_row:max_row+1, min_col:max_col+1].copy()\n    \n    # Replace any remaining background cells with the appropriate color\n    # by looking at overlapping regions\n    # The key is that overlapping regions show one color \"on top\"\n    \n    # Get all unique non-background colors\n    unique_colors = [c for c in np.unique(grid) if c != bg_color]\n    \n    # For each non-background color, find its bounding box\n    color_regions = {}\n    for color in unique_colors:\n        color_mask = grid == color\n        c_rows, c_cols = np.where(color_mask)\n        if len(c_rows) > 0:\n            color_regions[color] = {\n                'min_row': c_rows.min(),\n                'max_row': c_rows.max(),\n                'min_col': c_cols.min(),\n                'max_col': c_cols.max()\n            }\n    \n    # Fill output based on which color regions each cell belongs to\n    for i in range(output.shape[0]):\n        for j in range(output.shape[1]):\n            abs_i = min_row + i\n            abs_j = min_col + j\n            \n            # Check which color regions this cell belongs to\n            for color in unique_colors:\n                if color in color_regions:\n                    region = color_regions[color]\n                    if (region['min_row'] <= abs_i <= region['max_row'] and\n                        region['min_col'] <= abs_j <= region['max_col']):\n                        output[i, j] = color\n                        break\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is partially transformed, focusing on the central red and blue blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 14x15 → output 6x8, not proportional; likely a crop or extraction of specific regions.",
+        "scan_vertical": {
+          "top": "top 3 rows of input are yellow with red block starting row 2; output top row has green and blue blocks.",
+          "middle": "middle rows contain red and blue blocks; output middle rows preserve blue and red blocks.",
+          "bottom": "bottom rows of input are yellow with green block; output bottom row is red, no green block."
+        },
+        "scan_horizontal": {
+          "left": "left column is yellow; output left columns are green and blue.",
+          "center": "center contains red and blue blocks; output center has blue and red blocks.",
+          "right": "right column is yellow; output right columns are red."
+        },
+        "objects": "three distinct rectangular blocks: red (6x6), blue (4x4), green (1x3), all on yellow background.",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "colors_output": [
+          1,
+          2,
+          3
+        ],
+        "background_color": 1,
+        "mechanism": "extract a 6x8 region from the input, starting at row 2, column 2, excluding the yellow background and the bottom green block.",
+        "candidate_rule": "Extract the 6x8 region from rows 2-7 and columns 2-9 of the input, preserving the red, blue, and green blocks while removing yellow background.",
+        "preservation": "the red, blue, and green blocks are preserved in their relative positions and sizes."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is partially transformed, focusing on the central green and red blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 16x15 → output 6x9, not proportional; likely a crop or extraction of specific regions.",
+        "scan_vertical": {
+          "top": "top 5 rows are light-blue and red; output top row has grey and green blocks.",
+          "middle": "middle rows contain green and light-blue blocks; output middle rows preserve green and red blocks.",
+          "bottom": "bottom rows are light-blue with grey block; output bottom row is green, no grey block."
+        },
+        "scan_horizontal": {
+          "left": "left column is light-blue; output left columns are grey and green.",
+          "center": "center contains green and red blocks; output center has green and red blocks.",
+          "right": "right column is light-blue; output right columns are red."
+        },
+        "objects": "three distinct rectangular blocks: red (6x6), green (4x4), grey (2x2), all on light-blue background.",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          8
+        ],
+        "colors_output": [
+          2,
+          3,
+          5
+        ],
+        "background_color": 8,
+        "mechanism": "extract a 6x9 region from the input, starting at row 5, column 2, excluding the light-blue background and the bottom grey block.",
+        "candidate_rule": "Extract the 6x9 region from rows 5-10 and columns 2-10 of the input, preserving the green and red blocks while removing light-blue background and grey block.",
+        "preservation": "the green and red blocks are preserved in their relative positions and sizes."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is partially transformed, focusing on the central pink and yellow blocks.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 15x15 → output 8x8, not proportional; likely a crop or extraction of specific regions.",
+        "scan_vertical": {
+          "top": "top 3 rows are black and yellow; output top row has light-blue and green blocks.",
+          "middle": "middle rows contain pink and yellow blocks; output middle rows preserve pink and yellow blocks.",
+          "bottom": "bottom rows are black with green block; output bottom row is pink, no green block."
+        },
+        "scan_horizontal": {
+          "left": "left column is black; output left columns are light-blue and green.",
+          "center": "center contains pink and yellow blocks; output center has pink and yellow blocks.",
+          "right": "right column is black; output right columns are pink."
+        },
+        "objects": "three distinct rectangular blocks: pink (6x6), yellow (3x3), green (2x2), all on black background.",
+        "colors_input": [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        "colors_output": [
+          1,
+          3,
+          4,
+          6
+        ],
+        "background_color": 0,
+        "mechanism": "extract an 8x8 region from the input, starting at row 2, column 2, excluding the black background and the bottom green block.",
+        "candidate_rule": "Extract the 8x8 region from rows 2-9 and columns 2-9 of the input, preserving the pink, yellow, and green blocks while removing black background.",
+        "preservation": "the pink, yellow, and green blocks are preserved in their relative positions and sizes."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "In each pair, a rectangular region is extracted from the input grid, excluding the background color and any small isolated blocks at the bottom.",
+      "consistent_parameters": "The extraction starts at row 2 (or equivalent) and column 2 (or equivalent), and the output size varies but is always smaller than input, with dimensions 6x8, 6x9, 8x8.",
+      "likely_transform_family": "crop",
+      "unified_rule": "Extract a rectangular region from the input starting at row 2 and column 2, excluding the background color and any small isolated blocks at the bottom, preserving the main colored blocks in their relative positions."
+    },
+    "test_input_observations": "Test input is 16x16 with blue background, red block (6x6), green block (3x3), and light-blue block (2x2). The rule predicts extraction of a region starting at row 2, column 2, excluding blue background and the bottom light-blue block, preserving red and green blocks.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is partially transformed, focusing on the central red and blue blocks.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 14x15 → output 6x8, not proportional; likely a crop or extraction of specific regions.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows of input are yellow with red block starting row 2; output top row has green and blue blocks.\",\n        \"middle\": \"middle rows contain red and blue blocks; output middle rows preserve blue and red blocks.\",\n        \"bottom\": \"bottom rows of input are yellow with green block; output bottom row is red, no green block.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column is yellow; output left columns are green and blue.\",\n        \"center\": \"center contains red and blue blocks; output center has blue and red blocks.\",\n        \"right\": \"right column is yellow; output right columns are red.\"\n      },\n      \"objects\": \"three distinct rectangular blocks: red (6x6), blue (4x4), green (1x3), all on yellow background.\",\n      \"colors_input\": [0, 1, 2, 3],\n      \"colors_output\": [1, 2, 3],\n      \"background_color\": 1,\n      \"mechanism\": \"extract a 6x8 region from the input, starting at row 2, column 2, excluding the yellow background and the bottom green block.\",\n      \"candidate_rule\": \"Extract the 6x8 region from rows 2-7 and columns 2-9 of the input, preserving the red, blue, and green blocks while removing yellow background.\",\n      \"preservation\": \"the red, blue, and green blocks are preserved in their relative positions and sizes.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is partially transformed, focusing on the central green and red blocks.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 16x15 → output 6x9, not proportional; likely a"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4968,
+      "output_tokens": 1072,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6410,
+      "output_tokens": 1206,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      19.849966254550964,
+      20.955866924021393
+    ],
+    "exec_attempts": [
+      0.4385800617747009,
+      0.4224460730329156
+    ],
+    "vlm": 168.1839948068373,
+    "test_run": 0.39819331374019384,
+    "total": 210.25032007787377
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

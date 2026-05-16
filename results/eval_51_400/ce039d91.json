@@ -1,0 +1,666 @@
+{
+  "task_id": "ce039d91",
+  "predicted": [
+    [
+      1,
+      5,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1,
+      5,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      5,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      5,
+      1,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      5,
+      1,
+      0,
+      1,
+      1,
+      1,
+      5,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      5,
+      5,
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      1,
+      5,
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      1,
+      5,
+      1,
+      5,
+      5,
+      5,
+      5,
+      1,
+      5,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      5,
+      5,
+      1,
+      1,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      5,
+      5,
+      5,
+      5,
+      5,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      5,
+      5,
+      5,
+      5,
+      5,
+      1,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      5,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        1,
+        5,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        5,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        5,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        5,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        5,
+        1,
+        0,
+        1,
+        1,
+        1,
+        5,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        5,
+        5,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        1,
+        5,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        5,
+        1,
+        5,
+        5,
+        5,
+        5,
+        1,
+        5,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        5,
+        5,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        1,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "For every cell containing color 5 (gray), place color 1 (blue) in each of the four orthogonally adjacent positions (up, down, left, right) if that position is currently 0 (black background). All cells with color 5 remain unchanged, and cells that are already non-zero are not overwritten. The output grid has the same dimensions as the input.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    output = grid.copy()\n    \n    rows, cols = grid.shape\n    \n    # Find all positions with color 5 (gray)\n    gray_positions = np.argwhere(grid == 5)\n    \n    # For each gray cell, place blue (1) in orthogonally adjacent positions\n    for r, c in gray_positions:\n        # Check all four orthogonal directions\n        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:\n            new_r, new_c = r + dr, c + dc\n            # Check bounds and if position is empty (0)\n            if 0 <= new_r < rows and 0 <= new_c < cols and output[new_r, new_c] == 0:\n                output[new_r, new_c] = 1\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 4,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, filled in with blue blocks around gray clusters, overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no change in dimensions, only color addition and structural modification around gray regions.",
+        "scan_vertical": {
+          "top": "gray blocks in top row, output adds blue blocks below them",
+          "middle": "gray blocks form a horizontal band, output adds blue blocks above and below",
+          "bottom": "no gray blocks, output remains black"
+        },
+        "scan_horizontal": {
+          "left": "gray blocks on left, output adds blue blocks to the right",
+          "center": "gray blocks in center, output adds blue blocks on all sides",
+          "right": "gray blocks on right, output adds blue blocks to the left"
+        },
+        "objects": "gray blocks forming clusters, no distinct shapes",
+        "colors_input": [
+          0,
+          5
+        ],
+        "colors_output": [
+          0,
+          1,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "blue blocks are added adjacent to each gray block in all four directions (up, down, left, right), forming a border around each gray cluster.",
+        "candidate_rule": "For each gray block, place a blue block in all four orthogonally adjacent positions if empty, preserving gray blocks and black background.",
+        "preservation": "gray blocks remain unchanged, black background remains unchanged"
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, blue blocks added around gray clusters, overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no dimensional change, blue blocks added orthogonally around gray blocks.",
+        "scan_vertical": {
+          "top": "gray blocks in top rows, output adds blue blocks below",
+          "middle": "gray blocks in center, output adds blue blocks above and below",
+          "bottom": "gray blocks in bottom row, output adds blue blocks above"
+        },
+        "scan_horizontal": {
+          "left": "gray blocks on left, output adds blue blocks to the right",
+          "center": "gray blocks in center, output adds blue blocks on all sides",
+          "right": "gray blocks on right, output adds blue blocks to the left"
+        },
+        "objects": "gray blocks forming clusters, no distinct shapes",
+        "colors_input": [
+          0,
+          5
+        ],
+        "colors_output": [
+          0,
+          1,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "blue blocks are placed orthogonally adjacent to each gray block, forming a border around each cluster.",
+        "candidate_rule": "For each gray block, place a blue block in all four orthogonally adjacent positions if empty, preserving gray blocks and black background.",
+        "preservation": "gray blocks remain unchanged, black background remains unchanged"
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is same size, blue blocks added around gray clusters, overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no dimensional change, blue blocks added orthogonally around gray blocks.",
+        "scan_vertical": {
+          "top": "gray blocks in top rows, output adds blue blocks below",
+          "middle": "gray blocks in center, output adds blue blocks above and below",
+          "bottom": "gray blocks in bottom row, output adds blue blocks above"
+        },
+        "scan_horizontal": {
+          "left": "gray blocks on left, output adds blue blocks to the right",
+          "center": "gray blocks in center, output adds blue blocks on all sides",
+          "right": "gray blocks on right, output adds blue blocks to the left"
+        },
+        "objects": "gray blocks forming clusters, no distinct shapes",
+        "colors_input": [
+          0,
+          5
+        ],
+        "colors_output": [
+          0,
+          1,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "blue blocks are placed orthogonally adjacent to each gray block, forming a border around each cluster.",
+        "candidate_rule": "For each gray block, place a blue block in all four orthogonally adjacent positions if empty, preserving gray blocks and black background.",
+        "preservation": "gray blocks remain unchanged, black background remains unchanged"
+      },
+      {
+        "pair": 4,
+        "first_impression": "output is same size, blue blocks added around gray clusters, overall pattern is partially transformed.",
+        "size_family": "same_size",
+        "size_family_detail": "no dimensional change, blue blocks added orthogonally around gray blocks.",
+        "scan_vertical": {
+          "top": "gray blocks in top rows, output adds blue blocks below",
+          "middle": "gray blocks in center, output adds blue blocks above and below",
+          "bottom": "gray blocks in bottom row, output adds blue blocks above"
+        },
+        "scan_horizontal": {
+          "left": "gray blocks on left, output adds blue blocks to the right",
+          "center": "gray blocks in center, output adds blue blocks on all sides",
+          "right": "gray blocks on right, output adds blue blocks to the left"
+        },
+        "objects": "gray blocks forming clusters, no distinct shapes",
+        "colors_input": [
+          0,
+          5
+        ],
+        "colors_output": [
+          0,
+          1,
+          5
+        ],
+        "background_color": 0,
+        "mechanism": "blue blocks are placed orthogonally adjacent to each gray block, forming a border around each cluster.",
+        "candidate_rule": "For each gray block, place a blue block in all four orthogonally adjacent positions if empty, preserving gray blocks and black background.",
+        "preservation": "gray blocks remain unchanged, black background remains unchanged"
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "blue blocks are added orthogonally adjacent to each gray block in all four directions.",
+      "consistent_parameters": "blue color (1) is used, gray blocks (5) are preserved, black background (0) is preserved, no diagonal placements.",
+      "likely_transform_family": "fill",
+      "unified_rule": "For every gray block in the input, place a blue block in each of the four orthogonally adjacent positions if that position is empty; gray blocks and black background remain unchanged."
+    },
+    "test_input_observations": "Test input has gray blocks (5) scattered in clusters, black background (0). The rule predicts blue blocks (1) will be placed orthogonally adjacent to each gray block, forming a border around each cluster, while gray blocks and black background remain unchanged.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, filled in with blue blocks around gray clusters, overall pattern is partially transformed.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in dimensions, only color addition and structural modification around gray regions.\",\n      \"scan_vertical\": {\n        \"top\": \"gray blocks in top row, output adds blue blocks below them\",\n        \"middle\": \"gray blocks form a horizontal band, output adds blue blocks above and below\",\n        \"bottom\": \"no gray blocks, output remains black\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"gray blocks on left, output adds blue blocks to the right\",\n        \"center\": \"gray blocks in center, output adds blue blocks on all sides\",\n        \"right\": \"gray blocks on right, output adds blue blocks to the left\"\n      },\n      \"objects\": \"gray blocks forming clusters, no distinct shapes\",\n      \"colors_input\": [0, 5],\n      \"colors_output\": [0, 1, 5],\n      \"background_color\": 0,\n      \"mechanism\": \"blue blocks are added adjacent to each gray block in all four directions (up, down, left, right), forming a border around each gray cluster.\",\n      \"candidate_rule\": \"For each gray block, place a blue block in all four orthogonally adjacent positions if empty, preserving gray blocks and black background.\",\n      \"preservation\": \"gray blocks remain unchanged, black background remains unchanged\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, blue blocks added around gray clusters, overall pattern is partially transformed.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no dimensional change, blue blocks added orthogonally around gray blocks.\",\n      \"scan_vertical\": {\n        \"top\": \"gray blocks in top rows, output adds blue blocks below\",\n        \"middle\": \"gray blocks in center, output adds blue blocks above and below\",\n        \"bottom\": \"gray blocks in bottom row, output adds bl"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4589,
+      "output_tokens": 357,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6018,
+      "output_tokens": 663,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      6.950256715994328,
+      13.187829373870045
+    ],
+    "exec_attempts": [
+      0.447529221419245,
+      0.9209488360211253
+    ],
+    "vlm": 173.32963638613,
+    "test_run": 0.4661470167338848,
+    "total": 195.30381608195603
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

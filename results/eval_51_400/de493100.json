@@ -1,0 +1,219 @@
+{
+  "task_id": "de493100",
+  "predicted": [
+    [
+      1,
+      5
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      9,
+      1
+    ],
+    [
+      3,
+      9
+    ],
+    [
+      9,
+      3
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      9,
+      8
+    ],
+    [
+      9,
+      2
+    ]
+  ],
+  "ground_truth": [
+    [
+      9,
+      9
+    ],
+    [
+      3,
+      9
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      6,
+      9
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      9,
+      4
+    ],
+    [
+      4,
+      4
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        1,
+        5
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        9,
+        1
+      ],
+      [
+        3,
+        9
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        9,
+        8
+      ],
+      [
+        9,
+        2
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        9,
+        9
+      ],
+      [
+        3,
+        9
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        6,
+        9
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        4,
+        4
+      ]
+    ]
+  ],
+  "final_rule": "The input grid (30×30) contains a rectangular region filled with color 7. This region marks a \"hole\" in an otherwise symmetric pattern. The output is the rectangular subgrid from the position that is symmetric to the 7-region across the grid's center (row 15, col 15). If the 7-region occupies rows [r1, r2] and columns [c1, c2], the output extracts rows [30-r2-1, 30-r1-1] and columns [30-c2-1, 30-c1-1] from the input, preserving all color values.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find the 7-region bounding box\n    sevens = np.where(grid == 7)\n    if len(sevens[0]) == 0:\n        return grid.tolist()\n    \n    r1, r2 = sevens[0].min(), sevens[0].max()\n    c1, c2 = sevens[1].min(), sevens[1].max()\n    \n    # Calculate symmetric opposite position\n    # If 7-region is at [r1:r2+1, c1:c2+1], \n    # symmetric position is [h-r2-1:h-r1, w-c2-1:w-c1]\n    sym_r1 = h - r2 - 1\n    sym_r2 = h - r1 - 1\n    sym_c1 = w - c2 - 1\n    sym_c2 = w - c1 - 1\n    \n    # Extract the symmetric region\n    result = grid[sym_r1:sym_r2+1, sym_c1:sym_c2+1]\n    \n    return result.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 4,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 30x30 to output 6x8, not proportional; likely a region extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 10 rows of input show mixed colors; output top row has yellow, green, black, red, blue, green, red, blue\",\n        \"middle\": \"middle rows of input are dense with colors; output middle rows show red, black, yellow, blue, green, red, black, blue\",\n        \"bottom\": \"bottom rows of input have similar density; output bottom row has light-blue, maroon, grey, maroon, light-blue\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 10 columns of input show varied colors; output left column has yellow, green, yellow, red, yellow, light-blue\",\n        \"center\": \"center columns of input are dense; output center columns show black, red, yellow, blue, black, grey\",\n        \"right\": \"right columns of input are dense; output right column has blue, green, red, blue, light-blue, maroon\"\n      },\n      \"objects\": \"no distinct shapes; grid of colored squares\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 6x8 grid extracted from specific positions in the input grid, likely every 5th row and every 4th column, starting from row 0, col 0.\",\n      \"candidate_rule\": \"From input, extract a 6x8 grid by sampling every 5th row (rows 0,5,10,15,20,25) and every 4th column (cols 0,4,8,12,16,20,24,28).\",\n      \"preservation\": \"color values are preserved; spatial arrangement is reduced to a sampled grid.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 30x30 to output 7x5, not proportional; likely a region extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 10 rows of input show mixed colors; output top row has grey, red, grey, black, red\",\n        \"middle\": \"middle rows of input are dense with colors; output middle rows show grey, light-blue, black, red, blue\",\n        \"bottom\": \"bottom rows of input have similar density; output bottom row has maroon, green, green, blue, red\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 10 columns of input show varied colors; output left column has grey, grey, grey, green, maroon\",\n        \"center\": \"center columns of input are dense; output center columns show red, light-blue, black, green, green\",\n        \"right\": \"right columns of input are dense; output right column has red, blue, red, blue, red\"\n      },\n      \"objects\": \"no distinct shapes; grid of colored squares\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 7x5 grid extracted from specific positions in the input grid, likely every 4th row (rows 0,4,8,12,16,20,24) and every 6th column (cols 0,6,12,18,24).\",\n      \"candidate_rule\": \"From input, extract a 7x5 grid by sampling every 4th row (rows 0,4,8,12,16,20,24) and every 6th column (cols 0,6,12,18,24).\",\n      \"preservation\": \"color values are preserved; spatial arrangement is reduced to a sampled grid.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 30x30 to output 10x10, not proportional; likely a region extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 10 rows of input show mixed colors; output top row has red, pink, maroon, blue, pink, red, maroon, pink, blue, maroon\",\n        \"middle\": \"middle rows of input are dense with colors; output middle rows show pink, red, maroon, light-blue, pink, red, maroon, pink, light-blue, yellow\",\n        \"bottom\": \"bottom rows of input have similar density; output bottom row has red, green, pink, red, green, pink, red, green, pink, grey\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 10 columns of input show varied colors; output left column has red, pink, red, pink, red, light-blue, red, green, red, red\",\n        \"center\": \"center columns of input are dense; output center columns show maroon, red, maroon, red, maroon, pink, maroon, pink, maroon, pink\",\n        \"right\": \"right columns of input are dense; output right column has maroon, pink, maroon, pink, maroon, yellow, grey, pink, maroon, grey\"\n      },\n      \"objects\": \"no distinct shapes; grid of colored squares\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 10x10 grid extracted from specific positions",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 30x30 to output 6x8, not proportional; likely a region extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 10 rows of input show mixed colors; output top row has yellow, green, black, red, blue, green, red, blue\",\n        \"middle\": \"middle rows of input are dense with colors; output middle rows show red, black, yellow, blue, green, red, black, blue\",\n        \"bottom\": \"bottom rows of input have similar density; output bottom row has light-blue, maroon, grey, maroon, light-blue\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 10 columns of input show varied colors; output left column has yellow, green, yellow, red, yellow, light-blue\",\n        \"center\": \"center columns of input are dense; output center columns show black, red, yellow, blue, black, grey\",\n        \"right\": \"right columns of input are dense; output right column has blue, green, red, blue, light-blue, maroon\"\n      },\n      \"objects\": \"no distinct shapes; grid of colored squares\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"output is a 6x8 grid extracted from specific positions in the input grid, likely every 5th row and every 4th column, starting from row 0, col 0.\",\n      \"candidate_rule\": \"From input, extract a 6x8 grid by sampling every 5th row (rows 0,5,10,15,20,25) and every 4th column (cols 0,4,8,12,16,20,24,28).\",\n      \"preservation\": \"color values are preserved; spatial arrangement is reduced to a sampled grid.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"si"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 12284,
+      "output_tokens": 883,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 13388,
+      "output_tokens": 1022,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      18.51335285604,
+      18.594760342966765
+    ],
+    "exec_attempts": [
+      0.4523208369500935,
+      0.437517283950001
+    ],
+    "vlm": 173.72704455722123,
+    "test_run": 0.3908964772708714,
+    "total": 212.11743383388966
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

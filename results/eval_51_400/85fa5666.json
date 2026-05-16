@@ -1,0 +1,379 @@
+{
+  "task_id": "85fa5666",
+  "predicted": [
+    [
+      0,
+      0,
+      3,
+      0,
+      0,
+      8,
+      0,
+      6
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      2,
+      0,
+      6,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      2,
+      6,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      7,
+      0,
+      6,
+      6,
+      0,
+      0
+    ],
+    [
+      7,
+      7,
+      0,
+      6,
+      0,
+      0,
+      6,
+      0
+    ],
+    [
+      7,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      6
+    ],
+    [
+      0,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      8,
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      7,
+      0,
+      0,
+      3,
+      0,
+      7
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      2,
+      0,
+      7,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      2,
+      7,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      6,
+      0,
+      7,
+      8,
+      0,
+      0
+    ],
+    [
+      8,
+      6,
+      0,
+      7,
+      0,
+      0,
+      8,
+      0
+    ],
+    [
+      6,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    [
+      0,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      0,
+      0,
+      6,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        3,
+        0,
+        0,
+        8,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        6,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        2,
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        7,
+        0,
+        6,
+        6,
+        0,
+        0
+      ],
+      [
+        7,
+        7,
+        0,
+        6,
+        0,
+        0,
+        6,
+        0
+      ],
+      [
+        7,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        8,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        7,
+        0,
+        0,
+        3,
+        0,
+        7
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        7,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        2,
+        7,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        0,
+        7,
+        8,
+        0,
+        0
+      ],
+      [
+        8,
+        6,
+        0,
+        7,
+        0,
+        0,
+        8,
+        0
+      ],
+      [
+        6,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        8
+      ],
+      [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        3,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "For each 2x2 block of color 2 in the input, preserve it in the output. Identify the four diagonal corner positions around each block (one cell away diagonally from each corner of the block). From each corner position containing a non-zero color, draw a diagonal ray of that color extending outward away from the block center until reaching the grid boundary. Top-left corners extend northwest, top-right extend northeast, bottom-left extend southwest, bottom-right extend southeast.",
+  "code": "import numpy as np\nfrom typing import List\nfrom scipy.ndimage import label\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    output = np.zeros_like(grid)\n    h, w = grid.shape\n    \n    # Find all 2x2 blocks of color 2\n    blocks = []\n    for r in range(h - 1):\n        for c in range(w - 1):\n            if (grid[r, c] == 2 and grid[r, c+1] == 2 and \n                grid[r+1, c] == 2 and grid[r+1, c+1] == 2):\n                blocks.append((r, c))\n    \n    # Preserve all 2x2 blocks\n    for r, c in blocks:\n        output[r:r+2, c:c+2] = 2\n    \n    # For each block, find corners and draw rays\n    for r, c in blocks:\n        # Corner positions (one cell away diagonally from block corners)\n        corners = [\n            (r-1, c-1, -1, -1),  # top-left, direction up-left\n            (r-1, c+2, -1, 1),   # top-right, direction up-right\n            (r+2, c-1, 1, -1),   # bottom-left, direction down-left\n            (r+2, c+2, 1, 1)     # bottom-right, direction down-right\n        ]\n        \n        for cr, cc, dr, dc in corners:\n            if 0 <= cr < h and 0 <= cc < w:\n                color = grid[cr, cc]\n                if color != 0 and color != 2:\n                    # Draw ray from this position\n                    nr, nc = cr, cc\n                    while 0 <= nr < h and 0 <= nc < w:\n                        if output[nr, nc] == 0:\n                            output[nr, nc] = color\n                        nr += dr\n                        nc += dc\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 4,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, with more colored areas; the overall pattern is partially transformed with new positions of existing colors.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in grid dimensions; transformation involves repositioning and adding new colored cells without scaling or cropping.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has new light-blue and green cells in output, not present in input.\",\n        \"middle\": \"central red 2x2 block remains unchanged; surrounding cells are rearranged.\",\n        \"bottom\": \"bottom row gains new light-blue and orange cells; original orange cell moves to bottom-left.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column gains light-blue and orange cells; original light-blue cell moves down.\",\n        \"center\": \"center column has red block preserved; other cells are rearranged.\",\n        \"right\": \"right column gains green and pink cells; original pink cell moves to bottom-right.\"\n      },\n      \"objects\": \"multiple single-cell objects and one 2x2 red block; colors: blue, red, green, pink, orange.\",\n      \"colors_input\": [1, 2, 3, 6, 7],\n      \"colors_output\": [1, 2, 3, 6, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"each colored cell in input moves to a new position in output; new cells appear in top-right and bottom-left regions; the red 2x2 block remains fixed.\",\n      \"candidate_rule\": \"each non-black cell is moved diagonally outward from the center, with the red 2x2 block preserved in place.\",\n      \"preservation\": \"the 2x2 red block in center remains unchanged; all other colored cells are relocated.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, with more colored areas; the overall pattern is transformed with cells spread out toward edges.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"grid remains 12x12; transformation involves spreading colored cells outward while preserving some clusters.\",\n      \"scan_vertical\": {\n        \"top\": \"top row gains green, blue, and pink cells; original top-right pink cell moves left.\",\n        \"middle\": \"central red 2x2 blocks remain; surrounding cells are rearranged.\",\n        \"bottom\": \"bottom row gains pink and orange cells; original bottom-left orange cell moves right.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column gains orange and pink cells; original left-side blue cell moves down.\",\n        \"center\": \"center columns have red blocks preserved; other cells are rearranged.\",\n        \"right\": \"right column gains blue and pink cells; original right-side orange cell moves up.\"\n      },\n      \"objects\": \"multiple single-cell objects and two 2x2 red blocks; colors: blue, red, green, pink, orange.\",\n      \"colors_input\": [1, 2, 3, 6, 7],\n      \"colors_output\": [1, 2, 3, 6, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"colored cells are moved outward along diagonal directions from the center; red 2x2 blocks remain fixed; new cells appear in corners.\",\n      \"candidate_rule\": \"each non-black cell is shifted diagonally outward from the center, with red 2x2 blocks preserved in place.\",\n      \"preservation\": \"the two 2x2 red blocks remain unchanged; all other colored cells are relocated outward.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is same size, with more colored areas; the overall pattern is transformed with cells spread toward edges and new green cells added.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"grid remains 12x12; transformation involves spreading colored cells outward and adding new green cells in left column.\",\n      \"scan_vertical\": {\n        \"top\": \"top row gains green and blue cells; original top-right orange cell moves left.\",\n        \"middle\": \"central red 2x2 blocks remain; surrounding cells are rearranged.\",\n        \"bottom\": \"bottom row gains orange and pink cells; original bottom-left pink cell moves right.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column gains green and pink cells; original left-side blue cell moves down.\",\n        \"center\": \"center columns have red blocks preserved; other cells are rearranged.\",\n        \"right\": \"right column gains pink and orange cells; original right-side orange cell moves up.\"\n      },\n      \"objects\": \"multiple single-cell objects and two 2x2 red blocks; colors: blue, red, green, pink, orange.\",\n      \"colors_input\": [1, 2, 3, 6, 7],\n      \"colors_output\": [1, 2, 3, 6, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"colored cells are moved diagonally outward from the center; red 2x2 blocks remain fixed; new green cells appear in left column.\",\n      \"candidate_rule\": \"each non-black cell is shifted diagonally outward from the center, with red 2x2 blocks preserved in place.\",\n      \"preservation\": \"the two 2x2 red blocks remain unchanged; all other colored cells are relocated outward.\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is same size, with more colored areas; the overall pattern is transformed with cells spread toward edges and new pink and green cells added.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"grid remains 8x8; transformation involves spreading colored cells outward and adding new cells in top-left and bottom-right.\",\n      \"scan_vertical\": {\n        \"top\": \"top row gains pink and green cells; original top-right orange cell moves left.\",\n        \"middle\": \"central red 2x2 block remains; surrounding cells are rearranged.\",\n        \"bottom\": \"bottom row gains green and orange cells; original bottom-left blue cell moves right.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column gains pink and blue cells; original left-side pink cell moves down.\",\n        \"center\": \"center columns have red block preserved; other cells are rearranged.\",\n        \"right\": \"right column gains pink and orange cells; original right-side green cell moves up.\"\n      },\n      \"objects\": \"multiple single-cell objects and one 2x2 red block; colors: blue, red, green, pink, orange.\",\n      \"colors_input\": [1, 2, 3, 6, 7],\n      \"colors_output\": [1, 2, 3, 6, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"colored cells are moved diagonally outward from the center; red 2",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, with more colored areas; the overall pattern is partially transformed with new positions of existing colors.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no change in grid dimensions; transformation involves repositioning and adding new colored cells without scaling or cropping.\",\n      \"scan_vertical\": {\n        \"top\": \"top row has new light-blue and green cells in output, not present in input.\",\n        \"middle\": \"central red 2x2 block remains unchanged; surrounding cells are rearranged.\",\n        \"bottom\": \"bottom row gains new light-blue and orange cells; original orange cell moves to bottom-left.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left column gains light-blue and orange cells; original light-blue cell moves down.\",\n        \"center\": \"center column has red block preserved; other cells are rearranged.\",\n        \"right\": \"right column gains green and pink cells; original pink cell moves to bottom-right.\"\n      },\n      \"objects\": \"multiple single-cell objects and one 2x2 red block; colors: blue, red, green, pink, orange.\",\n      \"colors_input\": [1, 2, 3, 6, 7],\n      \"colors_output\": [1, 2, 3, 6, 7],\n      \"background_color\": 0,\n      \"mechanism\": \"each colored cell in input moves to a new position in output; new cells appear in top-right and bottom-left regions; the red 2x2 block remains fixed.\",\n      \"candidate_rule\": \"each non-black cell is moved diagonally outward from the center, with the red 2x2 block preserved in place.\",\n      \"preservation\": \"the 2x2 red block in center remains unchanged; all other colored cells are relocated.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, with more colored areas; the overall pattern is transformed with cells spread out toward edges.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"grid remains 12x12; transformation involves spreading colored cells"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4914,
+      "output_tokens": 956,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6469,
+      "output_tokens": 1199,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      15.207980641629547,
+      19.626699403394014
+    ],
+    "exec_attempts": [
+      0.9000101638957858,
+      0.45603134389966726
+    ],
+    "vlm": 177.621959047392,
+    "test_run": 0.8879901911132038,
+    "total": 214.702208714094
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

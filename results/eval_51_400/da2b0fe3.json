@@ -1,0 +1,872 @@
+{
+  "task_id": "da2b0fe3",
+  "predicted": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    [
+      0,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        6,
+        3,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        6,
+        3,
+        6,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        6,
+        3,
+        6,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        6,
+        3,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        6,
+        3,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        6,
+        3,
+        6,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        6,
+        3,
+        6,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        6,
+        3,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Find the axis of symmetry between two separate colored objects. If the objects are separated by an empty horizontal row, fill that entire row with color 3. If separated by an empty vertical column, fill that entire column with color 3. The colored objects themselves remain unchanged, and color 3 is added only along the gap that divides them.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Check for horizontal gap (empty row between colored regions)\n    for r in range(h):\n        if np.all(grid[r] == 0):  # Empty row\n            # Check if there are non-zero cells above and below\n            has_above = r > 0 and np.any(grid[:r] != 0)\n            has_below = r < h-1 and np.any(grid[r+1:] != 0)\n            if has_above and has_below:\n                grid[r, :] = 3\n                return grid.tolist()\n    \n    # Check for vertical gap (empty column between colored regions)\n    for c in range(w):\n        if np.all(grid[:, c] == 0):  # Empty column\n            # Check if there are non-zero cells left and right\n            has_left = c > 0 and np.any(grid[:, :c] != 0)\n            has_right = c < w-1 and np.any(grid[:, c+1:] != 0)\n            if has_left and has_right:\n                grid[:, c] = 3\n                return grid.tolist()\n    \n    return grid.tolist()",
+  "attempts_used": 1,
+  "demo_pass_count": 3,
+  "demo_total": 3,
+  "demo_all_pass": true,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is same size, with a new horizontal green bar added at row 3, and the red shapes remain unchanged.",
+        "size_family": "same_size",
+        "size_family_detail": "no scaling or cropping; grid remains 10x10; new color added without altering existing object positions.",
+        "scan_vertical": {
+          "top": "rows 0-2: black background, red shapes appear in rows 1-2, columns 2-5",
+          "middle": "row 3: new green bar spans columns 0-9, red shapes unchanged below",
+          "bottom": "rows 4-9: black background, red shapes in rows 4-5, columns 2-5"
+        },
+        "scan_horizontal": {
+          "left": "columns 0-1: black background throughout",
+          "center": "columns 2-5: red shapes in rows 1-2 and 4-5, green bar in row 3",
+          "right": "columns 6-9: black background except row 3 which is green"
+        },
+        "objects": "two separate red shapes, each 4x2 and 4x2, arranged vertically with gap",
+        "colors_input": [
+          0,
+          2
+        ],
+        "colors_output": [
+          0,
+          2,
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "a horizontal green bar is added at row 3, spanning all 10 columns; existing red shapes are preserved in their original positions.",
+        "candidate_rule": "In the output, a green bar is placed at row 3, spanning the entire width, while all existing red shapes remain unchanged in position and color.",
+        "preservation": "the red shapes and their positions are preserved; only a new green bar is added at row 3."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is same size, with a new horizontal green bar added at row 3, and blue shapes remain unchanged.",
+        "size_family": "same_size",
+        "size_family_detail": "grid remains 10x10; new green bar added without altering existing object positions or colors.",
+        "scan_vertical": {
+          "top": "rows 0-2: black background, blue shapes appear in rows 1-2, columns 2-5",
+          "middle": "row 3: new green bar spans columns 0-9, blue shapes unchanged below",
+          "bottom": "rows 4-9: black background, blue shapes in rows 4-5, columns 2-5"
+        },
+        "scan_horizontal": {
+          "left": "columns 0-1: black background throughout",
+          "center": "columns 2-5: blue shapes in rows 1-2 and 4-5, green bar in row 3",
+          "right": "columns 6-9: black background except row 3 which is green"
+        },
+        "objects": "two separate blue shapes, each 4x2 and 4x2, arranged vertically with gap",
+        "colors_input": [
+          0,
+          1
+        ],
+        "colors_output": [
+          0,
+          1,
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "a horizontal green bar is added at row 3, spanning all 10 columns; existing blue shapes are preserved in their original positions.",
+        "candidate_rule": "In the output, a green bar is placed at row 3, spanning the entire width, while all existing blue shapes remain unchanged in position and color.",
+        "preservation": "the blue shapes and their positions are preserved; only a new green bar is added at row 3."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is same size, with a new vertical green bar added at column 4, and grey shapes remain unchanged.",
+        "size_family": "same_size",
+        "size_family_detail": "grid remains 10x10; new green bar added without altering existing object positions or colors.",
+        "scan_vertical": {
+          "top": "rows 0-2: black background, grey shapes appear in rows 1-2, columns 2-5",
+          "middle": "rows 3-7: grey shapes in columns 2-5, new green bar at column 4 spans rows 0-9",
+          "bottom": "rows 8-9: black background, grey shapes in rows 8-9, columns 2-5"
+        },
+        "scan_horizontal": {
+          "left": "columns 0-3: black background throughout",
+          "center": "column 4: new green bar spans all 10 rows, grey shapes in columns 2-3 and 5-5",
+          "right": "columns 5-9: black background except column 4 which is green"
+        },
+        "objects": "two separate grey shapes, each 4x2 and 4x2, arranged vertically with gap",
+        "colors_input": [
+          0,
+          5
+        ],
+        "colors_output": [
+          0,
+          5,
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "a vertical green bar is added at column 4, spanning all 10 rows; existing grey shapes are preserved in their original positions.",
+        "candidate_rule": "In the output, a green bar is placed at column 4, spanning the entire height, while all existing grey shapes remain unchanged in position and color.",
+        "preservation": "the grey shapes and their positions are preserved; only a new green bar is added at column 4."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "In each pair, a single green bar is added to the grid, either horizontally or vertically, while existing colored shapes are preserved.",
+      "consistent_parameters": "The green bar is always 10 units long (full width or height), placed at row 3 in pairs 1 and 2, and at column 4 in pair 3. The existing shapes are never modified.",
+      "likely_transform_family": "fill",
+      "unified_rule": "If the input contains a single connected group of colored cells, add a green bar spanning the full width at row 3 if the group is horizontally aligned, or spanning the full height at column 4 if the group is vertically aligned, without altering the existing shapes."
+    },
+    "test_input_observations": "Test 1 input has a red 4x4 block and a 4x1 block below it, both horizontally aligned. The rule predicts a green bar should be added at row 3. Test 2 input has a pink shape with vertical alignment (two columns of 4 cells each), so a green bar should be added at column 4.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is same size, with a new horizontal green bar added at row 3, and the red shapes remain unchanged.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"no scaling or cropping; grid remains 10x10; new color added without altering existing object positions.\",\n      \"scan_vertical\": {\n        \"top\": \"rows 0-2: black background, red shapes appear in rows 1-2, columns 2-5\",\n        \"middle\": \"row 3: new green bar spans columns 0-9, red shapes unchanged below\",\n        \"bottom\": \"rows 4-9: black background, red shapes in rows 4-5, columns 2-5\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"columns 0-1: black background throughout\",\n        \"center\": \"columns 2-5: red shapes in rows 1-2 and 4-5, green bar in row 3\",\n        \"right\": \"columns 6-9: black background except row 3 which is green\"\n      },\n      \"objects\": \"two separate red shapes, each 4x2 and 4x2, arranged vertically with gap\",\n      \"colors_input\": [0, 2],\n      \"colors_output\": [0, 2, 3],\n      \"background_color\": 0,\n      \"mechanism\": \"a horizontal green bar is added at row 3, spanning all 10 columns; existing red shapes are preserved in their original positions.\",\n      \"candidate_rule\": \"In the output, a green bar is placed at row 3, spanning the entire width, while all existing red shapes remain unchanged in position and color.\",\n      \"preservation\": \"the red shapes and their positions are preserved; only a new green bar is added at row 3.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is same size, with a new horizontal green bar added at row 3, and blue shapes remain unchanged.\",\n      \"size_family\": \"same_size\",\n      \"size_family_detail\": \"grid remains 10x10; new green bar added without altering existing object positions or colors.\",\n      \"scan_vertical\": {\n        \"top\": \"rows 0-2: black background, blue shapes appear in rows 1-2, columns 2-5\",\n        \"middle\": \"row 3: new green bar span"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4372,
+      "output_tokens": 579,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      10.347778785042465
+    ],
+    "exec_attempts": [
+      0.45642810268327594
+    ],
+    "vlm": 171.13587437802926,
+    "test_run": 0.398929447401315,
+    "total": 182.34047679090872
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

@@ -1,0 +1,349 @@
+{
+  "task_id": "73ccf9c2",
+  "predicted": [
+    [
+      0,
+      0,
+      8,
+      0,
+      8
+    ],
+    [
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    [
+      0,
+      0,
+      8,
+      0,
+      8
+    ],
+    [
+      0,
+      8,
+      8,
+      8,
+      0
+    ],
+    [
+      8,
+      0,
+      8,
+      0,
+      8
+    ],
+    [
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    [
+      0,
+      8,
+      8,
+      8,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      0,
+      8,
+      0,
+      8
+    ],
+    [
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    [
+      0,
+      0,
+      8,
+      0,
+      8
+    ],
+    [
+      0,
+      8,
+      8,
+      8,
+      0
+    ],
+    [
+      8,
+      0,
+      8,
+      0,
+      8
+    ],
+    [
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    [
+      0,
+      8,
+      8,
+      8,
+      0
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        0,
+        0,
+        8,
+        0,
+        8
+      ],
+      [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      [
+        0,
+        0,
+        8,
+        0,
+        8
+      ],
+      [
+        0,
+        8,
+        8,
+        8,
+        0
+      ],
+      [
+        8,
+        0,
+        8,
+        0,
+        8
+      ],
+      [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      [
+        0,
+        8,
+        8,
+        8,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        0,
+        8,
+        0,
+        8
+      ],
+      [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      [
+        0,
+        0,
+        8,
+        0,
+        8
+      ],
+      [
+        0,
+        8,
+        8,
+        8,
+        0
+      ],
+      [
+        8,
+        0,
+        8,
+        0,
+        8
+      ],
+      [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      [
+        0,
+        8,
+        8,
+        8,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Find all connected components (4-connectivity) of the non-background color in the input grid. Identify the largest component by cell count (ties broken by top-left position). Extract the tight bounding box around this largest component. The output is the rectangular subgrid defined by this bounding box, preserving the original cell values (background and non-background color).",
+  "code": "import numpy as np\nfrom scipy.ndimage import label\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid_array = np.array(grid)\n    \n    # Find non-background color (assume 0 is background)\n    non_bg_mask = grid_array != 0\n    \n    # Label connected components (4-connectivity)\n    labeled, num_features = label(non_bg_mask, structure=[[0,1,0],[1,1,1],[0,1,0]])\n    \n    if num_features == 0:\n        return [[0]]\n    \n    # Find largest component\n    max_size = 0\n    max_label = 0\n    for lbl in range(1, num_features + 1):\n        size = np.sum(labeled == lbl)\n        if size > max_size:\n            max_size = size\n            max_label = lbl\n    \n    # Get bounding box of largest component\n    component_mask = labeled == max_label\n    rows, cols = np.where(component_mask)\n    \n    min_row, max_row = rows.min(), rows.max()\n    min_col, max_col = cols.min(), cols.max()\n    \n    # Extract bounding box\n    output = grid_array[min_row:max_row+1, min_col:max_col+1]\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 0,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, I see fewer colored areas, the overall pattern is partially transformed into a compact grid.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 23x23 to output 4x4, no proportional scaling; likely object extraction or summarization.",
+        "scan_vertical": {
+          "top": "top-left cluster of blue cells, sparse elsewhere",
+          "middle": "central cluster of blue cells, isolated smaller clusters",
+          "bottom": "isolated blue clusters, no large groupings"
+        },
+        "scan_horizontal": {
+          "left": "blue cluster in top-left, sparse in middle and bottom",
+          "center": "central blue cluster, some isolated cells",
+          "right": "isolated blue clusters, no large groupings"
+        },
+        "objects": "multiple small blue clusters, irregular shapes, no clear symmetry",
+        "colors_input": [
+          0,
+          1
+        ],
+        "colors_output": [
+          0,
+          1
+        ],
+        "background_color": 0,
+        "mechanism": "extract the 4x4 bounding box of the top-left blue cluster, then fill the output with a 4x4 grid where each cell is blue if any cell in the corresponding 2x2 input block is blue.",
+        "candidate_rule": "For each 2x2 block in the top-left 4x4 region of the input, if any cell is blue, mark the corresponding output cell as blue; otherwise black.",
+        "preservation": "relative positions of blue clusters are preserved in the output grid, but compressed into a 4x4 grid."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller, I see fewer colored areas, the overall pattern is transformed into a compact grid with red cells.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 21x21 to output 4x5, no proportional scaling; likely object extraction or summarization.",
+        "scan_vertical": {
+          "top": "large red cluster in top-left, smaller cluster in top-right",
+          "middle": "isolated red clusters, no large groupings",
+          "bottom": "isolated red clusters, no large groupings"
+        },
+        "scan_horizontal": {
+          "left": "large red cluster in top-left, sparse in middle and bottom",
+          "center": "isolated red clusters, no large groupings",
+          "right": "isolated red clusters, no large groupings"
+        },
+        "objects": "multiple red clusters, irregular shapes, no clear symmetry",
+        "colors_input": [
+          0,
+          2
+        ],
+        "colors_output": [
+          0,
+          2
+        ],
+        "background_color": 0,
+        "mechanism": "extract the 4x5 bounding box of the top-left red cluster, then fill the output with a 4x5 grid where each cell is red if any cell in the corresponding 2x2 input block is red.",
+        "candidate_rule": "For each 2x2 block in the top-left 4x5 region of the input, if any cell is red, mark the corresponding output cell as red; otherwise black.",
+        "preservation": "relative positions of red clusters are preserved in the output grid, but compressed into a 4x5 grid."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller, I see fewer colored areas, the overall pattern is transformed into a compact grid with green cells.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 20x20 to output 5x7, no proportional scaling; likely object extraction or summarization.",
+        "scan_vertical": {
+          "top": "green clusters in top-left and top-center",
+          "middle": "isolated green clusters, no large groupings",
+          "bottom": "isolated green clusters, no large groupings"
+        },
+        "scan_horizontal": {
+          "left": "green clusters in top-left, sparse in middle and bottom",
+          "center": "isolated green clusters, no large groupings",
+          "right": "isolated green clusters, no large groupings"
+        },
+        "objects": "multiple green clusters, irregular shapes, no clear symmetry",
+        "colors_input": [
+          0,
+          3
+        ],
+        "colors_output": [
+          0,
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "extract the 5x7 bounding box of the top-left green cluster, then fill the output with a 5x7 grid where each cell is green if any cell in the corresponding 2x2 input block is green.",
+        "candidate_rule": "For each 2x2 block in the top-left 5x7 region of the input, if any cell is green, mark the corresponding output cell as green; otherwise black.",
+        "preservation": "relative positions of green clusters are preserved in the output grid, but compressed into a 5x7 grid."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "Each input grid is compressed into a smaller output grid by dividing the top-left region into 2x2 blocks and marking the output cell as colored if any cell in the 2x2 block is colored.",
+      "consistent_parameters": "The output grid size varies per pair (4x4, 4x5, 5x7), but always corresponds to the top-left region of the input, divided into 2x2 blocks.",
+      "likely_transform_family": "grid_partition",
+      "unified_rule": "For each demo, the output is a grid where each cell corresponds to a 2x2 block in the top-left region of the input; if any cell in the 2x2 block is colored, the output cell is colored with the same color; otherwise black."
+    },
+    "test_input_observations": "Test input is 22x22 with light-blue clusters in top-left, center-right, and bottom-left. The rule predicts the output will be a grid where each cell corresponds to a 2x2 block in the top-left region of the input, with light-blue if any cell in the 2x2 block is light-blue, otherwise black. The output size will be 11x11, since 22/2 = 11.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, I see fewer colored areas, the overall pattern is partially transformed into a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 23x23 to output 4x4, no proportional scaling; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top-left cluster of blue cells, sparse elsewhere\",\n        \"middle\": \"central cluster of blue cells, isolated smaller clusters\",\n        \"bottom\": \"isolated blue clusters, no large groupings\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"blue cluster in top-left, sparse in middle and bottom\",\n        \"center\": \"central blue cluster, some isolated cells\",\n        \"right\": \"isolated blue clusters, no large groupings\"\n      },\n      \"objects\": \"multiple small blue clusters, irregular shapes, no clear symmetry\",\n      \"colors_input\": [0, 1],\n      \"colors_output\": [0, 1],\n      \"background_color\": 0,\n      \"mechanism\": \"extract the 4x4 bounding box of the top-left blue cluster, then fill the output with a 4x4 grid where each cell is blue if any cell in the corresponding 2x2 input block is blue.\",\n      \"candidate_rule\": \"For each 2x2 block in the top-left 4x4 region of the input, if any cell is blue, mark the corresponding output cell as blue; otherwise black.\",\n      \"preservation\": \"relative positions of blue clusters are preserved in the output grid, but compressed into a 4x4 grid.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, I see fewer colored areas, the overall pattern is transformed into a compact grid with red cells.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 21x21 to output 4x5, no proportional scaling; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"large red cluster in top-left, smaller cluster in top-right\",\n        \"middle\": \"isolated red clusters, no large groupin"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 6519,
+      "output_tokens": 760,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 7361,
+      "output_tokens": 1128,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      16.18998187314719,
+      19.828212931286544
+    ],
+    "exec_attempts": [
+      1.057152247056365,
+      0.9303002962842584
+    ],
+    "vlm": 164.39123955881223,
+    "test_run": 0.8794912351295352,
+    "total": 203.27846671734005
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

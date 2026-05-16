@@ -1,0 +1,179 @@
+{
+  "task_id": "aab50785",
+  "predicted": [
+    [
+      4,
+      1,
+      5,
+      0
+    ],
+    [
+      0,
+      9,
+      0,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      4,
+      1,
+      5,
+      0
+    ],
+    [
+      0,
+      9,
+      0,
+      0
+    ],
+    [
+      5,
+      9,
+      0,
+      4
+    ],
+    [
+      7,
+      7,
+      0,
+      0
+    ],
+    [
+      4,
+      5,
+      4,
+      3
+    ],
+    [
+      0,
+      0,
+      7,
+      0
+    ],
+    [
+      0,
+      0,
+      6,
+      0
+    ],
+    [
+      0,
+      7,
+      0,
+      4
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        4,
+        1,
+        5,
+        0
+      ],
+      [
+        0,
+        9,
+        0,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        4,
+        1,
+        5,
+        0
+      ],
+      [
+        0,
+        9,
+        0,
+        0
+      ],
+      [
+        5,
+        9,
+        0,
+        4
+      ],
+      [
+        7,
+        7,
+        0,
+        0
+      ],
+      [
+        4,
+        5,
+        4,
+        3
+      ],
+      [
+        0,
+        0,
+        7,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        0
+      ],
+      [
+        0,
+        7,
+        0,
+        4
+      ]
+    ]
+  ],
+  "final_rule": "Find pairs of 2x2 blocks of 8s on the same rows. Extract the rectangular region between them (excluding the 8s themselves).\n\nRULE: Find all 2x2 blocks of value 8 in the input grid. Identify pairs of such blocks that share the same two consecutive row indices and are horizontally separated. Extract the rectangular region bounded by these paired blocks: the rows are the shared rows of the 8-blocks, and the columns span from immediately after the right edge of the left 8-block to immediately before the left edge of the right 8-block. The output is this extracted interior rectangle, preserving all color values from the input.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    rows, cols = grid.shape\n    \n    # Find all 2x2 blocks of 8s\n    blocks = []\n    for r in range(rows - 1):\n        for c in range(cols - 1):\n            if (grid[r, c] == 8 and grid[r, c+1] == 8 and \n                grid[r+1, c] == 8 and grid[r+1, c+1] == 8):\n                blocks.append((r, c))\n    \n    # Find pairs of blocks on same rows\n    best_region = None\n    max_area = 0\n    \n    for i, (r1, c1) in enumerate(blocks):\n        for j, (r2, c2) in enumerate(blocks):\n            if i >= j:\n                continue\n            \n            # Check if they share the same two rows\n            if r1 == r2:\n                # Make sure c1 < c2\n                if c1 > c2:\n                    c1, c2 = c2, c1\n                \n                # Extract region between them\n                row_start = r1\n                row_end = r1 + 2\n                col_start = c1 + 2\n                col_end = c2\n                \n                if col_start < col_end and row_start < row_end:\n                    height = row_end - row_start\n                    width = col_end - col_start\n                    area = height * width\n                    \n                    if area > max_area:\n                        max_area = area\n                        best_region = (row_start, row_end, col_start, col_end)\n    \n    if best_region:\n        r_start, r_end, c_start, c_end = best_region\n        result = grid[r_start:r_end, c_start:c_end]\n        return result.tolist()\n    \n    return [[]]",
+  "attempts_used": 2,
+  "demo_pass_count": 2,
+  "demo_total": 5,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 13x17 to output 4x5, no proportional scaling; likely extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows of input contain scattered colored blocks, output top row has 5 colors: pink, yellow, green, blue, maroon\",\n        \"middle\": \"middle rows of input have dense colored blocks, output middle rows show a subset of these colors\",\n        \"bottom\": \"bottom rows of input have fewer colored blocks, output bottom row has green, black, black, black, pink\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left columns of input have sparse colors, output left column has pink, black, green, black\",\n        \"center\": \"center columns of input have mixed colors, output center columns show yellow, black, black, black\",\n        \"right\": \"right columns of input have scattered colors, output right column has orange, pink, black, pink\"\n      },\n      \"objects\": \"multiple isolated colored blocks of various sizes, no distinct shapes\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 2, 3, 4, 6, 7, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract 4x5 grid from input by sampling every 3rd row and every 3rd column, starting from row 1, col 1 (0-indexed), then take the color at each sampled position.\",\n      \"candidate_rule\": \"From input, extract a 4x5 grid by sampling every 3rd row and every 3rd column starting at (1,1), preserving the color at each sampled position.\",\n      \"preservation\": \"the color values at sampled positions are preserved\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 12x15 to output 2x4, no proportional scaling; likely extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows of input contain scattered colored blocks, output top row has green, grey, maroon, blue\",\n        \"middle\": \"middle rows of input have dense colored blocks, output middle rows show a subset of these colors\",\n        \"bottom\": \"bottom rows of input have fewer colored blocks, output bottom row has blue, black, black, pink\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left columns of input have sparse colors, output left column has green, blue\",\n        \"center\": \"center columns of input have mixed colors, output center columns show grey, black\",\n        \"right\": \"right columns of input have scattered colors, output right column has maroon, pink\"\n      },\n      \"objects\": \"multiple isolated colored blocks of various sizes, no distinct shapes\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 2, 3, 4, 5, 6, 7, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract 2x4 grid from input by sampling every 6th row and every 4th column, starting from row 0, col 0 (0-indexed), then take the color at each sampled position.\",\n      \"candidate_rule\": \"From input, extract a 2x4 grid by sampling every 6th row and every 4th column starting at (0,0), preserving the color at each sampled position.\",\n      \"preservation\": \"the color values at sampled positions are preserved\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 12x10 to output 2x6, no proportional scaling; likely extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows of input contain scattered colored blocks, output top row has blue, black, maroon, black, orange, black\",\n        \"middle\": \"middle rows of input have dense colored blocks, output middle rows show a subset of these colors\",\n        \"bottom\": \"bottom rows of input have fewer colored blocks, output bottom row has yellow, black, black, grey, pink, yellow\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left columns of input have sparse colors, output left column has blue, yellow\",\n        \"center\": \"center columns of input have mixed colors, output center columns show black, black\",\n        \"right\": \"right columns of input have scattered colors, output right column has orange, yellow\"\n      },\n      \"objects\": \"multiple isolated colored blocks of various sizes, no distinct shapes\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 1, 2, 3, 4, 5, 6, 7, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract 2x6 grid from input by sampling every 6th row and every 2nd column, starting from row 0, col 0 (0-indexed), then take the color at each sampled position.\",\n      \"candidate_rule\": \"From input, extract a 2x6 grid by sampling every 6th row and every 2nd column starting at (0,0), preserving the color at each sampled position.\",\n      \"preservation\": \"the color values at sampled positions are preserved\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 12x17 to output 6x5, no proportional scaling; likely extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows of input contain scattered colored blocks, output top row has green, black, orange, black, orange\",\n        \"middle\": \"middle rows of input have dense colored blocks, output middle rows show a subset of these colors\",\n        \"bottom\": \"bottom rows of input have fewer colored blocks, output bottom row has maroon, black, black",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 13x17 to output 4x5, no proportional scaling; likely extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows of input contain scattered colored blocks, output top row has 5 colors: pink, yellow, green, blue, maroon\",\n        \"middle\": \"middle rows of input have dense colored blocks, output middle rows show a subset of these colors\",\n        \"bottom\": \"bottom rows of input have fewer colored blocks, output bottom row has green, black, black, black, pink\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left columns of input have sparse colors, output left column has pink, black, green, black\",\n        \"center\": \"center columns of input have mixed colors, output center columns show yellow, black, black, black\",\n        \"right\": \"right columns of input have scattered colors, output right column has orange, pink, black, pink\"\n      },\n      \"objects\": \"multiple isolated colored blocks of various sizes, no distinct shapes\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [0, 2, 3, 4, 6, 7, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract 4x5 grid from input by sampling every 3rd row and every 3rd column, starting from row 1, col 1 (0-indexed), then take the color at each sampled position.\",\n      \"candidate_rule\": \"From input, extract a 4x5 grid by sampling every 3rd row and every 3rd column starting at (1,1), preserving the color at each sampled position.\",\n      \"preservation\": \"the color values at sampled positions are preserved\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is changed to a compact grid.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 12x15 t"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 5534,
+      "output_tokens": 1154,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6331,
+      "output_tokens": 1124,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      19.978545024059713,
+      19.880780102219433
+    ],
+    "exec_attempts": [
+      0.4916308461688459,
+      0.43686232110485435
+    ],
+    "vlm": 177.42049479763955,
+    "test_run": 0.4191293637268245,
+    "total": 218.63213896006346
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

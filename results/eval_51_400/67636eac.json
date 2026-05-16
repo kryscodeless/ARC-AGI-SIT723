@@ -1,0 +1,331 @@
+{
+  "task_id": "67636eac",
+  "predicted": [
+    [
+      4,
+      0,
+      4,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      1,
+      0,
+      1
+    ],
+    [
+      4,
+      4,
+      4,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      1,
+      1,
+      1
+    ],
+    [
+      4,
+      0,
+      4,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      1,
+      0,
+      1
+    ]
+  ],
+  "ground_truth": [
+    [
+      4,
+      0,
+      4,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      1,
+      0,
+      1
+    ],
+    [
+      4,
+      4,
+      4,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      1,
+      1,
+      1
+    ],
+    [
+      4,
+      0,
+      4,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      1,
+      0,
+      1
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        4,
+        0,
+        4,
+        2,
+        0,
+        2,
+        3,
+        0,
+        3,
+        1,
+        0,
+        1
+      ],
+      [
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        1,
+        1,
+        1
+      ],
+      [
+        4,
+        0,
+        4,
+        2,
+        0,
+        2,
+        3,
+        0,
+        3,
+        1,
+        0,
+        1
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        4,
+        0,
+        4,
+        2,
+        0,
+        2,
+        3,
+        0,
+        3,
+        1,
+        0,
+        1
+      ],
+      [
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        1,
+        1,
+        1
+      ],
+      [
+        4,
+        0,
+        4,
+        2,
+        0,
+        2,
+        3,
+        0,
+        3,
+        1,
+        0,
+        1
+      ]
+    ]
+  ],
+  "final_rule": "Extract the bounding box of each connected component (non-background color objects) from the input. Sort objects by their center position: left-to-right if objects span more horizontally, top-to-bottom if more vertically. Concatenate the bounding boxes horizontally (side-by-side) if objects are horizontally distributed, or vertically (stacked) if vertically distributed. Background is 0.",
+  "code": "import numpy as np\nfrom scipy.ndimage import label\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    h, w = grid.shape\n    \n    # Find all non-background objects\n    objects = []\n    for color in range(1, 10):\n        mask = (grid == color)\n        if not mask.any():\n            continue\n        labeled, num = label(mask)\n        for obj_id in range(1, num + 1):\n            obj_mask = (labeled == obj_id)\n            rows, cols = np.where(obj_mask)\n            r_min, r_max = rows.min(), rows.max()\n            c_min, c_max = cols.min(), cols.max()\n            bbox = grid[r_min:r_max+1, c_min:c_max+1].copy()\n            center_r = (r_min + r_max) / 2\n            center_c = (c_min + c_max) / 2\n            objects.append((center_r, center_c, bbox))\n    \n    if not objects:\n        return [[0]]\n    \n    # Determine if objects are arranged horizontally or vertically\n    centers_r = [obj[0] for obj in objects]\n    centers_c = [obj[1] for obj in objects]\n    \n    r_spread = max(centers_r) - min(centers_r)\n    c_spread = max(centers_c) - min(centers_c)\n    \n    # Sort objects\n    if c_spread > r_spread:\n        # Horizontally arranged - sort left to right\n        objects.sort(key=lambda x: x[1])\n        # Concatenate horizontally\n        result = np.concatenate([obj[2] for obj in objects], axis=1)\n    else:\n        # Vertically arranged - sort top to bottom\n        objects.sort(key=lambda x: x[0])\n        # Concatenate vertically\n        result = np.concatenate([obj[2] for obj in objects], axis=0)\n    \n    return result.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 1,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller, with fewer colored areas; the overall pattern is partially transformed into a compact horizontal layout.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 13x17 → output 3x9, which is not proportional; appears to be object extraction with alignment.",
+        "scan_vertical": {
+          "top": "red 2x2 block in top-left, blue 3x3 block in top-right",
+          "middle": "green 2x3 block centered vertically",
+          "bottom": "no colored blocks"
+        },
+        "scan_horizontal": {
+          "left": "red block in top-left, green block centered",
+          "center": "empty",
+          "right": "blue block in top-right"
+        },
+        "objects": "three distinct colored blocks: red 2x2, green 2x3, blue 3x3",
+        "colors_input": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "colors_output": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "background_color": 0,
+        "mechanism": "each colored block is extracted and placed side-by-side in a single row, preserving their color and shape, with black separators between them; the output is 3 rows tall, each row containing the same horizontal arrangement.",
+        "candidate_rule": "extract each connected colored block from the input, arrange them horizontally in order of appearance from left to right, and stack the same arrangement in 3 rows.",
+        "preservation": "color and shape of each block are preserved; relative order of blocks from left to right is preserved."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller and vertically oriented; the overall pattern is transformed into a compact vertical layout with blocks stacked.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 16x10 → output 9x3, which is not proportional; appears to be object extraction with vertical stacking.",
+        "scan_vertical": {
+          "top": "green 2x3 block",
+          "middle": "blue 2x3 block",
+          "bottom": "light blue 2x3 block"
+        },
+        "scan_horizontal": {
+          "left": "green block on left, blue block below, light blue block below",
+          "center": "empty",
+          "right": "no blocks"
+        },
+        "objects": "three distinct colored blocks: green 2x3, blue 2x3, light blue 2x3",
+        "colors_input": [
+          3,
+          1,
+          4,
+          0
+        ],
+        "colors_output": [
+          3,
+          1,
+          4,
+          0
+        ],
+        "background_color": 0,
+        "mechanism": "each colored block is extracted and stacked vertically in order of appearance from top to bottom; the output is 3 columns wide, each column containing the same vertical arrangement.",
+        "candidate_rule": "extract each connected colored block from the input, arrange them vertically in order of appearance from top to bottom, and stack the same arrangement in 3 columns.",
+        "preservation": "color and shape of each block are preserved; relative order of blocks from top to bottom is preserved."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller and vertically oriented; the overall pattern is transformed into a compact vertical layout with blocks stacked.",
+        "size_family": "non_proportional",
+        "size_family_detail": "input 12x10 → output 6x3, which is not proportional; appears to be object extraction with vertical stacking.",
+        "scan_vertical": {
+          "top": "red 2x3 block",
+          "middle": "blue 2x3 block",
+          "bottom": "no blocks"
+        },
+        "scan_horizontal": {
+          "left": "red block on left, blue block below",
+          "center": "empty",
+          "right": "no blocks"
+        },
+        "objects": "two distinct colored blocks: red 2x3, blue 2x3",
+        "colors_input": [
+          2,
+          1,
+          0
+        ],
+        "colors_output": [
+          2,
+          1,
+          0
+        ],
+        "background_color": 0,
+        "mechanism": "each colored block is extracted and stacked vertically in order of appearance from top to bottom; the output is 3 columns wide, each column containing the same vertical arrangement.",
+        "candidate_rule": "extract each connected colored block from the input, arrange them vertically in order of appearance from top to bottom, and stack the same arrangement in 3 columns.",
+        "preservation": "color and shape of each block are preserved; relative order of blocks from top to bottom is preserved."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "extraction and rearrangement of connected colored blocks into a compact grid",
+      "consistent_parameters": "blocks are extracted in order of appearance (left-to-right for horizontal, top-to-bottom for vertical), then arranged in a grid with 3 rows or 3 columns depending on the input layout, and repeated across the grid.",
+      "likely_transform_family": "extract",
+      "unified_rule": "extract each connected colored block from the input in order of appearance (left-to-right for horizontally aligned blocks, top-to-bottom for vertically aligned blocks), then arrange them in a single row or column depending on the input's dominant orientation, and repeat that arrangement across 3 rows or 3 columns in the output."
+    },
+    "test_input_observations": "Test input has four distinct colored blocks: yellow 2x3, red 2x3, green 2x3, blue 2x3. They are arranged horizontally from left to right. The rule predicts they will be extracted and arranged side-by-side in a single row, then stacked in 3 rows in the output, resulting in a 3x12 grid.",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, with fewer colored areas; the overall pattern is partially transformed into a compact horizontal layout.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 13x17 → output 3x9, which is not proportional; appears to be object extraction with alignment.\",\n      \"scan_vertical\": {\n        \"top\": \"red 2x2 block in top-left, blue 3x3 block in top-right\",\n        \"middle\": \"green 2x3 block centered vertically\",\n        \"bottom\": \"no colored blocks\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"red block in top-left, green block centered\",\n        \"center\": \"empty\",\n        \"right\": \"blue block in top-right\"\n      },\n      \"objects\": \"three distinct colored blocks: red 2x2, green 2x3, blue 3x3\",\n      \"colors_input\": [1, 2, 3, 0],\n      \"colors_output\": [1, 2, 3, 0],\n      \"background_color\": 0,\n      \"mechanism\": \"each colored block is extracted and placed side-by-side in a single row, preserving their color and shape, with black separators between them; the output is 3 rows tall, each row containing the same horizontal arrangement.\",\n      \"candidate_rule\": \"extract each connected colored block from the input, arrange them horizontally in order of appearance from left to right, and stack the same arrangement in 3 rows.\",\n      \"preservation\": \"color and shape of each block are preserved; relative order of blocks from left to right is preserved.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller and vertically oriented; the overall pattern is transformed into a compact vertical layout with blocks stacked.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"input 16x10 → output 9x3, which is not proportional; appears to be object extraction with vertical stacking.\",\n      \"scan_vertical\": {\n        \"top\": \"green 2x3 block\",\n        \"middle\": \"blue 2x3 block\",\n        \"bottom\": \"light blue 2x3 block\"\n      },\n  "
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 4264,
+      "output_tokens": 892,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 5306,
+      "output_tokens": 991,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      14.682144219987094,
+      19.835002175997943
+    ],
+    "exec_attempts": [
+      0.8734237151220441,
+      0.8873237357474864
+    ],
+    "vlm": 146.927584071178,
+    "test_run": 0.8133080238476396,
+    "total": 184.0200069961138
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

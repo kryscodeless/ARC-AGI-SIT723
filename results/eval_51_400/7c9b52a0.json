@@ -1,0 +1,159 @@
+{
+  "task_id": "7c9b52a0",
+  "predicted": [
+    [
+      0,
+      4,
+      3
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      6,
+      0,
+      0
+    ],
+    [
+      6,
+      6,
+      0
+    ]
+  ],
+  "ground_truth": [
+    [
+      0,
+      2,
+      3
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      6,
+      4,
+      0
+    ],
+    [
+      6,
+      6,
+      0
+    ]
+  ],
+  "match": false,
+  "predictions": [
+    [
+      [
+        0,
+        4,
+        3
+      ],
+      [
+        2,
+        2,
+        3
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        6,
+        0
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        0,
+        2,
+        3
+      ],
+      [
+        2,
+        2,
+        3
+      ],
+      [
+        4,
+        4,
+        4
+      ],
+      [
+        6,
+        4,
+        0
+      ],
+      [
+        6,
+        6,
+        0
+      ]
+    ]
+  ],
+  "final_rule": "Identify all rectangular regions filled with 0s on the non-0 background. For each region, extract its bounding box content. Determine the maximum width and height among all extracted regions. Overlay all extracted regions onto a single output grid of that size, positioning each region at coordinates that preserve the relative positions of colored pixels within each original region. Where multiple regions contribute to the same cell, non-zero colored values take precedence over 0s.",
+  "code": "import numpy as np\nfrom typing import List\nfrom scipy.ndimage import label, find_objects\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    \n    # Identify background color (most frequent value)\n    unique, counts = np.unique(grid, return_counts=True)\n    background = unique[counts.argmax()]\n    \n    # Find all 0-regions\n    zero_mask = (grid == 0)\n    labeled, num_regions = label(zero_mask)\n    \n    # Extract each region's bounding box\n    regions = []\n    for region_id in range(1, num_regions + 1):\n        region_mask = (labeled == region_id)\n        rows, cols = np.where(region_mask)\n        \n        if len(rows) == 0:\n            continue\n            \n        r_min, r_max = rows.min(), rows.max()\n        c_min, c_max = cols.min(), cols.max()\n        \n        # Extract the subgrid\n        subgrid = grid[r_min:r_max+1, c_min:c_max+1].copy()\n        # Replace background with 0\n        subgrid[subgrid == background] = 0\n        \n        regions.append(subgrid)\n    \n    if not regions:\n        return [[0]]\n    \n    # Find max dimensions\n    max_h = max(r.shape[0] for r in regions)\n    max_w = max(r.shape[1] for r in regions)\n    \n    # Overlay all regions\n    output = np.zeros((max_h, max_w), dtype=int)\n    \n    for region in regions:\n        h, w = region.shape\n        # Overlay colored pixels\n        for i in range(h):\n            for j in range(w):\n                if region[i, j] != 0:\n                    output[i, j] = region[i, j]\n                elif output[i, j] == 0 and i < max_h and j < max_w:\n                    output[i, j] = region[i, j]\n    \n    return output.tolist()",
+  "attempts_used": 2,
+  "demo_pass_count": 2,
+  "demo_total": 3,
+  "demo_all_pass": false,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x4 from 16x16; fewer colored areas, overall pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 4x4, input is 16x16 — not proportional; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows contain black blocks with red and green; output top row is yellow, green, black, black.\",\n        \"middle\": \"middle rows have black blocks with yellow; output middle rows reflect these colors.\",\n        \"bottom\": \"bottom rows are mostly blue background; no output in bottom rows.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has black blocks with red; output left column has yellow, green, green, black.\",\n        \"center\": \"center has black blocks with yellow; output center columns reflect these.\",\n        \"right\": \"right side has black blocks with green; output right columns reflect these.\"\n      },\n      \"objects\": \"multiple black rectangular blocks with colored centers (red, green, yellow) in different positions.\",\n      \"colors_input\": [1, 0, 2, 3, 4],\n      \"colors_output\": [4, 3, 0, 2],\n      \"background_color\": 1,\n      \"mechanism\": \"Each 4x4 block in the 16x16 grid is reduced to a single cell in output, representing the dominant non-black color in that 4x4 region. Black regions are preserved as black in output.\",\n      \"candidate_rule\": \"Divide input into 4x4 blocks; for each, output the most frequent non-black color, or black if all are black; output grid is 4x4.\",\n      \"preservation\": \"Relative positions of 4x4 blocks are preserved; black regions remain black.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 3x4 from 16x16; fewer colored areas, pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x4, input is 16x16 — not proportional; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows contain black blocks with blue and green; output top row is black, black, green, green.\",\n        \"middle\": \"middle rows have black blocks with red; output middle rows reflect these colors.\",\n        \"bottom\": \"bottom rows have black blocks with yellow; output bottom row is black, red, red, yellow.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has black blocks with blue and red; output left column has black, blue, black.\",\n        \"center\": \"center has black blocks with red; output center columns reflect these.\",\n        \"right\": \"right side has black blocks with green and yellow; output right columns reflect these.\"\n      },\n      \"objects\": \"multiple black rectangular blocks with colored centers (blue, green, red, yellow) in different positions.\",\n      \"colors_input\": [8, 0, 1, 3, 4, 2],\n      \"colors_output\": [0, 1, 3, 4, 2],\n      \"background_color\": 8,\n      \"mechanism\": \"Each 4x4 block in the 16x16 grid is reduced to a single cell in output, representing the dominant non-black color in that 4x4 region. Black regions are preserved as black in output.\",\n      \"candidate_rule\": \"Divide input into 4x4 blocks; for each, output the most frequent non-black color, or black if all are black; output grid is 3x4.\",\n      \"preservation\": \"Relative positions of 4x4 blocks are preserved; black regions remain black.\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, 4x5 from 16x16; fewer colored areas, pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 4x5, input is 16x16 — not proportional; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows contain black blocks with blue; output top row is black, blue, black, black, black.\",\n        \"middle\": \"middle rows have black blocks with red; output middle rows reflect these colors.\",\n        \"bottom\": \"bottom rows have black blocks with red; output bottom row is black, black, black, red, black.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has black blocks with blue; output left column has black, blue, black, black.\",\n        \"center\": \"center has black blocks with red; output center columns reflect these.\",\n        \"right\": \"right side has black blocks with red; output right columns reflect these.\"\n      },\n      \"objects\": \"multiple black rectangular blocks with colored centers (blue, red) in different positions.\",\n      \"colors_input\": [9, 0, 1, 2],\n      \"colors_output\": [0, 1, 2],\n      \"background_color\": 9,\n      \"mechanism\": \"Each 4x4 block in the 16x16 grid is reduced to a single cell in output, representing the dominant non-black color in that 4x4 region. Black regions are preserved as black in output.\",\n      \"candidate_rule\": \"Divide input into 4x4 blocks; for each, output the most frequent non-black color, or black if all are black; output grid is 4x5.\",\n      \"preservation\": \"Relative positions of 4x4 blocks are preserved; black regions remain black.\"\n    }\n  ],\n  \"cross_pair_synthesis\": {\n    \"consistent_operation\": \"Each 16x16 input is divided into 4x4 blocks, and each block is summarized into a single cell in the output grid based on the most frequent non-black color within it.\",\n    \"consistent_parameters\": \"Block size is always 4x4; output grid size varies per pair (4x4, 3x4, 4x5) but always corresponds to the number of 4x4 blocks in the input.\",\n    \"likely_transform_family\": \"grid_partition\",\n    \"unified_rule\": \"Divide the 16x16 input into 4x4 blocks; for each block, output the most frequent non-black color, or black if all are black; the output grid size matches the number of 4x4 blocks in the input.\"\n  },\n  \"test_input_observations\": \"Test input has black blocks with red, green, yellow, and pink centers on a blue background. The rule predicts the 16x16 grid will be divided",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 4x4 from 16x16; fewer colored areas, overall pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 4x4, input is 16x16 — not proportional; likely object extraction or summarization.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows contain black blocks with red and green; output top row is yellow, green, black, black.\",\n        \"middle\": \"middle rows have black blocks with yellow; output middle rows reflect these colors.\",\n        \"bottom\": \"bottom rows are mostly blue background; no output in bottom rows.\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has black blocks with red; output left column has yellow, green, green, black.\",\n        \"center\": \"center has black blocks with yellow; output center columns reflect these.\",\n        \"right\": \"right side has black blocks with green; output right columns reflect these.\"\n      },\n      \"objects\": \"multiple black rectangular blocks with colored centers (red, green, yellow) in different positions.\",\n      \"colors_input\": [1, 0, 2, 3, 4],\n      \"colors_output\": [4, 3, 0, 2],\n      \"background_color\": 1,\n      \"mechanism\": \"Each 4x4 block in the 16x16 grid is reduced to a single cell in output, representing the dominant non-black color in that 4x4 region. Black regions are preserved as black in output.\",\n      \"candidate_rule\": \"Divide input into 4x4 blocks; for each, output the most frequent non-black color, or black if all are black; output grid is 4x4.\",\n      \"preservation\": \"Relative positions of 4x4 blocks are preserved; black regions remain black.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 3x4 from 16x16; fewer colored areas, pattern is summarized.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is 3x4, input is 16x16 — not proportional; likely object extraction or summarization.\",\n      \"scan_ve"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 5091,
+      "output_tokens": 1058,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    {
+      "input_tokens": 6037,
+      "output_tokens": 1130,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      18.26153994491324,
+      19.44302747026086
+    ],
+    "exec_attempts": [
+      0.8871583761647344,
+      0.9687220058403909
+    ],
+    "vlm": 177.87033191602677,
+    "test_run": 0.852501958142966,
+    "total": 218.2846967135556
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

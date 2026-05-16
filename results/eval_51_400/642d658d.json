@@ -1,0 +1,178 @@
+{
+  "task_id": "642d658d",
+  "predicted": [
+    [
+      2
+    ]
+  ],
+  "ground_truth": [
+    [
+      2
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        2
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        2
+      ]
+    ]
+  ],
+  "final_rule": "Find all 3-cell horizontal patterns where the center cell is 4 and the left and right cells are identical non-zero values. Count the frequency of each surrounding color across all such patterns. The output is a 1x1 grid containing the color that appears most frequently as the surrounding value in these horizontal cross patterns with 4 at center.",
+  "code": "import numpy as np\nfrom typing import List\nfrom collections import Counter\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    rows, cols = grid.shape\n    \n    # Find all horizontal cross patterns: X 4 X where X is the same non-zero color\n    surrounding_colors = []\n    \n    for r in range(rows):\n        for c in range(1, cols - 1):\n            if grid[r, c] == 4:\n                left = grid[r, c - 1]\n                right = grid[r, c + 1]\n                if left == right and left != 0:\n                    surrounding_colors.append(left)\n    \n    # Count frequencies and find the most common\n    if surrounding_colors:\n        counter = Counter(surrounding_colors)\n        most_common_color = counter.most_common(1)[0][0]\n    else:\n        most_common_color = 0\n    \n    return [[int(most_common_color)]]",
+  "attempts_used": 1,
+  "demo_pass_count": 3,
+  "demo_total": 3,
+  "demo_all_pass": true,
+  "clues": {
+    "per_pair": [
+      {
+        "pair": 1,
+        "first_impression": "output is smaller (1x1), I see fewer colored areas, the overall pattern is changed to a single red cell.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is a single cell extracted from the input, not scaled or filled; likely a specific position extraction.",
+        "scan_vertical": {
+          "top": "top rows contain light-blue, black, and scattered red/green/blue cells",
+          "middle": "middle rows show similar distribution with more black and light-blue",
+          "bottom": "bottom rows have similar pattern, with red and green cells scattered"
+        },
+        "scan_horizontal": {
+          "left": "left side has light-blue and black with occasional red/green/blue",
+          "center": "center has dense black and light-blue with sparse colored cells",
+          "right": "right side mirrors left with similar color distribution"
+        },
+        "objects": "no distinct objects; grid of colored cells with black as background",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "colors_output": [
+          2
+        ],
+        "background_color": 0,
+        "mechanism": "single cell at position (1,1) in 0-indexed grid is extracted and output as 1x1 grid; all other cells are ignored.",
+        "candidate_rule": "The output is the cell at top-left corner (row 0, column 0) of the input grid, which is red (color 2).",
+        "preservation": "Only the top-left cell is preserved; all other cells are discarded."
+      },
+      {
+        "pair": 2,
+        "first_impression": "output is smaller (1x1), I see fewer colored areas, the overall pattern is changed to a single green cell.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is a single cell extracted from the input, not scaled or filled; likely a specific position extraction.",
+        "scan_vertical": {
+          "top": "top rows contain red, black, and scattered green/pink/blue/yellow cells",
+          "middle": "middle rows show similar distribution with more red and black",
+          "bottom": "bottom rows have similar pattern, with green and pink cells scattered"
+        },
+        "scan_horizontal": {
+          "left": "left side has red and black with occasional green/blue/pink",
+          "center": "center has dense red and black with sparse colored cells",
+          "right": "right side mirrors left with similar color distribution"
+        },
+        "objects": "no distinct objects; grid of colored cells with black as background",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "colors_output": [
+          3
+        ],
+        "background_color": 0,
+        "mechanism": "single cell at position (1,1) in 0-indexed grid is extracted and output as 1x1 grid; all other cells are ignored.",
+        "candidate_rule": "The output is the cell at top-left corner (row 0, column 0) of the input grid, which is green (color 3).",
+        "preservation": "Only the top-left cell is preserved; all other cells are discarded."
+      },
+      {
+        "pair": 3,
+        "first_impression": "output is smaller (1x1), I see fewer colored areas, the overall pattern is changed to a single light-blue cell.",
+        "size_family": "non_proportional",
+        "size_family_detail": "output is a single cell extracted from the input, not scaled or filled; likely a specific position extraction.",
+        "scan_vertical": {
+          "top": "top rows contain grey, black, and scattered light-blue/green/yellow cells",
+          "middle": "middle rows show similar distribution with more grey and black",
+          "bottom": "bottom rows have similar pattern, with light-blue and green cells scattered"
+        },
+        "scan_horizontal": {
+          "left": "left side has grey and black with occasional light-blue/green/yellow",
+          "center": "center has dense grey and black with sparse colored cells",
+          "right": "right side mirrors left with similar color distribution"
+        },
+        "objects": "no distinct objects; grid of colored cells with black as background",
+        "colors_input": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "colors_output": [
+          8
+        ],
+        "background_color": 0,
+        "mechanism": "single cell at position (1,1) in 0-indexed grid is extracted and output as 1x1 grid; all other cells are ignored.",
+        "candidate_rule": "The output is the cell at top-left corner (row 0, column 0) of the input grid, which is light-blue (color 8).",
+        "preservation": "Only the top-left cell is preserved; all other cells are discarded."
+      }
+    ],
+    "cross_pair_synthesis": {
+      "consistent_operation": "In each pair, the output is a single cell extracted from the top-left corner of the input grid.",
+      "consistent_parameters": "The output is always 1x1, and the cell is always at position (0,0) in 0-indexed coordinates.",
+      "likely_transform_family": "extract",
+      "unified_rule": "The output is the cell located at the top-left corner (row 0, column 0) of the input grid, regardless of input size or other content."
+    },
+    "test_input_observations": "Test input is 27x22 grid with maroon (color 9), black (0), and scattered green (3), pink (6), blue (1), yellow (4), orange (7), and red (2) cells. The rule predicts the output should be the top-left cell, which is maroon (color 9).",
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller (1x1), I see fewer colored areas, the overall pattern is changed to a single red cell.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a single cell extracted from the input, not scaled or filled; likely a specific position extraction.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows contain light-blue, black, and scattered red/green/blue cells\",\n        \"middle\": \"middle rows show similar distribution with more black and light-blue\",\n        \"bottom\": \"bottom rows have similar pattern, with red and green cells scattered\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left side has light-blue and black with occasional red/green/blue\",\n        \"center\": \"center has dense black and light-blue with sparse colored cells\",\n        \"right\": \"right side mirrors left with similar color distribution\"\n      },\n      \"objects\": \"no distinct objects; grid of colored cells with black as background\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [2],\n      \"background_color\": 0,\n      \"mechanism\": \"single cell at position (1,1) in 0-indexed grid is extracted and output as 1x1 grid; all other cells are ignored.\",\n      \"candidate_rule\": \"The output is the cell at top-left corner (row 0, column 0) of the input grid, which is red (color 2).\",\n      \"preservation\": \"Only the top-left cell is preserved; all other cells are discarded.\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller (1x1), I see fewer colored areas, the overall pattern is changed to a single green cell.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is a single cell extracted from the input, not scaled or filled; likely a specific position extraction.\",\n      \"scan_vertical\": {\n        \"top\": \"top rows contain red, black, and scattered green/pink/blue/yellow cells\",\n        \"middle\": \"middle rows show si"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 6908,
+      "output_tokens": 888,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      14.96506243525073
+    ],
+    "exec_attempts": [
+      0.4526263950392604
+    ],
+    "vlm": 150.22550154989585,
+    "test_run": 0.39823321579024196,
+    "total": 166.0429487559013
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}

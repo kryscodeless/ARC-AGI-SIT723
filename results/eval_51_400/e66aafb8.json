@@ -1,0 +1,111 @@
+{
+  "task_id": "e66aafb8",
+  "predicted": [
+    [
+      6,
+      8,
+      4
+    ],
+    [
+      5,
+      9,
+      4
+    ],
+    [
+      8,
+      9,
+      4
+    ]
+  ],
+  "ground_truth": [
+    [
+      6,
+      8,
+      4
+    ],
+    [
+      5,
+      9,
+      4
+    ],
+    [
+      8,
+      9,
+      4
+    ]
+  ],
+  "match": true,
+  "predictions": [
+    [
+      [
+        6,
+        8,
+        4
+      ],
+      [
+        5,
+        9,
+        4
+      ],
+      [
+        8,
+        9,
+        4
+      ]
+    ]
+  ],
+  "ground_truths": [
+    [
+      [
+        6,
+        8,
+        4
+      ],
+      [
+        5,
+        9,
+        4
+      ],
+      [
+        8,
+        9,
+        4
+      ]
+    ]
+  ],
+  "final_rule": "Locate the rectangular block of 0s in the input grid. Extract that rectangular region and fill it by rotating the input grid 180 degrees, then taking the corresponding region from the rotated grid. The output dimensions match the 0-block dimensions, containing the values from the 180-degree rotated grid at that position.",
+  "code": "import numpy as np\nfrom typing import List\n\ndef solve(grid: List[List[int]]) -> List[List[int]]:\n    grid = np.array(grid)\n    \n    # Find the bounding box of the 0-block\n    zero_positions = np.argwhere(grid == 0)\n    \n    if len(zero_positions) == 0:\n        # No zeros, return empty or original\n        return grid.tolist()\n    \n    min_row = zero_positions[:, 0].min()\n    max_row = zero_positions[:, 0].max()\n    min_col = zero_positions[:, 1].min()\n    max_col = zero_positions[:, 1].max()\n    \n    # Rotate the entire grid 180 degrees\n    rotated_grid = np.rot90(grid, k=2)\n    \n    # Extract the region from the rotated grid at the same position\n    output = rotated_grid[min_row:max_row+1, min_col:max_col+1]\n    \n    return output.tolist()",
+  "attempts_used": 1,
+  "demo_pass_count": 5,
+  "demo_total": 5,
+  "demo_all_pass": true,
+  "clues": {
+    "raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 8x5 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 8x5, not proportional to input; likely extraction of a specific region.\",\n      \"scan_vertical\": {\n        \"top\": \"top 8 rows of input contain a 8x5 block that matches output exactly\",\n        \"middle\": \"middle rows contain black block and other colors, not present in output\",\n        \"bottom\": \"bottom rows are not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 5 columns of top 8 rows match output\",\n        \"center\": \"center columns contain black block, not in output\",\n        \"right\": \"right columns not in output\"\n      },\n      \"objects\": \"one large black square in center, surrounded by colored grid\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract top-left 8x5 region from input grid\",\n      \"candidate_rule\": \"output is the top-left 8x5 block of the input grid, preserving all colors and positions within that region\",\n      \"preservation\": \"colors and positions within the top-left 8x5 region are unchanged\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 4x3 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 4x3, not proportional to input; likely extraction of a specific region.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows of input contain a 4x3 block that matches output exactly\",\n        \"middle\": \"middle rows contain black block and other colors, not present in output\",\n        \"bottom\": \"bottom rows are not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 3 columns of top 4 rows match output\",\n        \"center\": \"center columns contain black block, not in output\",\n        \"right\": \"right columns not in output\"\n      },\n      \"objects\": \"one large black square in center, surrounded by colored grid\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract top-left 4x3 region from input grid\",\n      \"candidate_rule\": \"output is the top-left 4x3 block of the input grid, preserving all colors and positions within that region\",\n      \"preservation\": \"colors and positions within the top-left 4x3 region are unchanged\"\n    },\n    {\n      \"pair\": 3,\n      \"first_impression\": \"output is smaller, 5x6 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 5x6, not proportional to input; likely extraction of a specific region.\",\n      \"scan_vertical\": {\n        \"top\": \"top 5 rows of input contain a 5x6 block that matches output exactly\",\n        \"middle\": \"middle rows contain black block and other colors, not present in output\",\n        \"bottom\": \"bottom rows are not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 6 columns of top 5 rows match output\",\n        \"center\": \"center columns contain black block, not in output\",\n        \"right\": \"right columns not in output\"\n      },\n      \"objects\": \"one large black square in center, surrounded by colored grid\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract top-left 5x6 region from input grid\",\n      \"candidate_rule\": \"output is the top-left 5x6 block of the input grid, preserving all colors and positions within that region\",\n      \"preservation\": \"colors and positions within the top-left 5x6 region are unchanged\"\n    },\n    {\n      \"pair\": 4,\n      \"first_impression\": \"output is smaller, 3x8 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 3x8, not proportional to input; likely extraction of a specific region.\",\n      \"scan_vertical\": {\n        \"top\": \"top 3 rows of input contain a 3x8 block that matches output exactly\",\n        \"middle\": \"middle rows contain black block and other colors, not present in output\",\n        \"bottom\": \"bottom rows are not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 8 columns of top 3 rows match output\",\n        \"center\": \"center columns contain black block, not in output\",\n        \"right\": \"right columns not in output\"\n      },\n      \"objects\": \"one large black square in center, surrounded by colored grid\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract top-left 3x8 region from input grid\",\n      \"candidate_rule\": \"output is the top-left 3x8 block of the input grid, preserving all colors and positions within that region\",\n      \"preservation\": \"colors and positions within the top-left 3x8 region are unchanged\"\n    },\n    {\n      \"pair\": 5,\n      \"first_impression\": \"output is smaller, 6x7 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed",
+    "parse_error": true,
+    "_raw": "{\n  \"per_pair\": [\n    {\n      \"pair\": 1,\n      \"first_impression\": \"output is smaller, 8x5 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 8x5, not proportional to input; likely extraction of a specific region.\",\n      \"scan_vertical\": {\n        \"top\": \"top 8 rows of input contain a 8x5 block that matches output exactly\",\n        \"middle\": \"middle rows contain black block and other colors, not present in output\",\n        \"bottom\": \"bottom rows are not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 5 columns of top 8 rows match output\",\n        \"center\": \"center columns contain black block, not in output\",\n        \"right\": \"right columns not in output\"\n      },\n      \"objects\": \"one large black square in center, surrounded by colored grid\",\n      \"colors_input\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"colors_output\": [1, 2, 3, 4, 5, 6, 7, 8, 9],\n      \"background_color\": 0,\n      \"mechanism\": \"extract top-left 8x5 region from input grid\",\n      \"candidate_rule\": \"output is the top-left 8x5 block of the input grid, preserving all colors and positions within that region\",\n      \"preservation\": \"colors and positions within the top-left 8x5 region are unchanged\"\n    },\n    {\n      \"pair\": 2,\n      \"first_impression\": \"output is smaller, 4x3 vs 24x24; fewer colored areas, overall pattern is partially transformed with black block removed.\",\n      \"size_family\": \"non_proportional\",\n      \"size_family_detail\": \"output is cropped to 4x3, not proportional to input; likely extraction of a specific region.\",\n      \"scan_vertical\": {\n        \"top\": \"top 4 rows of input contain a 4x3 block that matches output exactly\",\n        \"middle\": \"middle rows contain black block and other colors, not present in output\",\n        \"bottom\": \"bottom rows are not in output\"\n      },\n      \"scan_horizontal\": {\n        \"left\": \"left 3 c"
+  },
+  "vlm_error": null,
+  "reasoner_errors": [],
+  "reasoner_usages": [
+    {
+      "input_tokens": 10281,
+      "output_tokens": 778,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  ],
+  "test_run_error": null,
+  "timings_sec": {
+    "reasoner_attempts": [
+      15.635162724647671
+    ],
+    "exec_attempts": [
+      0.47040920006111264
+    ],
+    "vlm": 174.15260369004682,
+    "test_run": 0.3945688079111278,
+    "total": 190.65698390686885
+  },
+  "provider": "anthropic/claude-sonnet-4-5",
+  "vlm_model": "Qwen/Qwen3-VL-32B-Instruct"
+}
